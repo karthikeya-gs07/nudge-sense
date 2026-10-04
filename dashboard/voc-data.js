@@ -211,8 +211,8 @@ window.VOC_DATA = {
       },
       {
         "code": "BL",
-        "name": "Tech blog comments",
-        "detail": "SamMobile, SammyFans, Android Authority, 9to5Google, Android Police"
+        "name": "Tech blog articles",
+        "detail": "Articles that report or summarise user voices (SamMobile, SammyFans, Android Authority, 9to5Google, Android Police and others). Comment sections are not used."
       }
     ],
     "sourceList": [
@@ -348,7 +348,7 @@ window.VOC_DATA = {
         "platform": "BL",
         "name": "SamMobile",
         "url": "https://www.sammobile.com/",
-        "type": "Blog comments",
+        "type": "Blog articles (user voices)",
         "scope": "Primary",
         "status": "Active"
       },
@@ -356,7 +356,7 @@ window.VOC_DATA = {
         "platform": "BL",
         "name": "SammyFans",
         "url": "https://www.sammyfans.com/",
-        "type": "Blog comments",
+        "type": "Blog articles (user voices)",
         "scope": "Primary",
         "status": "Active"
       },
@@ -364,7 +364,7 @@ window.VOC_DATA = {
         "platform": "BL",
         "name": "Android Authority",
         "url": "https://www.androidauthority.com/",
-        "type": "Blog comments",
+        "type": "Blog articles (user voices)",
         "scope": "Primary",
         "status": "Active"
       },
@@ -372,7 +372,7 @@ window.VOC_DATA = {
         "platform": "BL",
         "name": "9to5Google",
         "url": "https://9to5google.com/",
-        "type": "Blog comments",
+        "type": "Blog articles (user voices)",
         "scope": "Primary",
         "status": "Active"
       },
@@ -380,7 +380,7 @@ window.VOC_DATA = {
         "platform": "BL",
         "name": "Android Police",
         "url": "https://www.androidpolice.com/",
-        "type": "Blog comments",
+        "type": "Blog articles (user voices)",
         "scope": "Primary",
         "status": "Active"
       }
@@ -466,8 +466,8 @@ window.VOC_DATA = {
         "from": "2026-02-25",
         "to": "2026-10-03"
       },
-      "postsAdded": 156,
-      "totalPosts": 156,
+      "postsAdded": 160,
+      "totalPosts": 160,
       "sourcesChecked": [
         {
           "name": "Samsung Members",
@@ -488,9 +488,9 @@ window.VOC_DATA = {
           "note": "no forum threads found; XDA review captured"
         },
         {
-          "name": "Tech blogs",
+          "name": "Tech blog articles",
           "status": "ok",
-          "note": "articles captured"
+          "note": "articles that report user voices; comment sections not used"
         },
         {
           "name": "Reddit",
@@ -501,15 +501,10 @@ window.VOC_DATA = {
           "name": "YouTube comments",
           "status": "failed",
           "note": "comments did not load"
-        },
-        {
-          "name": "Tech blog comments",
-          "status": "failed",
-          "note": "comment widgets not readable"
         }
       ],
       "summary": [
-        "Baseline run: 156 posts: 52 from Samsung's communities, 80 from Reddit (captured by hand), 18 from X and 6 press articles.",
+        "Baseline run: 160 posts: 52 from Samsung's communities, 80 from Reddit (captured by hand), 18 from X and 10 press articles.",
         "Sentiment is negative overall (net -41): most posts say nudges don't appear at all, on the forums and on X alike.",
         "Since August, talk has moved from 'older phones are left out' to 'it doesn't work on the One UI 9 beta' and 'it doesn't work in WhatsApp or Telegram'.",
         "One UI 9 adds suggestions in notifications and a floating button, and reportedly works without Samsung Keyboard; Turkish support arrived around 1 October.",
@@ -596,9 +591,9 @@ window.VOC_DATA = {
         }
       ],
       "snapshot": {
-        "posts": 156,
+        "posts": 160,
         "net": -41,
-        "emerging": 4,
+        "emerging": 3,
         "answered": 6
       }
     }
@@ -630,21 +625,21 @@ window.VOC_DATA = {
         "key": "2026-04",
         "label": "Apr",
         "tip": "Apr 2026",
-        "net": -22,
-        "vol": 14,
-        "pos": 14,
-        "neu": 50,
-        "neg": 36
+        "net": -27,
+        "vol": 15,
+        "pos": 13,
+        "neu": 47,
+        "neg": 40
       },
       {
         "key": "2026-05",
         "label": "May",
         "tip": "May 2026",
-        "net": -75,
-        "vol": 8,
+        "net": -80,
+        "vol": 10,
         "pos": 0,
-        "neu": 25,
-        "neg": 75
+        "neu": 20,
+        "neg": 80
       },
       {
         "key": "2026-06",
@@ -681,10 +676,10 @@ window.VOC_DATA = {
         "label": "Sep",
         "tip": "Sep 2026",
         "net": -31,
-        "vol": 35,
-        "pos": 26,
-        "neu": 17,
-        "neg": 57
+        "vol": 36,
+        "pos": 25,
+        "neu": 19,
+        "neg": 56
       },
       {
         "key": "2026-10",
@@ -701,12 +696,12 @@ window.VOC_DATA = {
   "themes": [
     {
       "id": "usefulness",
-      "pos": 30,
-      "neu": 18,
-      "neg": 52,
-      "vol": 33,
-      "base": 17,
-      "recent": 28,
+      "pos": 29,
+      "neu": 20,
+      "neg": 51,
+      "vol": 35,
+      "base": 18,
+      "recent": 29,
       "byPeriod": [
         null,
         71,
@@ -715,7 +710,7 @@ window.VOC_DATA = {
         -100,
         null,
         -34,
-        -39,
+        -36,
         null
       ],
       "summary": "Split: people who get it working find it handy (places, locations, less typing), while others call it a gimmick because it rarely shows up.",
@@ -735,11 +730,11 @@ window.VOC_DATA = {
     {
       "id": "triggering",
       "pos": 0,
-      "neu": 9,
-      "neg": 91,
-      "vol": 56,
-      "base": 31,
-      "recent": 44,
+      "neu": 11,
+      "neg": 89,
+      "vol": 57,
+      "base": 30,
+      "recent": 45,
       "byPeriod": [
         null,
         -100,
@@ -748,7 +743,7 @@ window.VOC_DATA = {
         -94,
         null,
         -100,
-        -100,
+        -92,
         -56
       ],
       "summary": "The most common complaint across Samsung's forums, Reddit and X: nudges never appear, stop appearing, or 'barely show up', on the S26, the Fold 8 and the One UI 9 betas. Some say it worked at first and stopped after a late-March update.",
@@ -893,16 +888,16 @@ window.VOC_DATA = {
     },
     {
       "id": "privacy",
-      "pos": 29,
-      "neu": 14,
-      "neg": 57,
-      "vol": 7,
-      "base": 7,
+      "pos": 25,
+      "neu": 13,
+      "neg": 62,
+      "vol": 8,
+      "base": 8,
       "recent": 0,
       "byPeriod": [
         null,
         -34,
-        null,
+        0,
         null,
         null,
         null,
@@ -918,17 +913,18 @@ window.VOC_DATA = {
         "s132",
         "s135",
         "s136",
-        "s137"
+        "s137",
+        "s157"
       ]
     },
     {
       "id": "autofill",
       "pos": 0,
-      "neu": 50,
-      "neg": 50,
-      "vol": 2,
+      "neu": 67,
+      "neg": 33,
+      "vol": 3,
       "base": 2,
-      "recent": 0,
+      "recent": 2,
       "byPeriod": [
         null,
         null,
@@ -943,17 +939,18 @@ window.VOC_DATA = {
       "summary": "Personal-detail autofill (name, passport, phone) is one of the few parts people see working, in the browser and in forms.",
       "sourceIds": [
         "s95",
-        "s100"
+        "s100",
+        "s160"
       ]
     },
     {
       "id": "exclusivity",
-      "pos": 21,
-      "neu": 49,
-      "neg": 30,
-      "vol": 33,
-      "base": 27,
-      "recent": 11,
+      "pos": 20,
+      "neu": 46,
+      "neg": 34,
+      "vol": 35,
+      "base": 28,
+      "recent": 10,
       "byPeriod": [
         null,
         0,
@@ -986,7 +983,7 @@ window.VOC_DATA = {
       "neg": 38,
       "vol": 8,
       "base": 2,
-      "recent": 11,
+      "recent": 10,
       "byPeriod": [
         null,
         null,
@@ -1077,8 +1074,8 @@ window.VOC_DATA = {
       "id": "not-appearing",
       "name": "Nudges never appear or stop appearing",
       "themeId": "triggering",
-      "base": 27,
-      "recent": 23,
+      "base": 26,
+      "recent": 24,
       "firstSeenRun": 1,
       "summary": "Across Samsung's forums and X, owners report Now Nudge never shows a suggestion, stops after a while, or 'barely shows up', even with every setting on.",
       "sourceIds": [
@@ -1099,7 +1096,7 @@ window.VOC_DATA = {
       "name": "Not working on the One UI 9 beta (S24)",
       "themeId": "triggering",
       "base": 0,
-      "recent": 11,
+      "recent": 10,
       "firstSeenRun": 1,
       "summary": "Since One UI 9 Beta 2 reached the S24 (14 Sep), beta users report the feature is present but shows nothing.",
       "sourceIds": [
@@ -1115,8 +1112,8 @@ window.VOC_DATA = {
       "id": "older-devices",
       "name": "Older Galaxy phones want it (and the beta brings it)",
       "themeId": "exclusivity",
-      "base": 30,
-      "recent": 11,
+      "base": 31,
+      "recent": 10,
       "firstSeenRun": 1,
       "summary": "Owners of older Galaxy phones asked for Now Nudge from April; the One UI 9 beta brought it to the S25 (8 Sep) and S24 (14 Sep).",
       "sourceIds": [
@@ -1215,7 +1212,7 @@ window.VOC_DATA = {
       "name": "Works only in some regions",
       "themeId": "languages",
       "base": 3,
-      "recent": 4,
+      "recent": 3,
       "firstSeenRun": 1,
       "summary": "Users in Italy, Austria, North America and Australia suspect Now Nudge is region-locked; Samsung support reportedly said it isn't active everywhere yet.",
       "sourceIds": [
@@ -1230,7 +1227,7 @@ window.VOC_DATA = {
       "id": "privacy-worries",
       "name": "Screen-reading privacy worries",
       "themeId": "privacy",
-      "base": 5,
+      "base": 6,
       "recent": 0,
       "firstSeenRun": 1,
       "summary": "Some see Now Nudge as 'Samsung Recall' that reads everything on screen; others reply that it runs on the device.",
@@ -1239,7 +1236,8 @@ window.VOC_DATA = {
         "s132",
         "s135",
         "s136",
-        "s137"
+        "s137",
+        "s157"
       ]
     },
     {
@@ -1262,7 +1260,7 @@ window.VOC_DATA = {
       "id": "q1",
       "short": "Mostly: it doesn't show up.",
       "answer": "The biggest problem is that nudges don't appear: they never show, stop showing, or 'barely show up', and Reddit, X and the Samsung forums all agree. After that: patchy support beyond three messaging apps, confusion about what the feature is (it's mistaken for Writing Assist), older phones being left out, possible region locks, and needing Samsung Keyboard.",
-      "posts": 84,
+      "posts": 87,
       "confidence": 3,
       "change": {
         "status": "new",
@@ -1290,7 +1288,7 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Mostly: it doesn't show up.",
-          "text": "First answer (Run 1: Samsung communities + X, 84 posts)."
+          "text": "First answer (Run 1: Samsung communities + X, 87 posts)."
         }
       ]
     },
@@ -1298,7 +1296,7 @@ window.VOC_DATA = {
       "id": "q2",
       "short": "Mostly no.",
       "answer": "Mostly no. People ask for photos or try to arrange meetings in WhatsApp and get nothing. Some only get reply suggestions, which turn out to be Writing Assist. It works for some in Samsung Messages or Google Messages, and one user says it worked at first and stopped after a late-March update.",
-      "posts": 61,
+      "posts": 62,
       "confidence": 3,
       "change": {
         "status": "new",
@@ -1323,7 +1321,7 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Mostly no.",
-          "text": "First answer (Run 1: Samsung communities + X, 61 posts)."
+          "text": "First answer (Run 1: Samsung communities + X, 62 posts)."
         }
       ]
     },
@@ -1363,7 +1361,7 @@ window.VOC_DATA = {
       "id": "q4",
       "short": "Yes, when it works.",
       "answer": "People who get it working like saving places from chats, opening shared locations in Maps and typing less; some on X call it 'how AI should be implemented'. Others call it a gimmick, but mostly because it rarely appears, not because the suggestions are bad.",
-      "posts": 33,
+      "posts": 35,
       "confidence": 2,
       "change": {
         "status": "new",
@@ -1387,7 +1385,7 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Yes, when it works.",
-          "text": "First answer (Run 1: Samsung communities + X, 33 posts)."
+          "text": "First answer (Run 1: Samsung communities + X, 35 posts)."
         }
       ]
     },
@@ -1395,7 +1393,7 @@ window.VOC_DATA = {
       "id": "q5",
       "short": "Some do, mostly over privacy.",
       "answer": "Some do. On Reddit, a few call it an annoying nag (one compares it to Navi's 'Hey, Listen!') and several see screen reading as a privacy risk, like Windows Recall; others note processing stays on the device. Few complain it appears too often, because it rarely appears.",
-      "posts": 10,
+      "posts": 11,
       "confidence": 2,
       "change": {
         "status": "new",
@@ -1420,7 +1418,7 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Some do, mostly over privacy.",
-          "text": "First answer (Run 1: Samsung communities + X, 10 posts)."
+          "text": "First answer (Run 1: Samsung communities + X, 11 posts)."
         }
       ]
     },
@@ -1464,9 +1462,9 @@ window.VOC_DATA = {
       "body": "Most negative posts aren't about bad suggestions; they're about getting none at all. Reddit, X and the Samsung forums all say the same, and some say it stopped after a late-March update.",
       "status": "new",
       "pos": 0,
-      "neu": 9,
-      "neg": 91,
-      "posts": 56,
+      "neu": 11,
+      "neg": 89,
+      "posts": 57,
       "themeIds": [
         "triggering"
       ],
@@ -1510,10 +1508,10 @@ window.VOC_DATA = {
       "title": "Older-phone owners went from 'left out' to 'it doesn't work'",
       "body": "On X, the top Now Nudge posts celebrate it reaching the S24 and S25 in the One UI 9 beta. On the forums, beta users now say it shows nothing.",
       "status": "new",
-      "pos": 21,
-      "neu": 49,
-      "neg": 30,
-      "posts": 33,
+      "pos": 20,
+      "neu": 46,
+      "neg": 34,
+      "posts": 35,
       "themeIds": [
         "exclusivity",
         "triggering"
@@ -5296,10 +5294,101 @@ window.VOC_DATA = {
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
       "postedApprox": "4 months ago"
+    },
+    {
+      "id": "s157",
+      "run": 1,
+      "kind": "article",
+      "platform": "BL",
+      "site": "Android Police",
+      "where": "News",
+      "title": "Samsung grilled by fans over Galaxy AI in spiky Reddit AMA",
+      "content": "Another questions how Galaxy AI uses data shared to Galaxy AI. One person asks how Galaxy AI actually helps them day-to-day, and another still writes, “From conversations I have, many people are extremely wary of AI. Would Samsung ever be interested in servicing this market?”",
+      "url": "https://www.androidpolice.com/samsung-grilled-by-fans-over-galaxy-ai-in-spiky-reddit-ama/",
+      "domain": "androidpolice.com",
+      "postedAt": "2026-04-16",
+      "capturedAt": "2026-10-04",
+      "userType": "Reviewer or press",
+      "themeIds": [
+        "usefulness",
+        "privacy"
+      ],
+      "sentiment": "neg",
+      "takeaway": "Report on Samsung's Reddit AMA: fans questioned Galaxy AI's day-to-day value and data use; Now Nudge was among the features discussed most.",
+      "engagement": {},
+      "truncated": true
+    },
+    {
+      "id": "s158",
+      "run": 1,
+      "kind": "article",
+      "platform": "BL",
+      "site": "PiunikaWeb",
+      "where": "News",
+      "title": "Galaxy S25's One UI 8.5 update excludes several S26 features, including 'Now Nudge' and the '24MP' camera mode",
+      "content": "Early feedback from users who bagged the update suggests at least nine significant omissions. The biggest gripes so far center on the absent 24MP camera mode and the Now Nudge feature. Many had assumed these would make their way to the S25 phones since they do not appear to depend on brand-new hardware.",
+      "url": "https://piunikaweb.com/2026/05/08/samsung-one-ui-8-5-galaxy-s25-missing-features/",
+      "domain": "piunikaweb.com",
+      "postedAt": "2026-05-08",
+      "capturedAt": "2026-10-04",
+      "userType": "Reviewer or press",
+      "themeIds": [
+        "exclusivity"
+      ],
+      "sentiment": "neg",
+      "takeaway": "Summarises S25 owners' reaction to One UI 8.5: Now Nudge's absence is one of the two biggest gripes.",
+      "engagement": {},
+      "truncated": true
+    },
+    {
+      "id": "s159",
+      "run": 1,
+      "kind": "article",
+      "platform": "BL",
+      "site": "Digital Trends",
+      "where": "News",
+      "title": "Samsung gave Galaxy S25 users One UI 8.5, but skipped the features they wanted most",
+      "content": "On Samsung’s Korean community forums, many users are treating the omissions as feature gatekeeping rather than a hardware issue. Their argument is that the Galaxy S25 series already has Snapdragon 8 Elite chips, which should be powerful enough for many of these tools. Some users suggest Samsung’s newer NPU hardware in the S26 lineup could explain a few limits, but the broader reaction is that Samsung is drawing a clear software line between the two generations.",
+      "url": "https://www.digitaltrends.com/phones/samsung-gave-galaxy-s25-users-one-ui-8-5-but-skipped-the-features-they-wanted-most/",
+      "domain": "digitaltrends.com",
+      "postedAt": "2026-05-09",
+      "capturedAt": "2026-10-04",
+      "userType": "Reviewer or press",
+      "themeIds": [
+        "exclusivity"
+      ],
+      "sentiment": "neg",
+      "takeaway": "Summarises Samsung's Korean forum: S25 owners see Now Nudge's absence as gatekeeping, not a hardware limit.",
+      "engagement": {},
+      "truncated": true
+    },
+    {
+      "id": "s160",
+      "run": 1,
+      "kind": "article",
+      "platform": "BL",
+      "site": "SammyGuru",
+      "where": "Feature",
+      "title": "Just Got One UI 9? Here Are 15 Features You Should Try First",
+      "content": "It can also pull up saved details such as your email, address, or passport number through Personal Data Intelligence. You’ll need to allow it to use your personal data for that to work. Now Nudge is useful when it appears, but its suggestions are still too inconsistent to rely on.",
+      "url": "https://sammyguru.com/one-ui-9-features/",
+      "domain": "sammyguru.com",
+      "postedAt": "2026-09-26",
+      "capturedAt": "2026-10-04",
+      "userType": "Reviewer or press",
+      "themeIds": [
+        "triggering",
+        "usefulness",
+        "autofill"
+      ],
+      "sentiment": "mix",
+      "takeaway": "One UI 9 hands-on: useful when it appears, but too inconsistent to rely on.",
+      "engagement": {},
+      "truncated": true
     }
   ],
   "competitor": {
-    "summary": "Magic Cue comes up in 5 of 156 posts, all from press. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. Users on the forums and X don't compare the two.",
+    "summary": "Magic Cue comes up in 5 of 160 posts, all from press. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. Users on the forums and X don't compare the two.",
     "sourceIds": [
       "s53",
       "s54",

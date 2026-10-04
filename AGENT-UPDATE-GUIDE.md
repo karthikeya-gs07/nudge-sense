@@ -74,7 +74,8 @@ No comments or code inside the object. Keep it valid JSON so any tool can parse 
    - If that file exists, code it like any other source (`platform: "r/"`, `site: "Reddit"`, `where`: the subreddit). Use `engagement` as given (`reactions` = score, `comments` = number of comments). Keep only comments that are about Now Nudge.
    - The user may instead fill `runs/run-<n>/inbox/reddit.csv` (or `.xlsx`) by hand, following `Reddit-Capture-Template.md`. It should only hold posts since the last run; drop any older rows and say so in the run summary. Code it the same way: `upvotes` goes to `reactions`, `comments` to `comments`, `crossposts` to `shares`.
    - If neither file exists, record Reddit as `"failed"` with the note `"no export this run"`.
-6. **Magic Cue is secondary.** Only collect Magic Cue posts that also talk about Now Nudge. Set `"competitor": true` on them.
+6. **Tech blogs: read the articles, not the comments.** Comment sections sit in third-party widgets that can't be read. Add an article only if it **reports or summarises user voices**: forum or Reddit reactions, AMA questions, polls, or a reviewer's own day-to-day experience. Skip plain feature announcements. Capture one verbatim paragraph that carries the user voice (`truncated: true`), with `kind: "article"`, `platform: "BL"` and `userType: "Reviewer or press"`.
+7. **Magic Cue is secondary.** Only collect Magic Cue posts that also talk about Now Nudge. Set `"competitor": true` on them.
 
 ### Step 3: Capture each post verbatim
 Add one object to `sources[]` per post (field list in §5).

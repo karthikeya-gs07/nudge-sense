@@ -43,7 +43,7 @@ A guide for running a **secondary VoC study**: analysing what people already say
 - **Reddit:** r/samsung, r/galaxys26, r/oneui (main). r/GooglePixel and r/pixel_phones only for Magic Cue mentions
 - **Communities:** Samsung Members (global and regional), XDA Forums
 - **Social:** X, YouTube comments on S26 reviews and Now Nudge videos
-- **Tech blog comments:** SamMobile, SammyFans, Android Authority, 9to5Google, Android Police
+- **Tech blog articles:** SamMobile, SammyFans, Android Authority, 9to5Google, Android Police and others. Only articles that report or summarise user voices (forum or Reddit reactions, AMAs, hands-on experience). Comment sections are not used: they sit in third-party widgets that can't be read.
 - **Not used:** G2, Capterra, Trustpilot and app store reviews. They don't fit a built-in phone feature
 
 ### Keyword list ⚙️ Tweak

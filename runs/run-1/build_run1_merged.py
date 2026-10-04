@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.join(ROOT, "runs", "run-1")); sys.path.insert(0, HERE
 from sources_run1 import SOURCES as S1
 from sources_run1_x import SOURCES_X as S2
 from sources_run1_reddit import SOURCES_REDDIT as S3
+from sources_run1_blogs import SOURCES_BLOGS as S4
 DATA = os.path.join(ROOT, "dashboard", "voc-data.js")
 TODAY = "2026-10-03"
 W = {"study": ("2026-02-25", TODAY), "recent": ("2026-08-04", TODAY), "baseline": ("2026-02-25", "2026-08-03")}
@@ -34,7 +35,7 @@ def make(s, i, run, captured):
     o["_cl"] = ["feature-confusion" if c == "brief-confusion" else c for c in s.get("clusters", [])]
     return o
 
-src = [make(s, i, 1, "2026-10-02") for i, s in enumerate(S1, 1)] + [make(s, len(S1) + j, 1, TODAY) for j, s in enumerate(S2, 1)] + [make(s, len(S1) + len(S2) + j, 1, TODAY) for j, s in enumerate(S3, 1)]
+src = [make(s, i, 1, "2026-10-02") for i, s in enumerate(S1, 1)] + [make(s, len(S1) + j, 1, TODAY) for j, s in enumerate(S2, 1)] + [make(s, len(S1) + len(S2) + j, 1, TODAY) for j, s in enumerate(S3, 1)] + [make(s, len(S1) + len(S2) + len(S3) + j, 1, "2026-10-04") for j, s in enumerate(S4, 1)]
 byid = {s["id"]: s for s in src}
 def inw(d, w): return W[w][0] <= d <= W[w][1]
 rec = [s for s in src if inw(s["postedAt"], "recent")]; base = [s for s in src if inw(s["postedAt"], "baseline")]
@@ -143,10 +144,9 @@ run = {
    {"name": "Samsung Community (US, EU)", "status": "ok"},
    {"name": "X", "status": "ok", "note": "read via Chrome (signed in)"},
    {"name": "XDA Forums", "status": "ok", "note": "no forum threads found; XDA review captured"},
-   {"name": "Tech blogs", "status": "ok", "note": "articles captured"},
+   {"name": "Tech blog articles", "status": "ok", "note": "articles that report user voices; comment sections not used"},
    {"name": "Reddit", "status": "ok", "note": "captured by hand; dates approximate, no vote counts"},
-   {"name": "YouTube comments", "status": "failed", "note": "comments did not load"},
-   {"name": "Tech blog comments", "status": "failed", "note": "comment widgets not readable"}
+   {"name": "YouTube comments", "status": "failed", "note": "comments did not load"}
  ],
  "summary": [
    "Baseline run: %d posts: %d from Samsung's communities, %d from Reddit (captured by hand), %d from X and %d press articles." % (N, nForum, nR, nX, nPress),
@@ -187,6 +187,9 @@ D["config"]["limitations"] = [l for l in D["config"]["limitations"] if not l.sta
   "X is dominated by update news and paid promotions (#AD); those posts are tagged as press, not users."]
 for s in D["config"]["sourceList"]:
     if s["platform"] == "X": s["status"] = "Active"
+    if s["platform"] == "BL" and s["type"] == "Blog comments": s["type"] = "Blog articles (user voices)"
+for s in D["config"]["sources"]:
+    if s["code"] == "BL": s["name"] = "Tech blog articles"; s["detail"] = "Articles that report or summarise user voices (SamMobile, SammyFans, Android Authority, 9to5Google, Android Police and others). Comment sections are not used."
 have = {s["name"] for s in D["config"]["sourceList"]}
 for sub in ["r/galaxys26ultra", "r/samsunggalaxy", "r/GalaxyFold", "r/GalaxyS24", "r/S24Ultra", "r/S25Ultra"]:
     if sub not in have:
