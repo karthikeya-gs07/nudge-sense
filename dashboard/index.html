@@ -10,13 +10,18 @@
 <body>
 <div class="app" id="app">
   <nav class="app-nav" aria-label="Dashboard pages">
-    <div class="app-brand"><b>Nudge Sense</b><span>VoC · Samsung Now Nudge</span></div>
+    <div class="app-brand"><b>Nudge Sense</b><span data-i18n="brand_sub">VoC · Samsung Now Nudge</span></div>
     <div class="nav-list" id="nav"></div>
     <div class="nav-foot">
-      <span class="eyebrow">Theme</span>
+      <span class="eyebrow" data-i18n="language">Language</span>
+      <div class="segmented full" role="group" aria-label="Language">
+        <button type="button" data-lang-set="en" aria-pressed="false">English</button>
+        <button type="button" data-lang-set="ko" aria-pressed="false">한국어</button>
+      </div>
+      <span class="eyebrow" data-i18n="appearance">Theme</span>
       <div class="segmented full" role="group" aria-label="Theme">
-        <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
-        <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false" data-i18n="dark">Dark</button>
+        <button type="button" data-theme-set="light" aria-pressed="false" data-i18n="light">Light</button>
       </div>
     </div>
   </nav>
@@ -30,8 +35,8 @@
           <span class="asof" id="asof"></span>
         </div>
         <div class="row">
-          <div class="field"><label for="compare">Compare with</label><select class="select" id="compare"></select></div>
-          <button class="btn icon-btn" id="agent-toggle" type="button" aria-label="Show or hide agent updates" title="Agent updates"><svg width="16" height="16" aria-hidden="true"><use href="#i-panel"/></svg></button>
+          <div class="field"><label for="compare" data-i18n="compare_with">Compare with</label><select class="select" id="compare"></select></div>
+          <button class="btn icon-btn" id="agent-toggle" type="button" data-i18n-title="agent_updates" aria-label="Agent updates" title="Agent updates"><svg width="16" height="16" aria-hidden="true"><use href="#i-panel"/></svg></button>
         </div>
       </div>
     </header>
@@ -49,8 +54,8 @@
   <aside class="app-agent" id="agent" aria-label="Agent updates">
     <div class="agent-panel docked">
       <div class="agent-head">
-        <h4><svg width="16" height="16" aria-hidden="true"><use href="#i-agent"/></svg>Agent updates</h4>
-        <button class="btn ghost sm icon-btn" id="agent-close" type="button" aria-label="Hide agent updates" title="Hide agent updates"><svg width="14" height="14" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <h4><svg width="16" height="16" aria-hidden="true"><use href="#i-agent"/></svg><span data-i18n="agent_updates">Agent updates</span></h4>
+        <button class="btn ghost sm icon-btn" id="agent-close" type="button" data-i18n-title="hide_agent" aria-label="Hide agent updates" title="Hide agent updates"><svg width="14" height="14" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <div class="agent-body" id="runs"></div>
     </div>
@@ -65,10 +70,91 @@
 </script>
 <script>
 /* Dashboard logic: reads window.VOC_DATA and renders it with design-system components (window.VOC).
-   No visual styling lives here. */
+   No visual styling lives here. Text: page strings below (English / Korean); data text via V.tx(obj, field). */
 (function () {
   "use strict";
-  var V = window.VOC, $ = V.$, $$ = V.$$, esc = V.esc;
+  var V = window.VOC, $ = V.$, $$ = V.$$, esc = V.esc, T = V.t, tx = V.tx;
+
+  /* ---------- Page strings ---------- */
+  V.addStrings({
+    en: {
+      brand_sub: "VoC · Samsung Now Nudge", language: "Language", appearance: "Theme", dark: "Dark", light: "Light",
+      compare_with: "Compare with", agent_updates: "Agent updates", hide_agent: "Hide agent updates",
+      p_overview: "Overview", p_trend: "Sentiment trend", p_themes: "Themes", p_emerging: "Emerging clusters", p_questions: "Research questions", p_sources: "Sources", p_competitor: "Magic Cue mentions", p_method: "Method",
+      no_runs: "No runs yet. Ask the agent to run the VoC check using AGENT-UPDATE-GUIDE.md.", no_results: "No results yet", new_since: "New since compared run",
+      vs_run: "vs Run {n}", first_run: "First run", no_change: "No change", pts: " pts",
+      t_posts: "Posts analysed", t_posts_info: "Public posts about Now Nudge collected and coded since {d}. The change is the number of posts added since the compared run.",
+      t_net: "Net sentiment", t_net_info: "Share of positive posts minus share of negative posts, across all posts. Ranges from −100 to +100. The mini chart shows it month by month.",
+      t_emerging: "Emerging clusters", t_emerging_info: "Recurring topics (3 or more posts) that are new or growing: their share of conversation in the last 60 days is at least 25% higher than in the baseline window.",
+      t_answered: "Questions answered", t_answered_info: "Research questions with enough evidence to answer (3 or more relevant posts), out of the 6 in the method.",
+      top_insights: "Top insights", by_agent: "Written by the agent from the evidence", ins_meta: "{p} posts · {t} themes", see_n_sources: "See {n} sources",
+      trend_title: "Net sentiment over time", trend_info: "Net sentiment = % positive posts − % negative posts, per month. Dots are blue above zero and red below. Bars show how many posts were collected that month. Flags mark key events.",
+      trend_sub: "% positive minus % negative", trend_sub_long: "% positive minus % negative · per month · flags mark key events", trend_aria: "Net sentiment and posts over time",
+      above_zero: "Above zero", below_zero: "Below zero",
+      hbar_title: "Themes by volume", hbar_info: "Bar length = number of posts tagged with the theme. Colours show the share of positive, neutral and negative posts. Click a bar to open the theme.", hbar_sub: "Top 6 · bar = sentiment split",
+      what_changed: "What changed in Run {n}", compared_with: "Compared with Run {n}",
+      no_trend: "No trend yet", hm_title: "Net sentiment by theme", hm_info: "Each cell is a theme's net sentiment in one month. Blue = more positive, red = more negative, grey = balanced. Empty cells had fewer than 3 posts.", hm_sub: "Which parts of the feature are getting better or worse",
+      split_title: "Sentiment split · {p}", pct_line: "{p}% positive · {u}% neutral · {x}% negative · {n} posts", pct_line_short: "{p}% positive · {u}% neutral · {x}% negative", neu_mixed: "Neutral & mixed", n_captured: "{n} captured", no_captured: "No captured sources.",
+      captured_note: "Captured sources posted in {p} ({a} of {b} posts). Click a post to see it in full in Sources.",
+      no_themes: "No themes yet", by_volume: "By volume", share_recent: "Share, recent window", baseline_x: "(baseline {v})", sentiment: "Sentiment", net_trend: "Net sentiment trend", agent_summary: "Agent summary", answers: "Answers", evidence: "Evidence", n_sources: "{n} sources", no_linked: "No sources linked yet.",
+      no_clusters: "No clusters yet", share_title: "Share of conversation", share_info: "Share of conversation = posts in the cluster ÷ all posts in that window. Left: baseline window. Right: last 60 days. Amber lines are new or rising (up 25% or more).", share_sub: "Baseline ({a} – {b}) → recent ({c} – {d})", share_aria: "Cluster share, baseline versus recent",
+      clusters: "Clusters", biggest_change: "Biggest change first", baseline_share: "Baseline share", recent_share: "Recent share", first_seen: "First seen", recent: "Recent",
+      rq_answered: "{a} of {b} answered", not_answered_yet: "Not answered yet", how_changed: "How the answer changed",
+      eng_by_platform: "Engagement by platform", eng_info: "Interactions = reactions (upvotes, likes) + 2 × comments/replies + 3 × reposts/shares − downvotes, using the counts shown when each post was captured. Views are shown on posts but not counted. Each post's score (0–100) compares it only with posts from the same platform.", captured_only: "Captured sources only",
+      th_platform: "Platform", th_with_counts: "With counts", th_interactions: "Interactions", th_median: "Median per post", th_share: "Share of interactions",
+      search_ph: "Search title, text or takeaway", search_aria: "Search sources", all_themes: "All themes", all_sources: "All sources", new_only: "New only", n_of_m: "{a} of {b}",
+      th_title_text: "Title / text", th_engagement: "Engagement", th_posted: "Posted", approx: "Approximate ({x})", no_match: "No sources match these filters", wider: "Try a wider filter.",
+      no_mc: "No Magic Cue mentions yet", no_mc_text: "Magic Cue is tracked only when it comes up in Now Nudge conversations.", comp_eyebrow: "Agent summary · secondary to the study", mentions: "Mentions",
+      k_feature: "Feature", k_competitor: "Competitor", k_study: "Study window", k_recent: "Recent window", k_baseline: "Baseline window", k_sources: "Sources", k_keywords: "Keywords",
+      study_setup: "Study setup", sources_considered: "Sources considered", sc_sub: "{n} sources · from VOC-Method.md", th_type: "Type", th_scope: "Scope", limitations: "Limitations", codebook: "Theme codebook", n_themes: "{n} themes", th_covers: "What it covers", secondary: "Secondary", files: "Files", local_file: "local file", design_system: "Design system",
+      no_runs_title: "No runs yet", no_runs_text: "Each time the agent runs a VoC check, its summary and links appear here.",
+      sample_banner: "<b>Sample data, not study data.</b> Open index.html without <span class=\"mono\">?sample</span> to see the real study.",
+      stale_banner: "<b>Data is {d} days old.</b> The last run was on {date}. Ask the agent to run a new VoC check.",
+      failed_banner: "<b>{n} {what} could not be checked in Run {r}.</b> Numbers for this run leave them out: {list}.", one_source: "source", many_sources: "sources",
+      asof: "As of Run {n} · {date} · {p} posts", no_earlier: "No earlier run", compare_opt: "Run {n} · {date}", approx_event: " (approx.)",
+      "Subreddit": "Subreddit", "Community forum": "Community forum", "Forum": "Forum", "Social search": "Social search", "Video comments": "Video comments", "Blog articles (user voices)": "Blog articles (user voices)",
+      "Primary": "Primary", "Magic Cue mentions only": "Magic Cue mentions only", "Active": "Active", "To verify": "To verify"
+    },
+    ko: {
+      brand_sub: "고객의 소리 · 삼성 Now Nudge", language: "언어", appearance: "화면 모드", dark: "다크", light: "라이트",
+      compare_with: "비교 대상", agent_updates: "에이전트 업데이트", hide_agent: "에이전트 업데이트 숨기기",
+      p_overview: "개요", p_trend: "감성 추이", p_themes: "테마", p_emerging: "떠오르는 클러스터", p_questions: "연구 질문", p_sources: "출처", p_competitor: "Magic Cue 언급", p_method: "방법론",
+      no_runs: "아직 실행 기록이 없습니다. AGENT-UPDATE-GUIDE.md에 따라 에이전트에게 VoC 점검을 요청하세요.", no_results: "아직 결과 없음", new_since: "비교 실행 이후 신규",
+      vs_run: "실행 {n} 대비", first_run: "첫 실행", no_change: "변화 없음", pts: "점",
+      t_posts: "분석한 게시물", t_posts_info: "{d} 이후 수집해 분류한 Now Nudge 관련 공개 게시물입니다. 변화 수치는 비교 실행 이후 추가된 게시물 수입니다.",
+      t_net: "순 감성", t_net_info: "전체 게시물 중 긍정 비율에서 부정 비율을 뺀 값으로, −100부터 +100까지입니다. 작은 차트는 월별 추이를 보여줍니다.",
+      t_emerging: "떠오르는 클러스터", t_emerging_info: "새로 나타나거나 커지고 있는 반복 주제(게시물 3건 이상)입니다. 최근 60일의 대화 비중이 기준 기간보다 25% 이상 높습니다.",
+      t_answered: "답변된 질문", t_answered_info: "방법론의 연구 질문 6개 중 답변할 만큼 근거(관련 게시물 3건 이상)가 있는 질문 수입니다.",
+      top_insights: "주요 인사이트", by_agent: "에이전트가 근거를 바탕으로 작성", ins_meta: "게시물 {p}건 · 테마 {t}개", see_n_sources: "출처 {n}건 보기",
+      trend_title: "시간에 따른 순 감성", trend_info: "순 감성 = 긍정 게시물 % − 부정 게시물 %, 월별 기준입니다. 점은 0 이상이면 파란색, 미만이면 빨간색입니다. 막대는 해당 월에 수집한 게시물 수이며, 깃발은 주요 이벤트를 표시합니다.",
+      trend_sub: "긍정 % − 부정 %", trend_sub_long: "긍정 % − 부정 % · 월별 · 깃발은 주요 이벤트", trend_aria: "시간에 따른 순 감성과 게시물 수",
+      above_zero: "0 이상", below_zero: "0 미만",
+      hbar_title: "게시물 수 기준 테마", hbar_info: "막대 길이 = 해당 테마로 분류된 게시물 수입니다. 색상은 긍정, 중립, 부정 게시물의 비율을 나타냅니다. 막대를 클릭하면 테마가 열립니다.", hbar_sub: "상위 6개 · 막대 = 감성 분포",
+      what_changed: "실행 {n}에서 달라진 점", compared_with: "실행 {n}과 비교",
+      no_trend: "아직 추이 없음", hm_title: "테마별 순 감성", hm_info: "각 칸은 한 달 동안 테마의 순 감성입니다. 파란색 = 더 긍정적, 빨간색 = 더 부정적, 회색 = 균형입니다. 빈 칸은 게시물이 3건 미만인 경우입니다.", hm_sub: "기능의 어떤 부분이 나아지거나 나빠지고 있는지",
+      split_title: "감성 분포 · {p}", pct_line: "긍정 {p}% · 중립 {u}% · 부정 {x}% · 게시물 {n}건", pct_line_short: "긍정 {p}% · 중립 {u}% · 부정 {x}%", neu_mixed: "중립 및 혼합", n_captured: "{n}건 수집", no_captured: "수집된 출처가 없습니다.",
+      captured_note: "{p}에 게시된 수집 출처입니다(게시물 {b}건 중 {a}건). 게시물을 클릭하면 출처 페이지에서 전체 내용을 볼 수 있습니다.",
+      no_themes: "아직 테마 없음", by_volume: "게시물 수 순", share_recent: "최근 기간 비중", baseline_x: "(기준 {v})", sentiment: "감성", net_trend: "순 감성 추이", agent_summary: "에이전트 요약", answers: "관련 질문", evidence: "근거", n_sources: "출처 {n}건", no_linked: "아직 연결된 출처가 없습니다.",
+      no_clusters: "아직 클러스터 없음", share_title: "대화 비중", share_info: "대화 비중 = 해당 기간 전체 게시물 중 클러스터 게시물의 비율입니다. 왼쪽: 기준 기간, 오른쪽: 최근 60일. 주황색 선은 신규이거나 25% 이상 증가한 클러스터입니다.", share_sub: "기준 기간({a} – {b}) → 최근({c} – {d})", share_aria: "클러스터 비중, 기준 기간 대비 최근",
+      clusters: "클러스터", biggest_change: "변화가 큰 순", baseline_share: "기준 기간 비중", recent_share: "최근 비중", first_seen: "처음 발견", recent: "최근",
+      rq_answered: "{b}개 중 {a}개 답변", not_answered_yet: "아직 답변 없음", how_changed: "답변의 변화",
+      eng_by_platform: "플랫폼별 참여도", eng_info: "상호작용 = 반응(추천, 좋아요) + 2 × 댓글/답글 + 3 × 재게시/공유 − 비추천이며, 각 게시물을 수집할 때 표시된 수치를 사용합니다. 조회수는 표시되지만 계산에는 포함되지 않습니다. 게시물별 점수(0–100)는 같은 플랫폼의 게시물끼리만 비교합니다.", captured_only: "수집된 출처만",
+      th_platform: "플랫폼", th_with_counts: "수치 있음", th_interactions: "상호작용", th_median: "게시물당 중앙값", th_share: "상호작용 비중",
+      search_ph: "제목, 본문, 시사점 검색", search_aria: "출처 검색", all_themes: "모든 테마", all_sources: "모든 출처", new_only: "신규만", n_of_m: "{b}건 중 {a}건",
+      th_title_text: "제목 / 본문", th_engagement: "참여도", th_posted: "게시일", approx: "추정치 ({x})", no_match: "필터에 맞는 출처가 없습니다", wider: "필터 범위를 넓혀 보세요.",
+      no_mc: "아직 Magic Cue 언급 없음", no_mc_text: "Magic Cue는 Now Nudge 대화에서 언급될 때만 추적합니다.", comp_eyebrow: "에이전트 요약 · 보조 분석", mentions: "언급",
+      k_feature: "기능", k_competitor: "경쟁 기능", k_study: "연구 기간", k_recent: "최근 기간", k_baseline: "기준 기간", k_sources: "출처", k_keywords: "키워드",
+      study_setup: "연구 설정", sources_considered: "검토 대상 출처", sc_sub: "출처 {n}곳 · VOC-Method.md 기준", th_type: "유형", th_scope: "범위", limitations: "한계", codebook: "테마 코드북", n_themes: "테마 {n}개", th_covers: "내용", secondary: "보조", files: "파일", local_file: "로컬 파일", design_system: "디자인 시스템",
+      no_runs_title: "아직 실행 없음", no_runs_text: "에이전트가 VoC 점검을 실행할 때마다 요약과 링크가 여기에 표시됩니다.",
+      sample_banner: "<b>샘플 데이터이며 실제 연구 데이터가 아닙니다.</b> 실제 연구를 보려면 <span class=\"mono\">?sample</span> 없이 index.html을 여세요.",
+      stale_banner: "<b>데이터가 {d}일 지났습니다.</b> 마지막 실행은 {date}입니다. 에이전트에게 새 VoC 점검을 요청하세요.",
+      failed_banner: "<b>실행 {r}에서 {what} {n}곳을 확인하지 못했습니다.</b> 이번 실행 수치에서 제외됨: {list}.", one_source: "출처", many_sources: "출처",
+      asof: "실행 {n} 기준 · {date} · 게시물 {p}건", no_earlier: "이전 실행 없음", compare_opt: "실행 {n} · {date}", approx_event: " (추정)",
+      "Subreddit": "서브레딧", "Community forum": "커뮤니티 포럼", "Forum": "포럼", "Social search": "소셜 검색", "Video comments": "영상 댓글", "Blog articles (user voices)": "블로그 기사(사용자 의견)",
+      "Primary": "주요", "Magic Cue mentions only": "Magic Cue 언급만", "Active": "활성", "To verify": "확인 필요",
+      "Post": "게시물", "Reply": "답글", "Comment": "댓글", "News": "뉴스", "Review": "리뷰", "Feature": "특집", "Discussions": "토론", "Suggestions": "제안", "Questions": "질문"
+    }
+  });
 
   /* ---------- Data ---------- */
   var D = window.VOC_DATA;
@@ -82,122 +168,111 @@
   var compareRun = runs[1] || null;
   var periods = (D.trend && D.trend.periods) || [];
   var themeDefs = {}; C.themes.forEach(function (t) { themeDefs[t.id] = t; });
-  var themes = (D.themes || []).map(function (t) { var d = themeDefs[t.id] || {}; return Object.assign({ name: d.name || t.id, definition: d.definition || "", rq: d.rq || [] }, t); })
+  var themes = (D.themes || []).map(function (t) { var d = themeDefs[t.id] || {}; return Object.assign({ def: d, rq: d.rq || [] }, t); })
     .sort(function (a, b) { return b.vol - a.vol; });
   var themeById = {}; themes.forEach(function (t) { themeById[t.id] = t; });
   var clusters = (D.clusters || []).slice().sort(function (a, b) { return (b.recent - b.base) - (a.recent - a.base); });
   var qById = {}; (D.questions || []).forEach(function (q) { qById[q.id] = q; });
-  var questions = C.researchQuestions.map(function (rq) { return Object.assign({}, rq, qById[rq.id] || {}); });
+  var questions = C.researchQuestions.map(function (rq) { return Object.assign({ rqDef: rq }, qById[rq.id] || {}, { id: rq.id, num: rq.num }); });
   var sources = (D.sources || []).slice().sort(function (a, b) { return a.postedAt < b.postedAt ? 1 : -1; });
   var srcById = {}; sources.forEach(function (s) { srcById[s.id] = s; });
   V.scoreEngagement(sources);
   sources.forEach(function (s) { s.engScore = s.eng ? s.eng.score : -1; });
 
-  function themeName(id) { return (themeDefs[id] && themeDefs[id].name) || id; }
+  function themeName(id) { return tx(themeDefs[id], "name") || id; }
+  function qText(q) { return tx(q.rqDef, "text"); }
+  function periodLabel(p) { return V.monthLabel(p.key); }
+  function periodTip(p) { return V.getLang() === "en" ? (p.tip || p.label) : V.monthLabel(p.key, true); }
   /* "New" only means something once there is an earlier run to compare against */
   function isNewSource(s) { if (!latest || !compareRun) return false; return s.run > compareRun.n; }
   function clusterStatus(c) { if (c.status) return c.status; if (!c.base && latest && c.firstSeenRun === latest.n) return "new"; return V.momentum(c.base, c.recent); }
   function answered(q) { return !!q.answer && (q.confidence || 0) > 0; }
   function eventIndex(ev) { var k = ev.date.slice(0, 7); for (var i = 0; i < periods.length; i++) if (periods[i].key === k) return i; return -1; }
-  var events = (C.events || []).map(function (e) { return { i: eventIndex(e), label: e.label + (e.approx ? " (approx.)" : "") }; }).filter(function (e) { return e.i >= 0; });
+  function events() { return (C.events || []).map(function (e) { return { i: eventIndex(e), label: tx(e, "label") + (e.approx ? T("approx_event") : "") }; }).filter(function (e) { return e.i >= 0; }); }
 
   /* ---------- Small builders (compose design-system pieces) ---------- */
   function sectionHead(title, sub) { return '<div class="section-head"><h3>' + esc(title) + "</h3>" + (sub ? "<p>" + esc(sub) + "</p>" : "") + "</div>"; }
   function empty(title, text) { return '<div class="card empty">' + V.icon("i-inbox", 32) + "<h4>" + esc(title) + "</h4><p>" + esc(text) + "</p></div>"; }
   function figure(opts) {
     return '<figure class="chart card" data-chart-wrap><div class="chart-head"><div><h4>' + esc(opts.title) + (opts.info ? V.infoTip(opts.info, opts.title) : "") + "</h4>" + (opts.sub ? "<p>" + esc(opts.sub) + "</p>" : "") + '</div><div class="row">' + (opts.legend || "") +
-      '<button class="btn sm icon-btn" type="button" data-table-toggle aria-label="Show as table" title="Show as table">' + V.icon("i-table", 14) + "</button></div></div>" +
+      '<button class="btn sm icon-btn" type="button" data-table-toggle aria-label="' + esc(T("show_table")) + '" title="' + esc(T("show_table")) + '">' + V.icon("i-table", 14) + "</button></div></div>" +
       (opts.legendBelow || "") + '<div data-view="chart">' + opts.body + '</div><div data-view="table" hidden><div class="table-wrap"><table class="tbl compact chart-table" id="' + opts.tableId + '"></table></div></div></figure>';
   }
-  var LEGEND_TREND = '<div class="legend"><span><i class="sw-pos"></i>Above zero</span><span><i class="sw-neg"></i>Below zero</span><span><i class="sw-vol"></i>Posts</span></div>';
-  var LEGEND_SENT = '<div class="legend"><span><i class="sw-pos"></i>Positive</span><span><i class="sw-neu"></i>Neutral</span><span><i class="sw-neg"></i>Negative</span></div>';
+  function legendTrend() { return '<div class="legend"><span><i class="sw-pos"></i>' + T("above_zero") + '</span><span><i class="sw-neg"></i>' + T("below_zero") + '</span><span><i class="sw-vol"></i>' + T("posts") + "</span></div>"; }
+  function legendSent() { return '<div class="legend"><span><i class="sw-pos"></i>' + V.SENT.pos + '</span><span><i class="sw-neu"></i>' + V.SENT.neu + '</span><span><i class="sw-neg"></i>' + V.SENT.neg + "</span></div>"; }
+  function srcView(s) { return Object.assign({}, s, { where: T(s.where), id: "src-" + s.id, isNew: isNewSource(s), takeaway: tx(s, "takeaway"), themes: (s.themeIds || []).map(themeName) }); }
   function evidence(ids, limit) {
     var list = (ids || []).map(function (id) { return srcById[id]; }).filter(Boolean)
       .sort(function (a, b) { return (b.eng ? b.eng.raw : -1) - (a.eng ? a.eng.raw : -1); });
-    if (!list.length) return '<p class="muted-text">No sources linked yet.</p>';
-    return list.slice(0, limit || 50).map(function (s) {
-      return V.sourcePreview(Object.assign({}, s, { id: "src-" + s.id, isNew: isNewSource(s), themes: (s.themeIds || []).map(themeName) }));
-    }).join("");
+    if (!list.length) return '<p class="muted-text">' + T("no_linked") + "</p>";
+    return list.slice(0, limit || 50).map(function (s) { return V.sourcePreview(srcView(s)); }).join("");
   }
   function trendData() {
-    return { labels: periods.map(function (p) { return p.label; }), tipLabels: periods.map(function (p) { return p.tip || p.label; }), net: periods.map(function (p) { return p.net; }), vol: periods.map(function (p) { return p.vol; }), events: events };
+    return { labels: periods.map(periodLabel), tipLabels: periods.map(periodTip), net: periods.map(function (p) { return p.net; }), vol: periods.map(function (p) { return p.vol; }), events: events() };
   }
   function pct(n) { return n + "%"; }
 
   /* ---------- Pages ---------- */
-  var PAGES = [
-    { id: "overview", label: "Overview" },
-    { id: "trend", label: "Sentiment trend" },
-    { id: "themes", label: "Themes" },
-    { id: "emerging", label: "Emerging clusters" },
-    { id: "questions", label: "Research questions" },
-    { id: "sources", label: "Sources" },
-    { id: "competitor", label: "Magic Cue mentions" },
-    { id: "method", label: "Method" }
-  ];
+  var PAGES = ["overview", "trend", "themes", "emerging", "questions", "sources", "competitor", "method"];
+  function pageLabel(id) { return T("p_" + id); }
   var sel = { themes: themes[0] && themes[0].id, emerging: clusters[0] && clusters[0].id, questions: "q1", sources: sources[0] && sources[0].id };
-  var NO_RUNS = "No runs yet. Ask the agent to run the VoC check using AGENT-UPDATE-GUIDE.md.";
 
   function renderNav(active) {
     var newSrc = sources.some(isNewSource);
     var newClusters = clusters.some(function (c) { return clusterStatus(c) === "new"; });
-    $("#nav").innerHTML = PAGES.map(function (p) {
+    $("#nav").innerHTML = PAGES.map(function (id) {
       var extra = "";
-      if (p.id === "themes" && themes.length) extra = '<span class="count">' + themes.length + "</span>";
-      if (p.id === "questions" && latest) extra = '<span class="count">' + questions.filter(answered).length + "/" + questions.length + "</span>";
-      if (p.id === "sources" && sources.length) extra = newSrc ? '<span class="dot-new" title="New since compared run"></span>' : '<span class="count">' + sources.length + "</span>";
-      if (p.id === "emerging" && newClusters) extra = '<span class="dot-new" title="New since compared run"></span>';
-      return '<a class="nav-item' + (p.id === active ? " is-active" : "") + '" href="#/' + p.id + '"' + (p.id === active ? ' aria-current="page"' : "") + ">" + esc(p.label) + extra + "</a>";
+      if (id === "themes" && themes.length) extra = '<span class="count">' + themes.length + "</span>";
+      if (id === "questions" && latest) extra = '<span class="count">' + questions.filter(answered).length + "/" + questions.length + "</span>";
+      if (id === "sources" && sources.length) extra = newSrc ? '<span class="dot-new" title="' + esc(T("new_since")) + '"></span>' : '<span class="count">' + sources.length + "</span>";
+      if (id === "emerging" && newClusters) extra = '<span class="dot-new" title="' + esc(T("new_since")) + '"></span>';
+      return '<a class="nav-item' + (id === active ? " is-active" : "") + '" href="#/' + id + '"' + (id === active ? ' aria-current="page"' : "") + ">" + esc(pageLabel(id)) + extra + "</a>";
     }).join("");
   }
 
   function renderOverview() {
     var el = $("#page-overview");
-    if (!latest) {
-      el.innerHTML = empty("No results yet", NO_RUNS);
-      return;
-    }
+    if (!latest) { el.innerHTML = empty(T("no_results"), T("no_runs")); return; }
     var s = latest.snapshot || {}, p = (compareRun && compareRun.snapshot) || null;
-    var note = compareRun ? "vs Run " + compareRun.n : "";
+    var note = compareRun ? T("vs_run", { n: compareRun.n }) : "";
     function d(cur, prev, goodUp, unit) {
-      if (prev == null) return { dir: "flat", text: "First run" };
+      if (prev == null) return { dir: "flat", text: T("first_run") };
       var diff = cur - prev;
-      return { dir: diff === 0 ? "flat" : goodUp == null ? "flat" : (diff > 0) === goodUp ? "up" : "down", text: (diff === 0 ? "No change" : V.signed(diff) + (unit || "")) };
+      return { dir: diff === 0 ? "flat" : goodUp == null ? "flat" : (diff > 0) === goodUp ? "up" : "down", text: (diff === 0 ? T("no_change") : V.signed(diff) + (unit || "")) };
     }
     var series = function (k) { return runs.slice().reverse().map(function (r) { return (r.snapshot || {})[k] || 0; }); };
-    var t1 = d(s.posts, p && p.posts, null), t2 = d(s.net, p && p.net, true, " pts"), t3 = d(s.emerging, p && p.emerging, null), t4 = d(s.answered, p && p.answered, true);
+    var t1 = d(s.posts, p && p.posts, null), t2 = d(s.net, p && p.net, true, T("pts")), t3 = d(s.emerging, p && p.emerging, null), t4 = d(s.answered, p && p.answered, true);
     var tiles = [
-      { label: "Posts analysed", info: "Public posts about Now Nudge collected and coded since " + V.fmtDate(C.windows.study.from) + ". The change is the number of posts added since the compared run.", value: (s.posts || 0).toLocaleString("en-GB"), delta: t1.text, dir: t1.dir, note: note, spark: series("posts") },
-      { label: "Net sentiment", info: "Share of positive posts minus share of negative posts, across all posts. Ranges from −100 to +100. The mini chart shows it month by month.", value: V.signed(s.net || 0), delta: t2.text, dir: t2.dir, note: note, spark: periods.map(function (x) { return x.net; }) },
-      { label: "Emerging clusters", info: "Recurring topics (3 or more posts) that are new or growing: their share of conversation in the last 60 days is at least 25% higher than in the baseline window.", value: String(s.emerging || 0), delta: t3.text, dir: t3.dir, note: note, spark: series("emerging") },
-      { label: "Questions answered", info: "Research questions with enough evidence to answer (3 or more relevant posts), out of the 6 in the method.", value: (s.answered || 0) + " / " + questions.length, delta: t4.text, dir: t4.dir, note: note, spark: series("answered") }
+      { label: T("t_posts"), info: T("t_posts_info", { d: V.fmtDate(C.windows.study.from) }), value: (s.posts || 0).toLocaleString("en-GB"), delta: t1.text, dir: t1.dir, note: note, spark: series("posts") },
+      { label: T("t_net"), info: T("t_net_info"), value: V.signed(s.net || 0), delta: t2.text, dir: t2.dir, note: note, spark: periods.map(function (x) { return x.net; }) },
+      { label: T("t_emerging"), info: T("t_emerging_info"), value: String(s.emerging || 0), delta: t3.text, dir: t3.dir, note: note, spark: series("emerging") },
+      { label: T("t_answered"), info: T("t_answered_info"), value: (s.answered || 0) + " / " + questions.length, delta: t4.text, dir: t4.dir, note: note, spark: series("answered") }
     ];
     var insights = (D.insights || []).slice(0, 3);
     el.innerHTML =
       '<div class="tiles">' + tiles.map(V.statTile).join("") + "</div>" +
-      (insights.length ? '<div class="block">' + sectionHead("Top insights", "Written by the agent from the evidence") + '<div class="card-grid equal">' + insights.map(function (i, n) {
-        return V.insightCard(Object.assign({}, i, { meta: (i.posts || 0) + " posts · " + (i.themeIds || []).length + " themes" }), n + 1, { href: "#/themes/" + ((i.themeIds || [])[0] || ""), linkText: "See " + (i.sourceIds || []).length + " sources" });
+      (insights.length ? '<div class="block">' + sectionHead(T("top_insights"), T("by_agent")) + '<div class="card-grid equal">' + insights.map(function (i, n) {
+        return V.insightCard(Object.assign({}, i, { title: tx(i, "title"), body: tx(i, "body"), meta: T("ins_meta", { p: i.posts || 0, t: (i.themeIds || []).length }) }), n + 1, { href: "#/themes/" + ((i.themeIds || [])[0] || ""), linkText: T("see_n_sources", { n: (i.sourceIds || []).length }) });
       }).join("") + "</div></div>" : "") +
       '<div class="stack">' +
-        figure({ title: "Net sentiment over time", info: "Net sentiment = % positive posts − % negative posts, per month. Dots are blue above zero and red below. Bars show how many posts were collected that month. Flags mark key events.", sub: "% positive minus % negative", legend: LEGEND_TREND, body: '<svg id="ov-trend" viewBox="0 0 680 300" role="img" aria-label="Net sentiment and posts over time"></svg>', tableId: "ov-trend-table" }) +
-        figure({ title: "Themes by volume", info: "Bar length = number of posts tagged with the theme. Colours show the share of positive, neutral and negative posts. Click a bar to open the theme.", sub: "Top 6 · bar = sentiment split", legendBelow: LEGEND_SENT, body: '<div class="hbar" id="ov-hbar"></div>', tableId: "ov-hbar-table" }) +
+        figure({ title: T("trend_title"), info: T("trend_info"), sub: T("trend_sub"), legend: legendTrend(), body: '<svg id="ov-trend" viewBox="0 0 680 300" role="img" aria-label="' + esc(T("trend_aria")) + '"></svg>', tableId: "ov-trend-table" }) +
+        figure({ title: T("hbar_title"), info: T("hbar_info"), sub: T("hbar_sub"), legendBelow: legendSent(), body: '<div class="hbar" id="ov-hbar"></div>', tableId: "ov-hbar-table" }) +
       "</div>" +
-      '<div class="block">' + sectionHead("What changed in Run " + latest.n, compareRun ? "Compared with Run " + compareRun.n : "First run") + '<div class="card">' + V.changeGroups(latest.changes) + "</div></div>";
+      '<div class="block">' + sectionHead(T("what_changed", { n: latest.n }), compareRun ? T("compared_with", { n: compareRun.n }) : T("first_run")) + '<div class="card">' + V.changeGroups(latest.changes) + "</div></div>";
     if (periods.length) V.trendChart($("#ov-trend"), trendData(), $("#ov-trend-table"));
-    V.hbarChart($("#ov-hbar"), themes.slice(0, 6).map(function (t) { return Object.assign({ href: "#/themes/" + t.id }, t); }), $("#ov-hbar-table"));
+    V.hbarChart($("#ov-hbar"), themes.slice(0, 6).map(function (t) { return Object.assign({ href: "#/themes/" + t.id }, t, { name: themeName(t.id) }); }), $("#ov-hbar-table"));
   }
 
   function renderTrend() {
     var el = $("#page-trend");
-    if (!periods.length) { el.innerHTML = empty("No trend yet", NO_RUNS); return; }
-    var last = periods[periods.length - 1];
+    if (!periods.length) { el.innerHTML = empty(T("no_trend"), T("no_runs")); return; }
     el.innerHTML =
-      figure({ title: "Net sentiment over time", info: "Net sentiment = % positive posts − % negative posts, per month. Dots are blue above zero and red below. Bars show how many posts were collected that month. Flags mark key events.", sub: "% positive minus % negative · per " + (D.trend.grain || "period") + " · flags mark key events", legend: LEGEND_TREND, body: '<svg id="tr-trend" viewBox="0 0 680 300" role="img" aria-label="Net sentiment and posts over time"></svg>', tableId: "tr-trend-table" }) +
+      figure({ title: T("trend_title"), info: T("trend_info"), sub: T("trend_sub_long"), legend: legendTrend(), body: '<svg id="tr-trend" viewBox="0 0 680 300" role="img" aria-label="' + esc(T("trend_aria")) + '"></svg>', tableId: "tr-trend-table" }) +
       '<div class="block" id="trend-period"></div>' +
-      '<div id="trend-heatmap">' + figure({ title: "Net sentiment by theme", info: "Each cell is a theme's net sentiment in one month. Blue = more positive, red = more negative, grey = balanced. Empty cells had fewer than 3 posts.", sub: "Which parts of the feature are getting better or worse", legend: '<div class="scale-legend" id="tr-hm-legend"></div>', body: '<div class="heatmap" id="tr-hm"></div>', tableId: "tr-hm-table" }) + "</div>";
+      '<div id="trend-heatmap">' + figure({ title: T("hm_title"), info: T("hm_info"), sub: T("hm_sub"), legend: '<div class="scale-legend" id="tr-hm-legend"></div>', body: '<div class="heatmap" id="tr-hm"></div>', tableId: "tr-hm-table" }) + "</div>";
     V.trendChart($("#tr-trend"), trendData(), $("#tr-trend-table"));
     V.scaleLegend($("#tr-hm-legend"));
-    V.heatmap($("#tr-hm"), themes.map(function (t) { return { name: t.name, values: t.byPeriod || [] }; }), periods.map(function (p) { return p.label; }), $("#tr-hm-table"));
+    V.heatmap($("#tr-hm"), themes.map(function (t) { return { name: themeName(t.id), values: t.byPeriod || [] }; }), periods.map(periodLabel), $("#tr-hm-table"));
     renderPeriod();
   }
 
@@ -209,76 +284,76 @@
     var p = periods[periodIdx];
     var inP = sources.filter(function (s) { return (s.postedAt || "").slice(0, 7) === p.key; });
     var cols = [
-      { key: "pos", title: "Positive", list: inP.filter(function (s) { return s.sentiment === "pos"; }) },
-      { key: "neu", title: "Neutral & mixed", list: inP.filter(function (s) { return s.sentiment === "neu" || s.sentiment === "mix"; }) },
-      { key: "neg", title: "Negative", list: inP.filter(function (s) { return s.sentiment === "neg"; }) }
+      { key: "pos", title: V.SENT.pos, list: inP.filter(function (s) { return s.sentiment === "pos"; }) },
+      { key: "neu", title: T("neu_mixed"), list: inP.filter(function (s) { return s.sentiment === "neu" || s.sentiment === "mix"; }) },
+      { key: "neg", title: V.SENT.neg, list: inP.filter(function (s) { return s.sentiment === "neg"; }) }
     ];
     box.innerHTML =
-      '<div class="section-head"><h3>Sentiment split · ' + esc(p.tip || p.label) + '</h3><div class="field"><label for="tr-period">Period</label><select class="select" id="tr-period">' +
-        periods.map(function (x, i) { return '<option value="' + i + '"' + (i === periodIdx ? " selected" : "") + ">" + esc(x.tip || x.label) + "</option>"; }).slice().reverse().join("") + "</select></div></div>" +
+      '<div class="section-head"><h3>' + esc(T("split_title", { p: periodTip(p) })) + '</h3><div class="field"><label for="tr-period">' + T("period") + '</label><select class="select" id="tr-period">' +
+        periods.map(function (x, i) { return '<option value="' + i + '"' + (i === periodIdx ? " selected" : "") + ">" + esc(periodTip(x)) + "</option>"; }).slice().reverse().join("") + "</select></div></div>" +
       '<div class="card stack">' + V.splitBar(p.pos, p.neu, p.neg) +
-        '<span class="muted-text">' + p.pos + "% positive · " + p.neu + "% neutral · " + p.neg + "% negative · " + p.vol + " posts</span>" +
+        '<span class="muted-text">' + esc(T("pct_line", { p: p.pos, u: p.neu, x: p.neg, n: p.vol })) + "</span>" +
         '<div class="grid-3 equal">' + cols.map(function (c) {
-          return '<div class="block"><div class="section-head"><h3>' + V.sentBadge(c.key === "neu" ? "neu" : c.key).replace("Neutral", c.title) + "</h3><p>" + c.list.length + " captured</p></div><div>" +
-            (c.list.length ? c.list.map(function (s) { return V.sourceRow(Object.assign({ href: "#/sources/" + s.id }, s)); }).join("") : '<p class="muted-text">No captured sources.</p>') + "</div></div>";
+          return '<div class="block"><div class="section-head"><h3>' + V.sentBadge(c.key).replace(V.SENT[c.key], esc(c.title)) + "</h3><p>" + esc(T("n_captured", { n: c.list.length })) + "</p></div><div>" +
+            (c.list.length ? c.list.map(function (s) { return V.sourceRow(Object.assign({ href: "#/sources/" + s.id }, s, { takeaway: tx(s, "takeaway") })); }).join("") : '<p class="muted-text">' + T("no_captured") + "</p>") + "</div></div>";
         }).join("") + "</div>" +
-        '<p class="muted-text">Captured sources posted in ' + esc(p.tip || p.label) + " (" + inP.length + " of " + p.vol + " posts). Click a post to see it in full in Sources.</p>" +
+        '<p class="muted-text">' + esc(T("captured_note", { p: periodTip(p), a: inP.length, b: p.vol })) + "</p>" +
       "</div>";
     $("#tr-period").addEventListener("change", function (e) { periodIdx = +e.target.value; renderPeriod(); });
   }
 
   function renderThemes() {
     var el = $("#page-themes");
-    if (!themes.length) { el.innerHTML = empty("No themes yet", NO_RUNS); return; }
+    if (!themes.length) { el.innerHTML = empty(T("no_themes"), T("no_runs")); return; }
     var t = themeById[sel.themes] || themes[0];
     var m = V.momentum(t.base, t.recent);
-    var rqs = (t.rq || []).map(function (id) { var q = questions.filter(function (x) { return x.id === id; })[0]; return q ? "<li>" + V.ilink("#/questions/" + q.id, q.num + " · " + q.text) + "</li>" : ""; }).join("");
+    var rqs = (t.rq || []).map(function (id) { var q = questions.filter(function (x) { return x.id === id; })[0]; return q ? "<li>" + V.ilink("#/questions/" + q.id, q.num + " · " + qText(q)) + "</li>" : ""; }).join("");
     el.innerHTML = '<div class="split">' +
-      '<div class="pane scroll">' + sectionHead("Themes", "By volume") + '<div role="listbox" aria-label="Themes">' + themes.map(function (x) {
-        return '<button class="pick" role="option" data-pick="themes" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === t.id) + '"><span class="nm">' + esc(x.name) + "</span>" + V.splitBar(x.pos, x.neu, x.neg) + '<span class="num muted-text">' + x.vol + "</span></button>";
+      '<div class="pane scroll">' + sectionHead(T("p_themes"), T("by_volume")) + '<div role="listbox" aria-label="' + esc(T("p_themes")) + '">' + themes.map(function (x) {
+        return '<button class="pick" role="option" data-pick="themes" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === t.id) + '"><span class="nm">' + esc(themeName(x.id)) + "</span>" + V.splitBar(x.pos, x.neu, x.neg) + '<span class="num muted-text">' + x.vol + "</span></button>";
       }).join("") + "</div></div>" +
       '<div class="pane stack" id="themes-detail">' +
-        '<div class="row between"><h3>' + esc(t.name) + "</h3>" + V.momBadge(m) + "</div>" +
-        '<p class="muted-text">' + esc(t.definition) + "</p>" +
-        '<dl class="kv"><dt>Posts</dt><dd class="num">' + t.vol + "</dd><dt>Share, recent window</dt><dd class=\"num\">" + pct(t.recent) + " (baseline " + pct(t.base) + ")</dd><dt>Sentiment</dt><dd>" + t.pos + "% positive · " + t.neu + "% neutral · " + t.neg + "% negative</dd><dt>Net sentiment trend</dt><dd>" + V.sparkline((t.byPeriod || []).filter(function (v) { return v != null; })) + "</dd></dl>" +
-        (t.summary ? '<div class="takeaway"><span class="eyebrow">Agent summary</span><p>' + esc(t.summary) + "</p></div>" : "") +
-        (rqs ? '<div class="stack tight"><span class="eyebrow">Answers</span><ul class="list stack tight">' + rqs + "</ul></div>" : "") +
-        sectionHead("Evidence", (t.sourceIds || []).length + " sources") + '<div class="stack">' + evidence(t.sourceIds) + "</div>" +
+        '<div class="row between"><h3>' + esc(themeName(t.id)) + "</h3>" + V.momBadge(m) + "</div>" +
+        '<p class="muted-text">' + esc(tx(t.def, "definition")) + "</p>" +
+        '<dl class="kv"><dt>' + T("posts") + '</dt><dd class="num">' + t.vol + "</dd><dt>" + T("share_recent") + '</dt><dd class="num">' + pct(t.recent) + " " + esc(T("baseline_x", { v: pct(t.base) })) + "</dd><dt>" + T("sentiment") + "</dt><dd>" + esc(T("pct_line_short", { p: t.pos, u: t.neu, x: t.neg })) + "</dd><dt>" + T("net_trend") + "</dt><dd>" + V.sparkline((t.byPeriod || []).filter(function (v) { return v != null; })) + "</dd></dl>" +
+        (t.summary ? '<div class="takeaway"><span class="eyebrow">' + T("agent_summary") + "</span><p>" + esc(tx(t, "summary")) + "</p></div>" : "") +
+        (rqs ? '<div class="stack tight"><span class="eyebrow">' + T("answers") + '</span><ul class="list stack tight">' + rqs + "</ul></div>" : "") +
+        sectionHead(T("evidence"), T("n_sources", { n: (t.sourceIds || []).length })) + '<div class="stack">' + evidence(t.sourceIds) + "</div>" +
       "</div></div>";
   }
 
   function renderEmerging() {
     var el = $("#page-emerging");
-    if (!clusters.length) { el.innerHTML = empty("No clusters yet", NO_RUNS); return; }
+    if (!clusters.length) { el.innerHTML = empty(T("no_clusters"), T("no_runs")); return; }
     var c = clusters.filter(function (x) { return x.id === sel.emerging; })[0] || clusters[0];
     var w = C.windows;
     el.innerHTML =
-      figure({ title: "Share of conversation", info: "Share of conversation = posts in the cluster ÷ all posts in that window. Left: baseline window. Right: last 60 days. Amber lines are new or rising (up 25% or more).", sub: "Baseline (" + V.fmtDate(w.baseline.from) + " – " + V.fmtDate(w.baseline.to) + ") → recent (" + V.fmtDate(w.recent.from) + " – " + V.fmtDate(w.recent.to) + ")", body: '<svg id="em-slope" viewBox="0 0 440 280" role="img" aria-label="Cluster share, baseline versus recent"></svg>', tableId: "em-slope-table" }) +
+      figure({ title: T("share_title"), info: T("share_info"), sub: T("share_sub", { a: V.fmtDate(w.baseline.from), b: V.fmtDate(w.baseline.to), c: V.fmtDate(w.recent.from), d: V.fmtDate(w.recent.to) }), body: '<svg id="em-slope" viewBox="0 0 440 280" role="img" aria-label="' + esc(T("share_aria")) + '"></svg>', tableId: "em-slope-table" }) +
       '<div class="split">' +
-        '<div class="pane">' + sectionHead("Clusters", "Biggest change first") + '<div role="listbox" aria-label="Clusters">' + clusters.map(function (x) {
-          return '<button class="pick" role="option" data-pick="emerging" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === c.id) + '"><span class="nm">' + esc(x.name) + "</span>" + V.momBadge(clusterStatus(x)) + '<span class="num muted-text">' + pct(x.recent) + "</span></button>";
+        '<div class="pane">' + sectionHead(T("clusters"), T("biggest_change")) + '<div role="listbox" aria-label="' + esc(T("clusters")) + '">' + clusters.map(function (x) {
+          return '<button class="pick" role="option" data-pick="emerging" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === c.id) + '"><span class="nm">' + esc(tx(x, "name")) + "</span>" + V.momBadge(clusterStatus(x)) + '<span class="num muted-text">' + pct(x.recent) + "</span></button>";
         }).join("") + "</div></div>" +
         '<div class="pane stack" id="emerging-detail">' +
-          '<div class="row between"><h3>' + esc(c.name) + "</h3>" + V.momBadge(clusterStatus(c)) + "</div>" +
-          '<dl class="kv"><dt>Baseline share</dt><dd class="num">' + pct(c.base) + "</dd><dt>Recent share</dt><dd class=\"num\">" + pct(c.recent) + "</dd><dt>Theme</dt><dd>" + V.ilink("#/themes/" + c.themeId, themeName(c.themeId)) + "</dd><dt>First seen</dt><dd>Run " + esc(c.firstSeenRun) + "</dd></dl>" +
-          (c.summary ? '<div class="takeaway"><span class="eyebrow">Agent summary</span><p>' + esc(c.summary) + "</p></div>" : "") +
-          sectionHead("Evidence", (c.sourceIds || []).length + " sources") + '<div class="stack">' + evidence(c.sourceIds) + "</div>" +
+          '<div class="row between"><h3>' + esc(tx(c, "name")) + "</h3>" + V.momBadge(clusterStatus(c)) + "</div>" +
+          '<dl class="kv"><dt>' + T("baseline_share") + '</dt><dd class="num">' + pct(c.base) + "</dd><dt>" + T("recent_share") + '</dt><dd class="num">' + pct(c.recent) + "</dd><dt>" + T("theme") + "</dt><dd>" + V.ilink("#/themes/" + c.themeId, themeName(c.themeId)) + "</dd><dt>" + T("first_seen") + "</dt><dd>" + esc(T("run_n", { n: c.firstSeenRun })) + "</dd></dl>" +
+          (c.summary ? '<div class="takeaway"><span class="eyebrow">' + T("agent_summary") + "</span><p>" + esc(tx(c, "summary")) + "</p></div>" : "") +
+          sectionHead(T("evidence"), T("n_sources", { n: (c.sourceIds || []).length })) + '<div class="stack">' + evidence(c.sourceIds) + "</div>" +
         "</div></div>";
-    V.slopeChart($("#em-slope"), clusters.map(function (x) { return { name: x.name, short: x.name.length > 18 ? x.name.slice(0, 17) + "…" : x.name, base: x.base, recent: x.recent }; }), $("#em-slope-table"), ["Baseline", "Recent"]);
+    V.slopeChart($("#em-slope"), clusters.map(function (x) { var nm = tx(x, "name"); return { name: nm, short: nm.length > 18 ? nm.slice(0, 17) + "…" : nm, base: x.base, recent: x.recent }; }), $("#em-slope-table"), [T("baseline"), T("recent")]);
   }
 
   function renderQuestions() {
     var el = $("#page-questions");
     var q = questions.filter(function (x) { return x.id === sel.questions; })[0] || questions[0];
-    var hist = (q.history || []).map(function (h) { var r = runs.filter(function (x) { return x.id === h.runId; })[0]; return { label: (r ? "Run " + r.n + " · " : "") + V.fmtDate(h.date), short: h.short, text: h.text }; });
+    var hist = (q.history || []).map(function (h) { var r = runs.filter(function (x) { return x.id === h.runId; })[0]; return { label: (r ? T("run_n", { n: r.n }) + " · " : "") + V.fmtDate(h.date), short: tx(h, "short"), text: tx(h, "text") }; });
     el.innerHTML = '<div class="split">' +
-      '<div class="pane">' + sectionHead("Research questions", questions.filter(answered).length + " of " + questions.length + " answered") + '<div role="listbox" aria-label="Research questions">' + questions.map(function (x) {
-        return '<button class="pick stacked" role="option" data-pick="questions" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === q.id) + '"><span class="nm"><span class="qn">' + esc(x.num) + "</span> " + esc(x.text) + "</span>" + V.confidence(x.confidence || 0, "") + '<span class="sub">' + esc(x.short || "Not answered yet") + "</span></button>";
+      '<div class="pane">' + sectionHead(T("p_questions"), T("rq_answered", { a: questions.filter(answered).length, b: questions.length })) + '<div role="listbox" aria-label="' + esc(T("p_questions")) + '">' + questions.map(function (x) {
+        return '<button class="pick stacked" role="option" data-pick="questions" data-id="' + esc(x.id) + '" aria-selected="' + (x.id === q.id) + '"><span class="nm"><span class="qn">' + esc(x.num) + "</span> " + esc(qText(x)) + "</span>" + V.confidence(x.confidence || 0, "") + '<span class="sub">' + esc(tx(x, "short") || T("not_answered_yet")) + "</span></button>";
       }).join("") + "</div></div>" +
       '<div class="pane stack" id="questions-detail">' +
-        V.rqCard({ num: q.num, text: q.text, short: q.short, answer: q.answer, confidence: q.confidence, posts: q.posts, change: q.change, tags: (q.themeIds || []).map(themeName) }) +
-        (hist.length ? '<div class="stack tight"><span class="eyebrow">How the answer changed</span>' + V.timeline(hist) + "</div>" : "") +
-        sectionHead("Evidence", (q.sourceIds || []).length + " sources") + '<div class="stack">' + evidence(q.sourceIds) + "</div>" +
+        V.rqCard({ num: q.num, text: qText(q), short: tx(q, "short"), answer: tx(q, "answer"), confidence: q.confidence, posts: q.posts, change: q.change ? { status: q.change.status, label: tx(q.change, "label") } : null, tags: (q.themeIds || []).map(themeName) }) +
+        (hist.length ? '<div class="stack tight"><span class="eyebrow">' + T("how_changed") + "</span>" + V.timeline(hist) + "</div>" : "") +
+        sectionHead(T("evidence"), T("n_sources", { n: (q.sourceIds || []).length })) + '<div class="stack">' + evidence(q.sourceIds) + "</div>" +
       "</div></div>";
   }
 
@@ -290,41 +365,41 @@
       if (filt.platform && s.site !== filt.platform) return false;
       if (!filt.sents[s.sentiment]) return false;
       if (filt.newOnly && !isNewSource(s)) return false;
-      if (q && ((s.title || "") + " " + (s.content || "") + " " + (s.takeaway || "") + " " + (s.parentTitle || "")).toLowerCase().indexOf(q) < 0) return false;
+      if (q && ((s.title || "") + " " + (s.content || "") + " " + (s.takeaway || "") + " " + tx(s, "takeaway") + " " + (s.parentTitle || "")).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
   }
   function renderSources() {
     var el = $("#page-sources");
-    if (!sources.length) { el.innerHTML = empty("No sources yet", NO_RUNS); return; }
+    if (!sources.length) { el.innerHTML = empty(T("p_sources"), T("no_runs")); return; }
     var sites = []; sources.forEach(function (s) { if (sites.indexOf(s.site) < 0) sites.push(s.site); });
     var plat = V.platformEngagement(sources);
     el.innerHTML =
-      '<div class="block"><div class="section-head"><h3>Engagement by platform' + V.infoTip("Interactions = reactions (upvotes, likes) + 2 × comments/replies + 3 × reposts/shares − downvotes, using the counts shown when each post was captured. Views are shown on posts but not counted. Each post's score (0–100) compares it only with posts from the same platform.", "Engagement by platform") + "</h3><p>Captured sources only</p></div>" +
-        '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>Platform</th><th class="r">Posts</th><th class="r">With counts</th><th class="r">Interactions</th><th class="r">Median per post</th><th>Share of interactions</th></tr></thead><tbody>' +
+      '<div class="block"><div class="section-head"><h3>' + T("eng_by_platform") + V.infoTip(T("eng_info"), T("eng_by_platform")) + "</h3><p>" + T("captured_only") + "</p></div>" +
+        '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>' + T("th_platform") + '</th><th class="r">' + T("posts") + '</th><th class="r">' + T("th_with_counts") + '</th><th class="r">' + T("th_interactions") + '</th><th class="r">' + T("th_median") + "</th><th>" + T("th_share") + "</th></tr></thead><tbody>" +
         plat.map(function (p) { return '<tr><td><div class="row">' + V.platform(p.platform) + "<span>" + esc(p.site) + '</span></div></td><td class="r num">' + p.posts + '</td><td class="r num">' + p.withCounts + '</td><td class="r num">' + V.fmtNum(p.interactions) + '</td><td class="r num">' + V.fmtNum(p.median) + '</td><td><div class="share-meter"><div class="bar"><i style="width:' + p.share + '%"></i></div><span class="num">' + p.share + "%</span></div></td></tr>"; }).join("") +
         "</tbody></table></div></div>" +
       '<div class="filter-bar">' +
-        '<div class="search">' + V.icon("i-search") + '<input class="input" id="f-q" type="search" placeholder="Search title, text or takeaway" aria-label="Search sources" value="' + esc(filt.q) + '"></div>' +
-        '<select class="select" id="f-theme" aria-label="Theme"><option value="">All themes</option>' + C.themes.map(function (t) { return '<option value="' + t.id + '"' + (filt.theme === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>"; }).join("") + "</select>" +
-        '<select class="select" id="f-site" aria-label="Source"><option value="">All sources</option>' + sites.map(function (s) { return '<option' + (filt.platform === s ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("") + "</select>" +
+        '<div class="search">' + V.icon("i-search") + '<input class="input" id="f-q" type="search" placeholder="' + esc(T("search_ph")) + '" aria-label="' + esc(T("search_aria")) + '" value="' + esc(filt.q) + '"></div>' +
+        '<select class="select" id="f-theme" aria-label="' + esc(T("theme")) + '"><option value="">' + T("all_themes") + "</option>" + C.themes.map(function (t) { return '<option value="' + t.id + '"' + (filt.theme === t.id ? " selected" : "") + ">" + esc(tx(t, "name")) + "</option>"; }).join("") + "</select>" +
+        '<select class="select" id="f-site" aria-label="' + esc(T("source")) + '"><option value="">' + T("all_sources") + "</option>" + sites.map(function (s) { return '<option value="' + esc(s) + '"' + (filt.platform === s ? " selected" : "") + ">" + esc(s) + "</option>"; }).join("") + "</select>" +
         ["neg", "neu", "pos", "mix"].map(function (k) { return '<span class="chip" role="button" tabindex="0" data-chip data-sent="' + k + '" aria-pressed="' + filt.sents[k] + '">' + V.SENT[k] + "</span>"; }).join("") +
-        '<span class="spacer"></span><label class="toggle"><input type="checkbox" id="f-new"' + (filt.newOnly ? " checked" : "") + "> New only</label>" +
+        '<span class="spacer"></span><label class="toggle"><input type="checkbox" id="f-new"' + (filt.newOnly ? " checked" : "") + "> " + T("new_only") + "</label>" +
       "</div>" +
       '<div class="split list-wide">' +
-        '<div class="pane"><div class="section-head"><h3>Sources</h3><p id="src-count"></p></div><div class="table-wrap"><table class="tbl clickable" id="src-table"><thead><tr>' +
-          '<th aria-sort="none"><button type="button" data-sort="site">Source</button></th><th>Title / text</th><th aria-sort="none"><button type="button" data-sort="sentiment">Sentiment</button></th><th aria-sort="none"><button type="button" data-sort="engScore">Engagement</button></th><th class="r" aria-sort="descending"><button type="button" data-sort="postedAt">Posted</button></th>' +
+        '<div class="pane"><div class="section-head"><h3>' + T("p_sources") + '</h3><p id="src-count"></p></div><div class="table-wrap"><table class="tbl clickable" id="src-table"><thead><tr>' +
+          '<th aria-sort="none"><button type="button" data-sort="site">' + T("source") + "</button></th><th>" + T("th_title_text") + '</th><th aria-sort="none"><button type="button" data-sort="sentiment">' + T("sentiment") + '</button></th><th aria-sort="none"><button type="button" data-sort="engScore">' + T("th_engagement") + '</button></th><th class="r" aria-sort="descending"><button type="button" data-sort="postedAt">' + T("th_posted") + "</button></th>" +
         "</tr></thead><tbody></tbody></table></div></div>" +
         '<div class="pane stack" id="sources-detail"></div>' +
       "</div>";
     var tableApi = V.sortableTable($("#src-table"), filteredSources(), function (s) {
-      return '<tr data-id="' + esc(s.id) + '" class="' + (isNewSource(s) ? "is-new " : "") + (s.id === sel.sources ? "is-selected" : "") + '"><td><div class="row">' + V.platform(s.platform) + "<span>" + esc(s.site) + '</span></div></td><td><div class="clamp">' + esc(s.title || s.parentTitle || "") + (s.title || s.parentTitle ? " — " : "") + esc(s.content) + "</div></td><td>" + V.sentBadge(s.sentiment) + "</td><td>" + V.engScoreChip(s) + '</td><td class="r mono"' + (s.postedApprox ? ' title="Approximate (' + esc(s.postedApprox) + ')"' : "") + '>' + V.fmtPosted(s) + "</td></tr>";
+      return '<tr data-id="' + esc(s.id) + '" class="' + (isNewSource(s) ? "is-new " : "") + (s.id === sel.sources ? "is-selected" : "") + '"><td><div class="row">' + V.platform(s.platform) + "<span>" + esc(s.site) + '</span></div></td><td><div class="clamp">' + esc(s.title || s.parentTitle || "") + (s.title || s.parentTitle ? " — " : "") + esc(s.content) + "</div></td><td>" + V.sentBadge(s.sentiment) + "</td><td>" + V.engScoreChip(s) + '</td><td class="r mono"' + (s.postedApprox ? ' title="' + esc(T("approx", { x: V.relLabel(s.postedApprox) })) + '"' : "") + ">" + V.fmtPosted(s) + "</td></tr>";
     }, { key: "postedAt", dir: -1 });
     function refresh() {
       var list = filteredSources();
       tableApi.setRows(list);
-      $("#src-count").textContent = list.length + " of " + sources.length;
-      if (!list.length) $("#sources-detail").innerHTML = '<div class="empty">' + V.icon("i-inbox", 32) + "<h4>No sources match these filters</h4><p>Try a wider filter.</p></div>";
+      $("#src-count").textContent = T("n_of_m", { a: list.length, b: sources.length });
+      if (!list.length) $("#sources-detail").innerHTML = '<div class="empty">' + V.icon("i-inbox", 32) + "<h4>" + T("no_match") + "</h4><p>" + T("wider") + "</p></div>";
       else { if (!list.some(function (s) { return s.id === sel.sources; })) sel.sources = list[0].id; showSource(); }
     }
     function showSource() {
@@ -348,77 +423,85 @@
     var comp = D.competitor || {};
     var ids = sources.filter(function (s) { return s.competitor || (s.themeIds || []).indexOf("comparison") >= 0; }).map(function (s) { return s.id; });
     (comp.sourceIds || []).forEach(function (id) { if (ids.indexOf(id) < 0) ids.push(id); });
-    if (!comp.summary && !ids.length) { el.innerHTML = empty("No Magic Cue mentions yet", "Magic Cue is tracked only when it comes up in Now Nudge conversations."); return; }
-    el.innerHTML = '<div class="card stack"><span class="eyebrow">Agent summary · secondary to the study</span><p>' + esc(comp.summary || "") + "</p></div>" +
-      '<div class="block">' + sectionHead("Mentions", ids.length + " sources") + '<div class="card-grid">' + evidence(ids) + "</div></div>";
+    if (!comp.summary && !ids.length) { el.innerHTML = empty(T("no_mc"), T("no_mc_text")); return; }
+    el.innerHTML = '<div class="card stack"><span class="eyebrow">' + T("comp_eyebrow") + "</span><p>" + esc(tx(comp, "summary") || "") + "</p></div>" +
+      '<div class="block">' + sectionHead(T("mentions"), T("n_sources", { n: ids.length })) + '<div class="card-grid">' + evidence(ids) + "</div></div>";
   }
 
   function setupKv() {
     var w = C.windows;
-    return '<dl class="kv"><dt>Feature</dt><dd>' + esc(D.meta.feature) + "</dd><dt>Competitor</dt><dd>" + esc(D.meta.competitor) + '</dd><dt>Study window</dt><dd class="mono">' + V.fmtDate(w.study.from) + " → " + V.fmtDate(w.study.to) + '</dd><dt>Recent window</dt><dd class="mono">' + V.fmtDate(w.recent.from) + " → " + V.fmtDate(w.recent.to) + '</dd><dt>Baseline window</dt><dd class="mono">' + V.fmtDate(w.baseline.from) + " → " + V.fmtDate(w.baseline.to) + "</dd><dt>Sources</dt><dd>" + C.sources.map(function (s) { return esc(s.name); }).join(", ") + "</dd><dt>Keywords</dt><dd>" + C.keywords.primary.map(esc).join(", ") + '<br><span class="muted-text">' + esc(C.keywords.note) + "</span></dd></dl>";
+    return '<dl class="kv"><dt>' + T("k_feature") + "</dt><dd>" + esc(tx(D.meta, "feature")) + "</dd><dt>" + T("k_competitor") + "</dt><dd>" + esc(tx(D.meta, "competitor")) + "</dd><dt>" + T("k_study") + '</dt><dd class="mono">' + V.fmtDate(w.study.from) + " → " + V.fmtDate(w.study.to) + "</dd><dt>" + T("k_recent") + '</dt><dd class="mono">' + V.fmtDate(w.recent.from) + " → " + V.fmtDate(w.recent.to) + "</dd><dt>" + T("k_baseline") + '</dt><dd class="mono">' + V.fmtDate(w.baseline.from) + " → " + V.fmtDate(w.baseline.to) + "</dd><dt>" + T("k_sources") + "</dt><dd>" + C.sources.map(function (s) { return esc(tx(s, "name")); }).join(", ") + "</dd><dt>" + T("k_keywords") + "</dt><dd>" + C.keywords.primary.map(esc).join(", ") + '<br><span class="muted-text">' + esc(V.getLang() === "ko" && C.ko ? C.ko.keywordsNote : C.keywords.note) + "</span></dd></dl>";
   }
   /* Method page: how the study is run, from VOC-Method.md */
   function renderMethod() {
+    var lims = V.getLang() === "ko" && C.ko && C.ko.limitations ? C.ko.limitations : C.limitations;
     $("#page-method").innerHTML =
-      '<div class="block">' + sectionHead("Study setup", "") + '<div class="card">' + setupKv() + "</div></div>" +
-      '<div class="block">' + sectionHead("Sources considered", (C.sourceList || []).length + " sources · from VOC-Method.md") + '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>Platform</th><th>Source</th><th>Type</th><th>Scope</th><th>Status</th></tr></thead><tbody>' +
+      '<div class="block">' + sectionHead(T("study_setup"), "") + '<div class="card">' + setupKv() + "</div></div>" +
+      '<div class="block">' + sectionHead(T("sources_considered"), T("sc_sub", { n: (C.sourceList || []).length })) + '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>' + T("th_platform") + "</th><th>" + T("source") + "</th><th>" + T("th_type") + "</th><th>" + T("th_scope") + "</th><th>" + T("status") + "</th></tr></thead><tbody>" +
         (C.sourceList || []).map(function (s) {
           var dom = s.url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
-          return '<tr><td>' + V.platform(s.platform) + "</td><td>" + V.xlink(s.url, s.name, dom) + "</td><td>" + esc(s.type) + "</td><td>" + esc(s.scope) + "</td><td>" + (s.status === "Active" ? '<span class="status good">' + V.icon("i-check", 14) + "Active</span>" : '<span class="status warning">' + V.icon("i-warn", 14) + esc(s.status) + "</span>") + "</td></tr>";
+          return "<tr><td>" + V.platform(s.platform) + "</td><td>" + V.xlink(s.url, s.name, dom) + "</td><td>" + esc(T(s.type)) + "</td><td>" + esc(T(s.scope)) + "</td><td>" + (s.status === "Active" ? '<span class="status good">' + V.icon("i-check", 14) + T("Active") + "</span>" : '<span class="status warning">' + V.icon("i-warn", 14) + esc(T(s.status)) + "</span>") + "</td></tr>";
         }).join("") + "</tbody></table></div></div>" +
-      '<div class="grid-2 equal"><div class="block">' + sectionHead("Research questions", "") + '<div class="card"><ol class="list stack">' + C.researchQuestions.map(function (q) { return "<li>" + V.ilink("#/questions/" + q.id, q.num + " · " + q.text) + "</li>"; }).join("") + "</ol></div></div>" +
-      '<div class="block">' + sectionHead("Limitations", "") + '<div class="card"><ul class="list stack">' + C.limitations.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("") + "</ul></div></div></div>" +
-      '<div class="block">' + sectionHead("Theme codebook", C.themes.length + " themes") + '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>Theme</th><th>What it covers</th><th>Answers</th></tr></thead><tbody>' + C.themes.map(function (t) {
-        return "<tr><td>" + V.ilink("#/themes/" + t.id, t.name) + "</td><td>" + esc(t.definition) + "</td><td>" + (t.rq.length ? t.rq.map(function (id) { return id.toUpperCase(); }).join(", ") : "Secondary") + "</td></tr>";
+      '<div class="grid-2 equal"><div class="block">' + sectionHead(T("p_questions"), "") + '<div class="card"><ol class="list stack">' + C.researchQuestions.map(function (q) { return "<li>" + V.ilink("#/questions/" + q.id, q.num + " · " + tx(q, "text")) + "</li>"; }).join("") + "</ol></div></div>" +
+      '<div class="block">' + sectionHead(T("limitations"), "") + '<div class="card"><ul class="list stack">' + lims.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("") + "</ul></div></div></div>" +
+      '<div class="block">' + sectionHead(T("codebook"), T("n_themes", { n: C.themes.length })) + '<div class="table-wrap"><table class="tbl compact"><thead><tr><th>' + T("theme") + "</th><th>" + T("th_covers") + "</th><th>" + T("answers") + "</th></tr></thead><tbody>" + C.themes.map(function (t) {
+        return "<tr><td>" + V.ilink("#/themes/" + t.id, tx(t, "name")) + "</td><td>" + esc(tx(t, "definition")) + "</td><td>" + (t.rq.length ? t.rq.map(function (id) { return id.toUpperCase(); }).join(", ") : T("secondary")) + "</td></tr>";
       }).join("") + "</tbody></table></div></div>" +
-      '<div class="block">' + sectionHead("Files", "") + '<div class="card row">' + V.xlink("../VOC-Method.md", "VOC-Method.md", "local file") + V.xlink("../Feature-Background.md", "Feature-Background.md", "local file") + V.xlink("../AGENT-UPDATE-GUIDE.md", "AGENT-UPDATE-GUIDE.md", "local file") + V.xlink("design-system.html", "Design system", "local file") + "</div></div>";
+      '<div class="block">' + sectionHead(T("files"), "") + '<div class="card row">' + V.xlink("../VOC-Method.md", "VOC-Method.md", T("local_file")) + V.xlink("../Feature-Background.md", "Feature-Background.md", T("local_file")) + V.xlink("../AGENT-UPDATE-GUIDE.md", "AGENT-UPDATE-GUIDE.md", T("local_file")) + V.xlink("design-system.html", T("design_system"), T("local_file")) + "</div></div>";
   }
 
   function renderAgent() {
-    $("#runs").innerHTML = runs.length ? runs.map(function (r, i) { return V.agentRun(r, i === 0); }).join("") : '<div class="empty">' + V.icon("i-agent", 32) + "<h4>No runs yet</h4><p>Each time the agent runs a VoC check, its summary and links appear here.</p></div>";
+    $("#runs").innerHTML = runs.length ? runs.map(function (r, i) {
+      var view = Object.assign({}, r, { links: (r.links || []).map(function (l) { return l; }) });
+      return V.agentRun(view, i === 0);
+    }).join("") : '<div class="empty">' + V.icon("i-agent", 32) + "<h4>" + T("no_runs_title") + "</h4><p>" + T("no_runs_text") + "</p></div>";
   }
 
   function renderBanners() {
     var b = [];
-    if (D.meta.isSample) b.push('<div class="banner warning" role="status">' + V.icon("i-warn") + "<div><b>Sample data, not study data.</b> Open index.html without <span class=\"mono\">?sample</span> to see the real study.</div></div>");
+    if (D.meta.isSample) b.push('<div class="banner warning" role="status">' + V.icon("i-warn") + "<div>" + T("sample_banner") + "</div></div>");
     if (latest) {
       var days = Math.round((Date.now() - new Date(latest.date + "T00:00:00").getTime()) / 864e5);
-      if (days > 14) b.push('<div class="banner warning" role="status">' + V.icon("i-warn") + "<div><b>Data is " + days + " days old.</b> The last run was on " + V.fmtDate(latest.date) + ". Ask the agent to run a new VoC check.</div></div>");
+      if (days > 14) b.push('<div class="banner warning" role="status">' + V.icon("i-warn") + "<div>" + T("stale_banner", { d: days, date: esc(V.fmtDate(latest.date)) }) + "</div></div>");
       var failed = (latest.sourcesChecked || []).filter(function (s) { return s.status !== "ok"; });
-      if (failed.length) b.push('<div class="banner critical" role="alert">' + V.icon("i-warn") + "<div><b>" + failed.length + (failed.length === 1 ? " source" : " sources") + " could not be checked in Run " + latest.n + ".</b> Numbers for this run leave them out: " +
-        failed.map(function (s) { return esc(s.name) + (s.note ? " (" + esc(s.note) + ")" : ""); }).join(", ") + ".</div></div>");
+      if (failed.length) b.push('<div class="banner critical" role="alert">' + V.icon("i-warn") + "<div>" + T("failed_banner", { n: failed.length, what: failed.length === 1 ? T("one_source") : T("many_sources"), r: latest.n,
+        list: failed.map(function (s) { return esc(tx(s, "name")) + (s.note ? " (" + esc(tx(s, "note")) + ")" : ""); }).join(", ") }) + "</div></div>");
     }
     $("#banners").innerHTML = b.join("");
   }
 
   function renderHeader() {
-    $("#asof").innerHTML = latest ? '<span class="live"></span>As of Run ' + latest.n + " · " + V.fmtDate(latest.date) + " · " + (latest.totalPosts || 0).toLocaleString("en-GB") + " posts" : "No runs yet";
+    $("#asof").innerHTML = latest ? '<span class="live"></span>' + esc(T("asof", { n: latest.n, date: V.fmtDate(latest.date), p: (latest.totalPosts || 0).toLocaleString("en-GB") })) : esc(T("no_runs_title"));
     var cmp = $("#compare");
-    cmp.innerHTML = runs.length > 1 ? runs.slice(1).map(function (r) { return '<option value="' + r.n + '"' + (compareRun && r.n === compareRun.n ? " selected" : "") + ">Run " + r.n + " · " + V.fmtDate(r.date) + "</option>"; }).join("") : "<option>No earlier run</option>";
+    cmp.innerHTML = runs.length > 1 ? runs.slice(1).map(function (r) { return '<option value="' + r.n + '"' + (compareRun && r.n === compareRun.n ? " selected" : "") + ">" + esc(T("compare_opt", { n: r.n, date: V.fmtDate(r.date) })) + "</option>"; }).join("") : "<option>" + esc(T("no_earlier")) + "</option>";
     cmp.disabled = runs.length < 2;
   }
 
+  /* Static labels in the page shell */
+  function renderStatic() {
+    $$("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    $$("[data-i18n-title]").forEach(function (el) { var s = T(el.getAttribute("data-i18n-title")); el.title = s; el.setAttribute("aria-label", s); });
+  }
+
   var RENDER = { overview: renderOverview, trend: renderTrend, themes: renderThemes, emerging: renderEmerging, questions: renderQuestions, sources: renderSources, competitor: renderCompetitor, method: renderMethod };
-  function renderAll() { renderHeader(); renderBanners(); renderAgent(); Object.keys(RENDER).forEach(function (k) { RENDER[k](); }); afterRender(document); }
+  function renderAll() { renderStatic(); renderHeader(); renderBanners(); renderAgent(); Object.keys(RENDER).forEach(function (k) { RENDER[k](); }); afterRender(document); }
   function afterRender(scope) { V.wireTableToggles(scope); V.wireSourcePreviews(scope); V.wireInfoTips(scope); }
 
   /* ---------- Router: #/page or #/page/item ---------- */
-  var current = "overview";
-  function route() {
+  function route(noScroll) {
     var parts = (location.hash || "#/overview").replace(/^#\/?/, "").split("/");
-    var page = PAGES.some(function (p) { return p.id === parts[0]; }) ? parts[0] : "overview";
+    var page = PAGES.indexOf(parts[0]) >= 0 ? parts[0] : "overview";
     var item = parts[1] ? decodeURIComponent(parts[1]) : null;
     if (item && sel.hasOwnProperty(page)) { sel[page] = item; RENDER[page](); afterRender($("#page-" + page)); }
-    current = page;
-    PAGES.forEach(function (p) { $("#page-" + p.id).hidden = p.id !== page; });
-    var meta = PAGES.filter(function (p) { return p.id === page; })[0];
-    $("#crumb").textContent = meta.label; $("#page-title").textContent = meta.label;
-    document.title = meta.label + " · Nudge Sense";
+    PAGES.forEach(function (id) { $("#page-" + id).hidden = id !== page; });
+    $("#crumb").textContent = pageLabel(page); $("#page-title").textContent = pageLabel(page);
+    document.title = pageLabel(page) + " · Nudge Sense";
     renderNav(page);
+    if (noScroll === true) return;
     var target = item ? ($("#" + page + "-detail") || $("#page-" + page)) : (page === "trend" && parts[1] === "heatmap" ? $("#trend-heatmap") : null);
     if (target) { target.scrollIntoView({ behavior: "smooth", block: "start" }); V.flash(target); } else window.scrollTo(0, 0);
   }
-  window.addEventListener("hashchange", route);
+  window.addEventListener("hashchange", function () { route(); });
 
   /* Split-view picks navigate through the router so links stay shareable */
   document.addEventListener("click", function (e) {
@@ -439,7 +522,11 @@
   $("#scrim").addEventListener("click", function () { app.classList.remove("agent-open"); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") app.classList.remove("agent-open"); });
 
+  /* ---------- Language: re-render everything in place, keep the current page and scroll ---------- */
+  V.onLangChange(function () { var y = window.scrollY; renderAll(); route(true); window.scrollTo(0, y); });
+
   V.initTheme();
+  V.initLang();
   renderAll();
   route();
 })();

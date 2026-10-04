@@ -4,7 +4,7 @@
    Used by design-system.html (documentation) and index.html (dashboard).
    Edit components HERE; both pages update.
    ========================================================= */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap");
 
 /* =========================================================
    1. TOKENS — light is the base; dark redefines tokens only
@@ -50,7 +50,7 @@
   --vol-hover:#8f8f8f;
 
   /* Type */
-  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "IBM Plex Sans", "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --fs-xs: 12px; --fs-sm: 13px; --fs-md: 14px; --fs-lg: 16px; --fs-xl: 20px; --fs-2xl: 28px;
   /* Space (4pt) */
@@ -103,6 +103,8 @@ a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 [hidden] { display: none !important; }
 .num { font-variant-numeric: tabular-nums; }
+/* Korean: keep words whole when wrapping */
+:root:lang(ko) body { word-break: keep-all; overflow-wrap: anywhere; }
 .mono { font-family: var(--mono); }
 .eyebrow { font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

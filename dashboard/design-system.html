@@ -352,6 +352,22 @@
             </div>
           </div>
           <p class="spec-note"><b>.full</b> stretches the options to fill the capsule equally. Used for the theme switch in the dashboard sidebar.</p>
+          <div class="spec-head" style="margin-top:var(--s5)"><h3>Language switch</h3><code>.segmented.full [data-lang-set] · VOC.initLang()</code></div>
+          <div class="stage" style="max-width:240px">
+            <div class="segmented full" role="group" aria-label="Language example" data-seg>
+              <button type="button" aria-pressed="true">English</button>
+              <button type="button" aria-pressed="false">한국어</button>
+            </div>
+          </div>
+          <p class="spec-note"><b>Two languages: English and Korean.</b> Buttons carry <code>data-lang-set="en|ko"</code>. With no saved choice, the browser language decides. Switching re-renders the page in place and keeps the current page and scroll position.</p>
+          <dl class="kv" style="margin-top:var(--s3)">
+            <dt>Interface text</dt><dd><code>VOC.t(key, vars)</code> from the dictionary in <code>voc-ds.js</code>; pages add their own strings with <code>VOC.addStrings({ en, ko })</code></dd>
+            <dt>Agent-written data</dt><dd><code>VOC.tx(obj, field)</code> returns <code>obj.ko[field]</code> in Korean, otherwise the English field</dd>
+            <dt>Verbatim sources</dt><dd>Never translated: titles and content always show exactly as posted</dd>
+            <dt>Dates</dt><dd><code>VOC.fmtDate</code>: "03 Oct 2026" / "2026. 10. 3."; <code>VOC.monthLabel</code>: "Mar" / "3월"</dd>
+            <dt>Type</dt><dd>IBM Plex Sans KR is loaded for Hangul; Korean text wraps with <code>word-break: keep-all</code></dd>
+          </dl>
+          <p class="spec-note">This documentation page itself stays in English; the components above render in whichever language the page sets.</p>
         </div>
       </div>
     </section>

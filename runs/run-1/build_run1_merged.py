@@ -6,6 +6,7 @@ from sources_run1 import SOURCES as S1
 from sources_run1_x import SOURCES_X as S2
 from sources_run1_reddit import SOURCES_REDDIT as S3
 from sources_run1_blogs import SOURCES_BLOGS as S4
+from ko_run1 import KO
 DATA = os.path.join(ROOT, "dashboard", "voc-data.js")
 TODAY = "2026-10-03"
 W = {"study": ("2026-02-25", TODAY), "recent": ("2026-08-04", TODAY), "baseline": ("2026-02-25", "2026-08-03")}
@@ -105,15 +106,15 @@ Q = {
  "q1": (lambda s: any(t in s["themeIds"] for t in ["triggering","exclusivity","coverage","setup","keyboard","languages"]) and s["sentiment"] in ("neg","mix"),
         "Mostly: it doesn't show up.", "The biggest problem is that nudges don't appear: they never show, stop showing, or 'barely show up', and Reddit, X and the Samsung forums all agree. After that: patchy support beyond three messaging apps, confusion about what the feature is (it's mistaken for Writing Assist), older phones being left out, possible region locks, and needing Samsung Keyboard.", ["triggering","exclusivity","coverage","setup","keyboard"]),
  "q2": (lambda s: any(t in s["themeIds"] for t in ["triggering","anticipation"]),
-        "Mostly no.", "Mostly no. People ask for photos or try to arrange meetings in WhatsApp and get nothing. Some only get reply suggestions, which turn out to be Writing Assist. It works for some in Samsung Messages or Google Messages, and one user says it worked at first and stopped after a late-March update.", ["triggering","anticipation"]),
+        "Mostly no.", "People ask for photos or try to arrange meetings in WhatsApp and get nothing. Some only get reply suggestions, which turn out to be Writing Assist. It works for some in Samsung Messages or Google Messages, and one user says it worked at first and stopped after a late-March update.", ["triggering","anticipation"]),
  "q3": (lambda s: "anticipation" in s["themeIds"],
         "Dates, times and places in chats.", "When a chat mentions a date, a time or a place, when a friend shares a location, when someone asks 'can you send the photos from yesterday?', or when clients ask whether they're free, as shown at Unpacked and on Fold 8 demo units.", ["anticipation"]),
  "q4": (lambda s: "usefulness" in s["themeIds"],
         "Yes, when it works.", "People who get it working like saving places from chats, opening shared locations in Maps and typing less; some on X call it 'how AI should be implemented'. Others call it a gimmick, but mostly because it rarely appears, not because the suggestions are bad.", ["usefulness"]),
  "q5": (lambda s: "privacy" in s["themeIds"] or "intrusiveness" in s["themeIds"],
-        "Some do, mostly over privacy.", "Some do. On Reddit, a few call it an annoying nag (one compares it to Navi's 'Hey, Listen!') and several see screen reading as a privacy risk, like Windows Recall; others note processing stays on the device. Few complain it appears too often, because it rarely appears.", ["privacy","intrusiveness"]),
+        "Some do, mostly over privacy.", "On Reddit, a few call it an annoying nag (one compares it to Navi's 'Hey, Listen!') and several see screen reading as a privacy risk, like Windows Recall; others note processing stays on the device. Few complain it appears too often, because it rarely appears.", ["privacy","intrusiveness"]),
  "q6": (lambda s: "coverage" in s["themeIds"],
-        "Yes, especially WhatsApp.", "Yes. People chat in WhatsApp and Telegram, but users say full nudges only work in Samsung Messages, Google Messages and Google Chat, with WhatsApp limited to reply suggestions in most regions. One UI 9's notification and floating-button suggestions may widen this.", ["coverage"]),
+        "Yes, especially WhatsApp.", "People chat in WhatsApp and Telegram, but users say full nudges only work in Samsung Messages, Google Messages and Google Chat, with WhatsApp limited to reply suggestions in most regions. One UI 9's notification and floating-button suggestions may widen this.", ["coverage"]),
 }
 questions = []
 for qid, (pred, short, ans, th) in Q.items():
@@ -121,7 +122,8 @@ for qid, (pred, short, ans, th) in Q.items():
     questions.append({"id": qid, "short": short, "answer": ans, "posts": len(l), "confidence": c,
                       "change": {"status": "new", "label": "Answered this run" if c else "Not enough data yet"},
                       "themeIds": th, "sourceIds": top(l, 8),
-                      "history": [{"runId": "run-1", "date": TODAY, "short": short, "text": "First answer (Run 1: Samsung communities + X, %d posts)." % len(l)}]})
+                      "history": [{"runId": "run-1", "date": TODAY, "short": short, "text": "First answer (Run 1: forums, Reddit, X and press, %d posts)." % len(l),
+                                   "ko": {"text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 %d건)." % len(l)}}]})
 
 def ins(i, title, body, status, l, th):
     p, u, x = split([byid[k] for k in l]); return {"id": i, "title": title, "body": body, "status": status, "pos": p, "neu": u, "neg": x, "posts": len(l), "themeIds": th, "sourceIds": top(l, 8)}
@@ -172,7 +174,10 @@ run = {
  "snapshot": {"posts": N, "net": net, "emerging": emerging, "answered": answered}
 }
 comp = ids(lambda s: s.get("competitor"))
-competitor = {"summary": "Magic Cue comes up in %d of %d posts, all from press. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. Users on the forums and X don't compare the two." % (len(comp), N), "sourceIds": comp}
+nCompPress = sum(1 for i in comp if byid[i]["userType"] == "Reviewer or press")
+competitor = {"summary": "Magic Cue comes up in %d of %d posts: %d from press and %d from users. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. On Reddit, one Pixel owner calls Magic Cue excellent and says lacking Now Nudge is a deal breaker, while another found Google's version unreliable." % (len(comp), N, nCompPress, len(comp) - nCompPress),
+              "ko": {"summary": "Magic Cue는 게시물 %d건 중 %d건에서 언급되며, 언론 %d건, 사용자 %d건입니다. 출시 기사들은 Now Nudge를 삼성판 Magic Cue로 소개하며 언팩에서는 더 일관적이었다고 평가했지만, 한 리뷰어는 이후 일상 사용에서 두 기능 모두 한 번도 보지 못했습니다. Reddit에서는 한 Pixel 사용자가 Magic Cue가 훌륭하다며 Now Nudge가 없는 것은 결정적인 단점이라고 했고, 다른 사용자는 구글 버전도 신뢰하기 어려웠다고 했습니다." % (N, len(comp), nCompPress, len(comp) - nCompPress)},
+              "sourceIds": comp}
 
 for s in src: s.pop("_cl", None)
 raw = open(DATA).read(); k = "window.VOC_DATA = {"; head = raw[:raw.index(k)]
@@ -195,9 +200,45 @@ for sub in ["r/galaxys26ultra", "r/samsunggalaxy", "r/GalaxyFold", "r/GalaxyS24"
     if sub not in have:
         D["config"]["sourceList"].insert(5, {"platform": "r/", "name": sub, "url": "https://www.reddit.com/" + sub + "/", "type": "Subreddit", "scope": "Primary", "status": "Active"})
 if "Samsung (official or bot)" not in D["config"]["userTypes"]: D["config"]["userTypes"].append("Samsung (official or bot)")
+run["ko"] = {"summary": [
+  "기준 실행: 게시물 %d건 (삼성 커뮤니티 %d건, Reddit %d건(수동 수집), X %d건, 언론 기사 %d건)." % (N, nForum, nR, nX, nPress),
+  "전반적인 감성은 부정적입니다(순 감성 %+d). 포럼과 X 모두 대부분의 게시물이 Nudge가 아예 나타나지 않는다고 말합니다." % net
+] + [KO.get(x, x) for x in run["summary"][2:]]}
 D["runs"] = [run]
 D["trend"] = {"grain": "month", "periods": periods}
 D.update({"themes": themes, "clusters": clusters, "questions": questions, "insights": insights, "sources": src, "competitor": competitor})
+# ---- Korean: attach translations of agent-written text (verbatim source text is never translated) ----
+missing = set()
+def ko(obj, *fields):
+    for f in fields:
+        v = obj.get(f)
+        if not v: continue
+        if v in KO: obj.setdefault("ko", {})[f] = KO[v]
+        else: missing.add(v)
+cfg = D["config"]
+for t in cfg["themes"]: ko(t, "name", "definition")
+for q in cfg["researchQuestions"]: ko(q, "text")
+for e in cfg["events"]: ko(e, "label")
+for x in cfg["sources"]: ko(x, "name", "detail")
+cfg["ko"] = {"limitations": [KO.get(l, l) for l in cfg["limitations"]], "keywordsNote": KO.get(cfg["keywords"]["note"], cfg["keywords"]["note"])}
+for l in cfg["limitations"]:
+    if l not in KO: missing.add(l)
+D["meta"]["ko"] = {"feature": KO.get(D["meta"]["feature"]), "competitor": KO.get(D["meta"]["competitor"])}
+for t in D["themes"]: ko(t, "summary")
+for c in D["clusters"]: ko(c, "name", "summary")
+for q in D["questions"]:
+    ko(q, "short", "answer"); ko(q["change"], "label")
+    for h in q["history"]: ko(h, "short")
+for i in D["insights"]: ko(i, "title", "body")
+for r in D["runs"]:
+    for l in r["links"]:
+        if l["type"] == "internal": ko(l, "label", "section")
+    for g in r["changes"].values():
+        for it in g:
+            if isinstance(it, dict): ko(it, "label")
+    for c in r["sourcesChecked"]: ko(c, "name", "note")
+for x in D["sources"]: ko(x, "takeaway")
+print("KO missing:", len(missing)); [print("  -", m) for m in sorted(missing)]
 open(DATA, "w").write(head + "window.VOC_DATA = " + json.dumps(D, ensure_ascii=False, indent=2) + "\n;\n")
 print("N", N, "added", added, "net", net, "emerging", emerging, "answered", answered)
 print([(q["id"], q["posts"], q["confidence"], q["change"]["status"]) for q in questions])

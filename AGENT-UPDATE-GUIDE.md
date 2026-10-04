@@ -183,6 +183,29 @@ Add this to the **start** of `runs[]`:
 
 ---
 
+## 3b. Korean version (required on every run)
+
+The dashboard has an **English / 한국어** switch. Every piece of text **you write** needs a Korean copy, stored next to the English in a `ko` object:
+
+| Where | Add |
+|---|---|
+| `sources[]` | `"ko": { "takeaway": "…" }` |
+| `themes[]` | `"ko": { "summary": "…" }` |
+| `clusters[]` | `"ko": { "name": "…", "summary": "…" }` |
+| `questions[]` | `"ko": { "short": "…", "answer": "…" }`, `change.ko.label`, and each new `history[]` entry's `ko.short` / `ko.text` |
+| `insights[]` | `"ko": { "title": "…", "body": "…" }` |
+| `runs[]` (new entry) | `"ko": { "summary": [ … ] }`, each internal link's `ko.label` / `ko.section`, each `changes` item's `ko.label`, each `sourcesChecked` item's `ko.name` / `ko.note` |
+| `competitor` | `"ko": { "summary": "…" }` |
+| `config` (only if you change it) | new themes' `ko.name` / `ko.definition`, events' `ko.label`, `config.ko.limitations` |
+
+**Rules:**
+- **Never translate verbatim source text** (`title`, `content`, `parentTitle`). Korean readers see posts exactly as written, in their original language.
+- Keep product names in English: Now Nudge, Now Brief, Galaxy AI, One UI, Magic Cue, Gboard. Use 삼성 키보드 for Samsung Keyboard.
+- Use plain, neutral Korean (합니다체), short sentences.
+- If a Korean copy is missing, the dashboard falls back to English for that item, so a gap is visible rather than broken.
+
+---
+
 ## 4. Internal link routes
 
 The dashboard opens these when a link is clicked. Never write `#/` yourself; the dashboard adds it.
@@ -263,7 +286,8 @@ Every `<themeId>`, `<clusterId>` and `<qId>` must exist in the data.
 - [ ] Theme `pos`+`neu`+`neg` = 100; `byPeriod` length = `trend.periods` length
 - [ ] New run added at the start of `runs[]`; question `history` entries added at the start
 - [ ] Failed sources are recorded in `sourcesChecked`
-- [ ] Open `dashboard/index.html` and check that it loads without errors
+- [ ] Every new agent-written text has its Korean copy (`ko`), and verbatim text is untouched
+- [ ] Open `dashboard/index.html` and check that it loads without errors, in English and in 한국어
 
 ---
 

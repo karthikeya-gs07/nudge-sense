@@ -25,3 +25,6 @@ Shared files load over HTTP, not from a `data:`/file preview. Use the `voc-dashb
 
 ## Run rule (always follow)
 Every VoC run is **incremental**: collect only what was posted **since the last run** (`runs[0].date` in `dashboard/voc-data.js`), skip URLs already captured, and recalculate all dashboard numbers over all runs combined. Details: `AGENT-UPDATE-GUIDE.md` §3.
+
+## Languages (always follow)
+The dashboard is bilingual (English / 한국어). UI strings live in the `voc-ds.js` dictionary (`VOC.t`) or a page's `VOC.addStrings`; agent-written data carries a `ko` copy (`VOC.tx`). Never translate verbatim source text. Any new UI text must be added in both languages. Details: `AGENT-UPDATE-GUIDE.md` §3b.

@@ -23,12 +23,110 @@
   function css(name) { return getComputedStyle(root).getPropertyValue(name).trim(); }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function signed(n) { return (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n); }
-  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  function fmtDate(iso) { if (!iso) return ""; var p = iso.split("-"); return p[2] + " " + MON[+p[1] - 1] + " " + p[0]; }
+
+  /* ---------- Language (English / Korean) ----------
+     UI text lives in I18N; agent-written data text carries an optional "ko" object (obj.ko.field).
+     Verbatim source text (titles, content) is never translated. */
+  var I18N = {
+    en: {
+      posts_per_period: "Posts per period", net_sentiment: "Net sentiment", posts: "Posts", more_n: "+{n} more",
+      period: "Period", event: "Event", theme: "Theme", pos_short: "Pos", neu_short: "Neu", neg_short: "Neg",
+      baseline: "Baseline", last60: "Last 60 days", status: "Status", no_data: "No data", net_v: "Net {v}",
+      takeaway: "Takeaway", takeaway_colon: "Takeaway:", open: "Open", open_on: "Open on {d}", verbatim: "Verbatim", source: "Source",
+      kind_post: "Post", kind_comment: "Comment", kind_article: "Article", kind_video: "Video comment",
+      on_video: "On video: ", comment_on: "Comment on: ", show_full: "Show full text", show_less: "Show less",
+      removed: "Removed or unavailable since capture", copy_url: "Copy URL", copied: "Copied", open_new: "Open source in new tab",
+      posted: "Posted", captured: "Captured", counts_asof: "counts as of capture", approx_title: "Approximate: the source showed '{x}' on the capture date",
+      eng_reactions: "Reactions", eng_downvotes: "Downvotes", eng_comments: "Comments", eng_shares: "Shares", eng_views: "Views",
+      eng_upvotes: "Upvotes", eng_crossposts: "Crossposts", eng_likes: "Likes", eng_replies: "Replies", eng_reposts: "Reposts",
+      no_eng: "No engagement counts captured", no_counts: "No counts", weighted: "{n} weighted interactions",
+      lvl_low: "Low", lvl_medium: "Medium", lvl_high: "High", not_enough: "Not enough data", posts_n: "{n} posts",
+      not_answered: "Not answered yet.", see_evidence: "See evidence", insight_n: "Insight {n}", see_sources: "See sources", none: "None",
+      run_n: "Run {n}", latest: "Latest", run_meta: "{date} · +{p} posts · {s} sources", run_window: "Posts from {a} to {b}",
+      summary: "Summary", could_not: "{name} could not be checked", go_to: "Go to", key_sources: "Key sources",
+      show_table: "Show as table", show_chart: "Show as chart", about_x: "About {x}",
+      sent_pos: "Positive", sent_neu: "Neutral", sent_neg: "Negative", sent_mix: "Mixed",
+      mom_new: "New", mom_up: "Rising", mom_flat: "Stable", mom_down: "Fading", mom_resolved: "Resolved",
+      split_aria: "{p}% positive, {u}% neutral, {x}% negative"
+    },
+    ko: {
+      posts_per_period: "기간별 게시물", net_sentiment: "순 감성", posts: "게시물", more_n: "+{n}건",
+      period: "기간", event: "이벤트", theme: "테마", pos_short: "긍정", neu_short: "중립", neg_short: "부정",
+      baseline: "기준 기간", last60: "최근 60일", status: "상태", no_data: "데이터 없음", net_v: "순 {v}",
+      takeaway: "시사점", takeaway_colon: "시사점:", open: "열기", open_on: "{d}에서 열기", verbatim: "원문", source: "출처",
+      kind_post: "게시물", kind_comment: "댓글", kind_article: "기사", kind_video: "영상 댓글",
+      on_video: "영상: ", comment_on: "댓글 대상: ", show_full: "전체 보기", show_less: "간단히 보기",
+      removed: "수집 이후 삭제되었거나 볼 수 없음", copy_url: "URL 복사", copied: "복사됨", open_new: "새 탭에서 출처 열기",
+      posted: "게시", captured: "수집", counts_asof: "수집 시점 기준 수치", approx_title: "추정치: 수집일에 출처에 '{x}'(으)로 표시됨",
+      eng_reactions: "반응", eng_downvotes: "비추천", eng_comments: "댓글", eng_shares: "공유", eng_views: "조회수",
+      eng_upvotes: "추천", eng_crossposts: "크로스포스트", eng_likes: "좋아요", eng_replies: "답글", eng_reposts: "재게시",
+      no_eng: "수집된 참여 수치 없음", no_counts: "수치 없음", weighted: "가중 상호작용 {n}건",
+      lvl_low: "낮음", lvl_medium: "보통", lvl_high: "높음", not_enough: "데이터 부족", posts_n: "게시물 {n}건",
+      not_answered: "아직 답변되지 않았습니다.", see_evidence: "근거 보기", insight_n: "인사이트 {n}", see_sources: "출처 보기", none: "없음",
+      run_n: "실행 {n}", latest: "최신", run_meta: "{date} · 게시물 +{p}건 · 출처 {s}곳", run_window: "{a} ~ {b} 게시물",
+      summary: "요약", could_not: "{name} 확인 불가", go_to: "바로가기", key_sources: "주요 출처",
+      show_table: "표로 보기", show_chart: "차트로 보기", about_x: "{x} 설명",
+      sent_pos: "긍정", sent_neu: "중립", sent_neg: "부정", sent_mix: "혼합",
+      mom_new: "신규", mom_up: "증가", mom_flat: "유지", mom_down: "감소", mom_resolved: "해결됨",
+      split_aria: "긍정 {p}%, 중립 {u}%, 부정 {x}%"
+    }
+  };
+  var lang = "en";
+  var langListeners = [];
+  function t(key, vars) {
+    var s = (I18N[lang] && I18N[lang][key] != null) ? I18N[lang][key] : (I18N.en[key] != null ? I18N.en[key] : key);
+    if (vars) s = s.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; });
+    return s;
+  }
+  var tr = t; /* alias for functions where "t" is a data row */
+  /* Register page-level strings: VOC.addStrings({ en:{...}, ko:{...} }) */
+  function addStrings(map) { Object.keys(map).forEach(function (l) { I18N[l] = Object.assign(I18N[l] || {}, map[l]); }); }
+  /* Translated data text: obj.ko[field] in Korean when present, else the English field */
+  function tx(obj, field) {
+    if (!obj) return "";
+    if (lang !== "en" && obj[lang] && obj[lang][field] != null) return obj[lang][field];
+    return obj[field];
+  }
+  function getLang() { return lang; }
+  function setLang(l, persist) {
+    lang = I18N[l] ? l : "en";
+    root.setAttribute("lang", lang);
+    refreshVocab();
+    $$("[data-lang-set]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.langSet === lang)); });
+    if (persist !== false) { try { localStorage.setItem("voc-lang", lang); } catch (e) {} }
+    langListeners.forEach(function (fn) { fn(lang); });
+  }
+  function onLangChange(fn) { langListeners.push(fn); }
+  /* Two-way switch (English / 한국어). With no saved choice, start from the browser language. */
+  function initLang() {
+    $$("[data-lang-set]").forEach(function (b) { b.addEventListener("click", function () { if (b.dataset.langSet !== lang) setLang(b.dataset.langSet); }); });
+    var saved = null;
+    try { saved = localStorage.getItem("voc-lang"); } catch (e) {}
+    if (!I18N[saved]) saved = /^ko/i.test(navigator.language || "") ? "ko" : "en";
+    setLang(saved, false);
+  }
+
+  var MON_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function fmtDate(iso) {
+    if (!iso) return ""; var p = iso.split("-");
+    if (lang === "ko") return p[0] + ". " + (+p[1]) + ". " + (+p[2]) + ".";
+    return p[2] + " " + MON_EN[+p[1] - 1] + " " + p[0];
+  }
+  /* Month label from "YYYY-MM": short ("Mar" / "3월") or long ("Mar 2026" / "2026년 3월") */
+  function monthLabel(key, long) {
+    var p = String(key).split("-"), m = +p[1];
+    if (lang === "ko") return long ? p[0] + "년 " + m + "월" : m + "월";
+    return long ? MON_EN[m - 1] + " " + p[0] : MON_EN[m - 1];
+  }
+  /* Relative time as shown by a source ("4 months ago"), in the current language */
+  function relLabel(s) {
+    if (lang !== "ko" || !s) return s;
+    return String(s).replace(/(\d+)\s*months? ago/, "$1개월 전").replace(/(\d+)\s*days? ago/, "$1일 전").replace(/(\d+)\s*hours? ago/, "$1시간 전");
+  }
   /* Posted date: approximate dates (s.postedApprox, e.g. "4 months ago" as shown by the source) render as "~Jun 2026" */
   function fmtPosted(s) {
     if (!s || !s.postedAt) return "";
-    if (s.postedApprox) { var p = s.postedAt.split("-"); return "~" + MON[+p[1] - 1] + " " + p[0]; }
+    if (s.postedApprox) return "~" + monthLabel(s.postedAt.slice(0, 7), true);
     return fmtDate(s.postedAt);
   }
   function icon(id, size) { size = size || 16; return '<svg width="' + size + '" height="' + size + '" aria-hidden="true"><use href="#' + id + '"/></svg>'; }
@@ -91,8 +189,7 @@
   }
 
   /* ---------- Vocabulary ---------- */
-  var SENT = { pos: "Positive", neu: "Neutral", neg: "Negative", mix: "Mixed" };
-  var MOM_LABEL = { new: "New", up: "Rising", flat: "Stable", down: "Fading", resolved: "Resolved" };
+  var SENT = {}, MOM_LABEL = {};
   var MOM_ICON = { new: "i-new", up: "i-up", flat: "i-flat", down: "i-down", resolved: "i-check" };
   /* Momentum from share of conversation: ±25% relative change = rising / fading */
   function momentum(base, recent) {
@@ -101,13 +198,25 @@
     return r >= 0.25 ? "up" : r <= -0.25 ? "down" : "flat";
   }
 
+  /* Vocabulary objects follow the current language (refreshed by setLang) */
+  function refreshVocab() {
+    ["pos", "neu", "neg", "mix"].forEach(function (k) { SENT[k] = t("sent_" + k); });
+    ["new", "up", "flat", "down", "resolved"].forEach(function (k) { MOM_LABEL[k] = t("mom_" + k); });
+    ["post", "comment", "article", "video"].forEach(function (k) { KIND[k] = t("kind_" + k); });
+    ["reactions", "downvotes", "comments", "shares", "views"].forEach(function (k) { ENG_DEFAULT[k] = t("eng_" + k); });
+    var L = function (r, c, s) { var o = { reactions: t("eng_" + r), comments: t("eng_" + c) }; if (s) o.shares = t("eng_" + s); return o; };
+    ENG_LABELS["r/"] = L("upvotes", "comments", "crossposts"); ENG_LABELS.X = L("likes", "replies", "reposts");
+    ENG_LABELS.YT = L("likes", "replies"); ENG_LABELS.SM = L("likes", "replies"); ENG_LABELS.XDA = L("reactions", "replies"); ENG_LABELS.BL = L("likes", "replies");
+    ENG_LEVEL.length = 0; ENG_LEVEL.push("", t("lvl_low"), t("lvl_medium"), t("lvl_high"));
+  }
+
   /* ---------- Small components (return HTML strings) ---------- */
   function sentBadge(s) { return '<span class="badge sent-' + s + '"><span class="sw"></span>' + SENT[s] + "</span>"; }
   function momBadge(m, label) { return '<span class="badge mom' + (m === "new" ? " new" : "") + '">' + icon(MOM_ICON[m], 12) + esc(label || MOM_LABEL[m]) + "</span>"; }
   function tag(text, isUser) { return '<span class="tag' + (isUser ? " user" : "") + '">' + esc(text) + "</span>"; }
   function platform(code, title) { return '<span class="platform"' + (title ? ' title="' + esc(title) + '"' : "") + ">" + esc(code) + "</span>"; }
   function splitBar(pos, neu, neg) {
-    return '<div class="split-bar" role="img" aria-label="' + pos + "% positive, " + neu + "% neutral, " + neg + '% negative"><span class="p" style="width:' + pos + '%"></span><span class="n" style="width:' + neu + '%"></span><span class="x" style="width:' + neg + '%"></span></div>';
+    return '<div class="split-bar" role="img" aria-label="' + esc(t("split_aria", { p: pos, u: neu, x: neg })) + '"><span class="p" style="width:' + pos + '%"></span><span class="n" style="width:' + neu + '%"></span><span class="x" style="width:' + neg + '%"></span></div>';
   }
   function confidence(level, text) {
     return '<span class="confidence" data-level="' + level + '"><span class="track"><i></i><i></i><i></i></span>' + esc(text) + "</span>";
@@ -119,7 +228,7 @@
   function xlink(url, text, domain, stacked) {
     var a = '<a class="xlink" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer"';
     if (stacked) return a + ">" + icon("i-external") + '<span><span class="ln-text">' + esc(text) + '</span><span class="ln-sub">' + esc(domain) + "</span></span></a>";
-    if (!text) return a + ' aria-label="Open on ' + esc(domain) + '">' + icon("i-external", 14) + "</a>";
+    if (!text) return a + ' aria-label="' + esc(t("open_on", { d: domain })) + '">' + icon("i-external", 14) + "</a>";
     return a + '><span class="label">' + esc(text) + '</span><span class="domain">' + esc(domain) + "</span>" + icon("i-external", 14) + "</a>";
   }
   function delta(dir, text, note) {
@@ -146,7 +255,7 @@
   /* ---------- Stat tile ---------- */
   /* Info tip: small "i" button that explains a number or chart on hover, focus or tap */
   function infoTip(text, about) {
-    return '<button type="button" class="info-tip" data-info="' + esc(text) + '" aria-label="' + esc("About " + (about || "this")) + ": " + esc(text) + '">' + icon("i-info", 14) + "</button>";
+    return '<button type="button" class="info-tip" data-info="' + esc(text) + '" aria-label="' + esc(t("about_x", { x: about || "" })) + ": " + esc(text) + '">' + icon("i-info", 14) + "</button>";
   }
   function statTile(t) {
     return '<div class="tile"><span class="label-row"><span class="label">' + esc(t.label) + "</span>" + (t.info ? infoTip(t.info, t.label) : "") + '</span><span class="value">' + esc(t.value) + '</span><div class="foot">' + delta(t.dir || "flat", t.delta || "", t.note) + sparkline(t.spark) + "</div></div>";
@@ -191,10 +300,10 @@
       svgEl("line", { x1: L, x2: W - R, y1: y2(t), y2: y2(t), class: t === 0 ? "zero" : "gridline" }, svg);
       svgEl("text", { x: L - 8, y: y2(t) + 4, "text-anchor": "end" }, svg).textContent = t;
     });
-    svgEl("text", { x: L, y: top2 - 8 }, svg).textContent = "Posts per period";
+    svgEl("text", { x: L, y: top2 - 8 }, svg).textContent = t("posts_per_period");
     evGroups.forEach(function (ev, k) {
       var x = cx(ev.i), row = k % rows, fy = 4 + row * 20;
-      var suffix = ev.labels.length > 1 ? "  +" + (ev.labels.length - 1) + " more" : "";
+      var suffix = ev.labels.length > 1 ? "  " + t("more_n", { n: ev.labels.length - 1 }) : "";
       var maxChars = Math.max(8, Math.floor((step * 2 - 16) / 6)) - suffix.length;
       var label = ev.labels[0].length > maxChars ? ev.labels[0].slice(0, maxChars - 1) + "…" : ev.labels[0];
       label += suffix;
@@ -228,10 +337,10 @@
       bars.forEach(function (b, j) { b.setAttribute("fill", j === i ? "var(--vol-hover)" : "var(--vol)"); });
       dots.forEach(function (c, j) { c.setAttribute("r", j === i ? 6 : 4.5); });
       var ev = evGroups.filter(function (e) { return e.i === i; })[0];
-      showTip('<div class="tt-title">' + esc(data.tipLabels ? data.tipLabels[i] : data.labels[i]) + "</div>" + tipRow("Net sentiment", signed(data.net[i]), data.net[i] >= 0 ? "var(--pos)" : "var(--neg)") + tipRow("Posts", data.vol[i], "var(--vol)") + (ev ? ev.labels.map(function (l) { return '<div style="margin-top:4px;color:var(--muted)">⚑ ' + esc(l) + "</div>"; }).join("") : ""), evt.clientX, evt.clientY);
+      showTip('<div class="tt-title">' + esc(data.tipLabels ? data.tipLabels[i] : data.labels[i]) + "</div>" + tipRow(t("net_sentiment"), signed(data.net[i]), data.net[i] >= 0 ? "var(--pos)" : "var(--neg)") + tipRow(t("posts"), data.vol[i], "var(--vol)") + (ev ? ev.labels.map(function (l) { return '<div style="margin-top:4px;color:var(--muted)">⚑ ' + esc(l) + "</div>"; }).join("") : ""), evt.clientX, evt.clientY);
     });
     hit.addEventListener("mouseleave", function () { cross.setAttribute("opacity", 0); hideTip(); bars.forEach(function (b) { b.setAttribute("fill", "var(--vol)"); }); dots.forEach(function (c) { c.setAttribute("r", 4.5); }); });
-    if (tableEl) tableEl.innerHTML = "<thead><tr><th>Period</th><th class='r'>Net sentiment</th><th class='r'>Posts</th><th>Event</th></tr></thead><tbody>" + data.labels.map(function (m, i) {
+    if (tableEl) tableEl.innerHTML = "<thead><tr><th>" + t("period") + "</th><th class='r'>" + t("net_sentiment") + "</th><th class='r'>" + t("posts") + "</th><th>" + t("event") + "</th></tr></thead><tbody>" + data.labels.map(function (m, i) {
       var ev = (data.events || []).filter(function (e) { return e.i === i; })[0];
       return "<tr><td>" + esc(data.tipLabels ? data.tipLabels[i] : m) + "</td><td class='r num'>" + signed(data.net[i]) + "</td><td class='r num'>" + data.vol[i] + "</td><td>" + (ev ? esc(ev.label) : "") + "</td></tr>";
     }).join("") + "</tbody>";
@@ -248,12 +357,12 @@
     $$(".hbar-row", el).forEach(function (row) {
       var t = rows[+row.dataset.i];
       row.addEventListener("mousemove", function (e) {
-        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow("Positive", t.pos + "%", "var(--pos)") + tipRow("Neutral", t.neu + "%", "var(--neu)") + tipRow("Negative", t.neg + "%", "var(--neg)") + tipRow("Posts", t.vol), e.clientX, e.clientY);
+        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow(SENT.pos, t.pos + "%", "var(--pos)") + tipRow(SENT.neu, t.neu + "%", "var(--neu)") + tipRow(SENT.neg, t.neg + "%", "var(--neg)") + tipRow(tr("posts"), t.vol), e.clientX, e.clientY);
       });
       row.addEventListener("mouseleave", hideTip);
       if (t.href) { row.style.cursor = "pointer"; row.addEventListener("click", function () { location.hash = t.href.replace(/^#/, ""); }); }
     });
-    if (tableEl) tableEl.innerHTML = "<thead><tr><th>Theme</th><th class='r'>Posts</th><th class='r'>Pos</th><th class='r'>Neu</th><th class='r'>Neg</th></tr></thead><tbody>" + rows.map(function (t) {
+    if (tableEl) tableEl.innerHTML = "<thead><tr><th>" + tr("theme") + "</th><th class='r'>" + tr("posts") + "</th><th class='r'>" + tr("pos_short") + "</th><th class='r'>" + tr("neu_short") + "</th><th class='r'>" + tr("neg_short") + "</th></tr></thead><tbody>" + rows.map(function (t) {
       return "<tr><td>" + esc(t.name) + "</td><td class='r num'>" + t.vol + "</td><td class='r num'>" + t.pos + "%</td><td class='r num'>" + t.neu + "%</td><td class='r num'>" + t.neg + "%</td></tr>";
     }).join("") + "</tbody>";
   }
@@ -270,7 +379,7 @@
     return items;
   }
   function slopeChart(svg, rows, tableEl, labels) {
-    labels = labels || ["Baseline", "Last 60 days"];
+    labels = labels || [tr("baseline"), tr("last60")];
     svg.innerHTML = "";
     /* Draw at the real pixel width so labels stay 11px; redraw when the card resizes */
     var measured = Math.round(svg.getBoundingClientRect().width);
@@ -315,11 +424,11 @@
       var t = rows[+g.getAttribute("data-i")];
       g.addEventListener("mousemove", function (e) {
         groups.forEach(function (o) { o.setAttribute("opacity", o === g ? 1 : 0.25); });
-        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow(labels[0], t.base + "%") + tipRow(labels[1], t.recent + "%") + tipRow("Status", MOM_LABEL[momentum(t.base, t.recent)]), e.clientX, e.clientY);
+        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow(labels[0], t.base + "%") + tipRow(labels[1], t.recent + "%") + tipRow(tr("status"), MOM_LABEL[momentum(t.base, t.recent)]), e.clientX, e.clientY);
       });
       g.addEventListener("mouseleave", function () { groups.forEach(function (o) { o.setAttribute("opacity", 1); }); hideTip(); });
     });
-    if (tableEl) tableEl.innerHTML = "<thead><tr><th>Theme</th><th class='r'>" + esc(labels[0]) + "</th><th class='r'>" + esc(labels[1]) + "</th><th>Status</th></tr></thead><tbody>" + rows.map(function (t) {
+    if (tableEl) tableEl.innerHTML = "<thead><tr><th>" + tr("theme") + "</th><th class='r'>" + esc(labels[0]) + "</th><th class='r'>" + esc(labels[1]) + "</th><th>" + tr("status") + "</th></tr></thead><tbody>" + rows.map(function (t) {
       return "<tr><td>" + esc(t.name) + "</td><td class='r num'>" + t.base + "%</td><td class='r num'>" + t.recent + "%</td><td>" + MOM_LABEL[momentum(t.base, t.recent)] + "</td></tr>";
     }).join("") + "</tbody>";
   }
@@ -333,7 +442,7 @@
     if (v <= 5) return "--hm-0"; if (v < 20) return "--hm-p1"; if (v < 40) return "--hm-p2"; return "--hm-p3";
   }
   function scaleLegend(el) {
-    el.innerHTML = '<span>Negative</span><span class="steps">' + HM_STEPS.map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>Positive</span>";
+    el.innerHTML = "<span>" + SENT.neg + '</span><span class="steps">' + HM_STEPS.map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + SENT.pos + "</span>";
   }
   function heatmap(el, rows, cols, tableEl) {
     el.style.gridTemplateColumns = "160px repeat(" + cols.length + ", minmax(36px, 1fr))";
@@ -347,11 +456,11 @@
     $$(".hm-cell", el).forEach(function (cell) {
       cell.addEventListener("mousemove", function (e) {
         var t = rows[+cell.dataset.r], v = t.values[+cell.dataset.c];
-        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow(cols[+cell.dataset.c], v == null ? "No data" : "Net " + signed(v)), e.clientX, e.clientY);
+        showTip('<div class="tt-title">' + esc(t.name) + "</div>" + tipRow(cols[+cell.dataset.c], v == null ? tr("no_data") : tr("net_v", { v: signed(v) })), e.clientX, e.clientY);
       });
       cell.addEventListener("mouseleave", hideTip);
     });
-    if (tableEl) tableEl.innerHTML = "<thead><tr><th>Theme</th>" + cols.map(function (m) { return "<th class='r'>" + esc(m) + "</th>"; }).join("") + "</tr></thead><tbody>" + rows.map(function (t) {
+    if (tableEl) tableEl.innerHTML = "<thead><tr><th>" + tr("theme") + "</th>" + cols.map(function (m) { return "<th class='r'>" + esc(m) + "</th>"; }).join("") + "</tr></thead><tbody>" + rows.map(function (t) {
       return "<tr><td>" + esc(t.name) + "</td>" + t.values.map(function (v) { return "<td class='r num'>" + (v == null ? "–" : signed(v)) + "</td>"; }).join("") + "</tr>";
     }).join("") + "</tbody>";
   }
@@ -362,8 +471,8 @@
     return '<article class="card src-card' + (p.isNew ? " is-new" : "") + '"' + (p.id ? ' id="' + esc(p.id) + '"' : "") + '>' +
       '<div class="src-meta">' + platform(p.platform) + '<span class="where">' + esc(p.where) + '</span><span>·</span><span class="mono">' + fmtDate(p.date) + "</span>" + (p.userType ? "<span>·</span>" + tag(p.userType, true) : "") + "</div>" +
       '<p class="src-quote">"' + esc(p.quote) + '"</p>' +
-      '<div class="takeaway"><span class="eyebrow">Takeaway</span><p>' + esc(p.takeaway) + "</p></div>" +
-      '<div class="src-foot">' + (p.theme ? tag(p.theme) : "") + sentBadge(p.sentiment) + (p.momentum ? momBadge(p.momentum) : p.isNew ? momBadge("new") : "") + xlink(p.url, "Open", p.domain) + "</div></article>";
+      '<div class="takeaway"><span class="eyebrow">' + t("takeaway") + '</span><p>' + esc(p.takeaway) + "</p></div>" +
+      '<div class="src-foot">' + (p.theme ? tag(p.theme) : "") + sentBadge(p.sentiment) + (p.momentum ? momBadge(p.momentum) : p.isNew ? momBadge("new") : "") + xlink(p.url, t("open"), p.domain) + "</div></article>";
   }
   /* Compact source row. Text falls back to the verbatim title, then content.
      p.href (optional) makes the text an internal link to the full source. */
@@ -372,7 +481,7 @@
     var date = p.date || p.postedAt;
     var dateTxt = p.postedApprox ? fmtPosted(p) : (date ? fmtDate(date) : "");
     var q = p.href ? '<a class="q" href="' + esc(p.href) + '">' + text + "</a>" : '<div class="q">' + text + "</div>";
-    return '<div class="src-row">' + platform(p.platform) + "<div>" + q + '<div class="t"><b>Takeaway:</b> ' + esc(p.takeaway) + (dateTxt ? ' · <span class="mono">' + dateTxt + "</span>" : "") + "</div></div>" + xlink(p.url, "", p.domain) + "</div>";
+    return '<div class="src-row">' + platform(p.platform) + "<div>" + q + '<div class="t"><b>' + t("takeaway_colon") + "</b> " + esc(p.takeaway) + (dateTxt ? ' · <span class="mono">' + dateTxt + "</span>" : "") + "</div></div>" + xlink(p.url, "", p.domain) + "</div>";
   }
 
 
@@ -383,16 +492,7 @@
      Score 0–100 = log-scaled against the most-engaged captured post on the SAME platform,
      so a big subreddit doesn't drown out a small forum. Level: High ≥ 67, Medium ≥ 34, else Low. */
   var ENG_KEYS = ["reactions", "downvotes", "comments", "shares", "views"];
-  var ENG_DEFAULT = { reactions: "Reactions", downvotes: "Downvotes", comments: "Comments", shares: "Shares", views: "Views" };
-  var ENG_LABELS = {
-    "r/": { reactions: "Upvotes", comments: "Comments", shares: "Crossposts" },
-    "X": { reactions: "Likes", comments: "Replies", shares: "Reposts" },
-    "YT": { reactions: "Likes", comments: "Replies" },
-    "SM": { reactions: "Likes", comments: "Replies" },
-    "XDA": { reactions: "Reactions", comments: "Replies" },
-    "BL": { reactions: "Likes", comments: "Replies" }
-  };
-  var ENG_LEVEL = ["", "Low", "Medium", "High"];
+  var ENG_DEFAULT = {}, ENG_LABELS = {}, ENG_LEVEL = [];
   function engLabels(platformCode) { return Object.assign({}, ENG_DEFAULT, ENG_LABELS[platformCode] || {}); }
   function engRaw(e) {
     if (!e) return null;
@@ -415,14 +515,14 @@
   }
   function fmtNum(n) { return Number(n).toLocaleString("en-GB"); }
   function engScoreChip(s) {
-    if (!s.eng) return '<span class="eng-score is-none">No counts</span>';
-    return '<span class="eng-score" data-level="' + s.eng.level + '" title="' + s.eng.raw + ' weighted interactions">' + '<span class="track"><i></i><i></i><i></i></span>' + s.eng.score + " · " + ENG_LEVEL[s.eng.level] + "</span>";
+    if (!s.eng) return '<span class="eng-score is-none">' + t("no_counts") + "</span>";
+    return '<span class="eng-score" data-level="' + s.eng.level + '" title="' + esc(t("weighted", { n: s.eng.raw })) + '">' + '<span class="track"><i></i><i></i><i></i></span>' + s.eng.score + " · " + ENG_LEVEL[s.eng.level] + "</span>";
   }
   /* Engagement row: raw counts (verbatim) + score chip */
   function engagement(s) {
     var e = s.engagement || {}, L = engLabels(s.platform);
     var m = ENG_KEYS.filter(function (k) { return e[k] != null; }).map(function (k) { return '<span class="eng-m">' + esc(L[k]) + " <b>" + fmtNum(e[k]) + "</b></span>"; }).join("");
-    return '<div class="sv-eng">' + (m || '<span class="eng-m">No engagement counts captured</span>') + engScoreChip(s) + "</div>";
+    return '<div class="sv-eng">' + (m || '<span class="eng-m">' + t("no_eng") + "</span>") + engScoreChip(s) + "</div>";
   }
   /* Per-platform summary: [{ site, platform, posts, withCounts, interactions, median, share }] */
   function platformEngagement(list) {
@@ -445,25 +545,25 @@
           content, truncated, url, postedAt, capturedAt, unavailable,
           takeaway?, theme? | themes?[], sentiment? }
      title / content / url are rendered EXACTLY as given (escaped only). */
-  var KIND = { post: "Post", comment: "Comment", article: "Article", video: "Video comment" };
+  var KIND = {};
   function sourcePreview(s) {
     var h = '<article class="card src-verbatim' + (s.unavailable ? " is-unavailable" : "") + (s.isNew ? " is-new" : "") + '"' + (s.id ? ' id="' + esc(s.id) + '"' : "") + ">";
     h += '<header class="sv-head">' + platform(s.platform) + '<span class="sv-site">' + esc(s.site) + "</span>" + (s.where ? '<span class="sv-where">' + esc(s.where) + "</span>" : "") +
-      (s.isNew ? '<span class="sv-new">' + momBadge("new") + "</span>" : "") + '<span class="badge verbatim">' + icon("i-quote", 12) + "Verbatim · " + (KIND[s.kind] || "Source") + "</span></header>";
+      (s.isNew ? '<span class="sv-new">' + momBadge("new") + "</span>" : "") + '<span class="badge verbatim">' + icon("i-quote", 12) + t("verbatim") + " · " + (KIND[s.kind] || t("source")) + "</span></header>";
     h += '<div class="sv-verbatim">';
-    if (s.parentTitle) h += '<p class="sv-context">' + (s.kind === "video" ? "On video: " : "Comment on: ") + "<span>" + esc(s.parentTitle) + "</span></p>";
+    if (s.parentTitle) h += '<p class="sv-context">' + (s.kind === "video" ? t("on_video") : t("comment_on")) + "<span>" + esc(s.parentTitle) + "</span></p>";
     if (s.title) h += '<h4 class="sv-title">' + esc(s.title) + "</h4>";
     if (s.content) h += '<div class="sv-body">' + esc(s.content) + (s.truncated ? ' <span class="sv-cut">[…]</span>' : "") + "</div>" +
-      '<button class="btn ghost sm sv-more" type="button" hidden>Show full text</button>';
+      '<button class="btn ghost sm sv-more" type="button" hidden>' + t("show_full") + "</button>";
     h += "</div>";
-    if (s.unavailable) h += '<div><span class="status critical">' + icon("i-warn", 14) + "Removed or unavailable since capture</span></div>";
+    if (s.unavailable) h += '<div><span class="status critical">' + icon("i-warn", 14) + t("removed") + "</span></div>";
     h += '<div class="sv-url"><a class="sv-link" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' + esc(s.url) + "</a>" +
-      '<button class="btn ghost sm icon-btn sm" type="button" data-copy="' + esc(s.url) + '" title="Copy URL" aria-label="Copy URL">' + icon("i-copy", 14) + "</button>" +
-      '<a class="btn ghost sm icon-btn sm" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" title="Open source in new tab" aria-label="Open source in new tab">' + icon("i-external", 14) + "</a></div>";
+      '<button class="btn ghost sm icon-btn sm" type="button" data-copy="' + esc(s.url) + '" title="' + t("copy_url") + '" aria-label="' + t("copy_url") + '">' + icon("i-copy", 14) + "</button>" +
+      '<a class="btn ghost sm icon-btn sm" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" title="' + t("open_new") + '" aria-label="' + t("open_new") + '">' + icon("i-external", 14) + "</a></div>";
     if (s.engagement || s.eng !== undefined) h += engagement(s);
-    h += '<div class="sv-foot">' + (s.postedAt ? "<span" + (s.postedApprox ? ' title="Approximate: the source showed \'' + esc(s.postedApprox) + '\' on the capture date"' : "") + ">Posted " + fmtPosted(s) + (s.postedApprox ? " (" + esc(s.postedApprox) + ")" : "") + "</span>" : "") + (s.capturedAt ? "<span>Captured " + fmtDate(s.capturedAt) + (s.engagement && Object.keys(s.engagement).length ? " · counts as of capture" : "") + "</span>" : "") + "</div>";
+    h += '<div class="sv-foot">' + (s.postedAt ? "<span" + (s.postedApprox ? ' title="' + esc(t("approx_title", { x: relLabel(s.postedApprox) })) + '"' : "") + ">" + t("posted") + " " + fmtPosted(s) + (s.postedApprox ? " (" + esc(relLabel(s.postedApprox)) + ")" : "") + "</span>" : "") + (s.capturedAt ? "<span>" + t("captured") + " " + fmtDate(s.capturedAt) + (s.engagement && Object.keys(s.engagement).length ? " · " + t("counts_asof") : "") + "</span>" : "") + "</div>";
     var themeTags = (s.themes || (s.theme ? [s.theme] : [])).map(function (t) { return tag(t); }).join("");
-    if (s.takeaway) h += '<div class="sv-take"><span class="eyebrow">Takeaway</span><p>' + esc(s.takeaway) + "</p>" +
+    if (s.takeaway) h += '<div class="sv-take"><span class="eyebrow">' + t("takeaway") + '</span><p>' + esc(s.takeaway) + "</p>" +
       ((themeTags || s.sentiment) ? '<div class="row">' + themeTags + (s.sentiment ? sentBadge(s.sentiment) : "") + "</div>" : "") + "</div>";
     return h + "</article>";
   }
@@ -474,14 +574,14 @@
       if (b.scrollHeight > b.clientHeight + 2) { b.classList.add("is-clamped"); more.hidden = false; }
       more.addEventListener("click", function () {
         var open = b.classList.toggle("is-open");
-        more.textContent = open ? "Show less" : "Show full text";
+        more.textContent = open ? t("show_less") : t("show_full");
       });
     });
     $$("[data-copy]", scope).forEach(function (btn) {
       if (btn._wired) return; btn._wired = true;
       btn.addEventListener("click", function () {
         var text = btn.getAttribute("data-copy");
-        var done = function () { btn.title = "Copied"; btn.setAttribute("aria-label", "Copied"); setTimeout(function () { btn.title = "Copy URL"; btn.setAttribute("aria-label", "Copy URL"); }, 1500); };
+        var done = function () { btn.title = t("copied"); btn.setAttribute("aria-label", t("copied")); setTimeout(function () { btn.title = t("copy_url"); btn.setAttribute("aria-label", t("copy_url")); }, 1500); };
         var fallback = function () {
           var link = btn.parentNode.querySelector(".sv-link");
           var r = document.createRange(); r.selectNodeContents(link);
@@ -497,7 +597,7 @@
   function routeHref(route) { return "#/" + String(route || "").replace(/^#?\/?/, ""); }
   function itemLink(it) {
     if (typeof it === "string") return esc(it);
-    return it.route ? '<a class="ilink" href="' + esc(routeHref(it.route)) + '">' + esc(it.label) + "</a>" : esc(it.label);
+    return it.route ? '<a class="ilink" href="' + esc(routeHref(it.route)) + '">' + esc(tx(it, "label")) + "</a>" : esc(tx(it, "label"));
   }
   var CHANGE_GROUPS = ["new", "up", "down", "resolved"];
   /* changes: { new:[], up:[], down:[], resolved:[] } — items are strings or { label, route } */
@@ -505,7 +605,7 @@
     ch = ch || {};
     return '<div class="change-groups">' + CHANGE_GROUPS.map(function (g) {
       var items = ch[g] || [];
-      return "<div><h5>" + momBadge(g) + '</h5><ul class="list">' + (items.length ? items.map(function (it) { return "<li>" + itemLink(it) + "</li>"; }).join("") : '<li style="color:var(--muted)">None</li>') + "</ul></div>";
+      return "<div><h5>" + momBadge(g) + '</h5><ul class="list">' + (items.length ? items.map(function (it) { return "<li>" + itemLink(it) + "</li>"; }).join("") : '<li style="color:var(--muted)">' + t("none") + "</li>") + "</ul></div>";
     }).join("") + "</div>";
   }
   /* history: [{ label, short, text }] newest first */
@@ -515,23 +615,23 @@
     }).join("") + "</ol>";
   }
   function confidenceText(level, posts) {
-    if (!level) return "Not enough data" + (posts ? " · " + posts + " posts" : "");
-    return ["", "Low", "Medium", "High"][level] + " · " + posts + " posts";
+    if (!level) return t("not_enough") + (posts ? " · " + t("posts_n", { n: posts }) : "");
+    return ENG_LEVEL[level] + " · " + t("posts_n", { n: posts });
   }
   /* q: { id?, num, text, short, answer, confidence(0-3), posts, change?:{status,label}, tags:[] } */
   function rqCard(q, opts) {
     opts = opts || {};
     var chips = (q.change ? momBadge(q.change.status, q.change.label) : "") + (q.tags || []).map(function (t) { return tag(t); }).join("");
-    return '<article class="card rq-card"' + (q.id ? ' id="' + esc(q.id) + '"' : "") + '><span class="qnum">' + esc(q.num) + "</span><h4>" + esc(q.text) + '</h4><p class="answer">' + (q.short ? "<b>" + esc(q.short) + "</b> " : "") + esc(q.answer || "Not answered yet.") + "</p>" +
+    return '<article class="card rq-card"' + (q.id ? ' id="' + esc(q.id) + '"' : "") + '><span class="qnum">' + esc(q.num) + "</span><h4>" + esc(q.text) + '</h4><p class="answer">' + (q.short ? "<b>" + esc(q.short) + "</b> " : "") + esc(q.answer || t("not_answered")) + "</p>" +
       (chips ? '<div class="row">' + chips + "</div>" : "") +
-      '<div class="meta">' + confidence(q.confidence || 0, confidenceText(q.confidence || 0, q.posts || 0)) + (opts.href ? ilink(opts.href, opts.linkText || "See evidence") : "") + "</div></article>";
+      '<div class="meta">' + confidence(q.confidence || 0, confidenceText(q.confidence || 0, q.posts || 0)) + (opts.href ? ilink(opts.href, opts.linkText || t("see_evidence")) : "") + "</div></article>";
   }
   /* i: { id?, title, body, status?, pos?, neu?, neg?, meta? } */
   function insightCard(i, n, opts) {
     opts = opts || {};
-    return '<article class="card insight"' + (i.id ? ' id="' + esc(i.id) + '"' : "") + '><div class="meta"><span class="eyebrow">Insight ' + n + "</span>" + (i.status ? momBadge(i.status) : "") + "</div><h4>" + esc(i.title) + "</h4><p>" + esc(i.body) + "</p>" +
+    return '<article class="card insight"' + (i.id ? ' id="' + esc(i.id) + '"' : "") + '><div class="meta"><span class="eyebrow">' + t("insight_n", { n: n }) + "</span>" + (i.status ? momBadge(i.status) : "") + "</div><h4>" + esc(i.title) + "</h4><p>" + esc(i.body) + "</p>" +
       (i.pos != null ? splitBar(i.pos, i.neu, i.neg) : "") +
-      '<div class="foot"><span>' + esc(i.meta || "") + "</span>" + (opts.href ? ilink(opts.href, opts.linkText || "See sources") : "") + "</div></article>";
+      '<div class="foot"><span>' + esc(i.meta || "") + "</span>" + (opts.href ? ilink(opts.href, opts.linkText || t("see_sources")) : "") + "</div></article>";
   }
   /* run: { id, n, date, collected?:{from,to}, postsAdded, sourcesChecked:[{name,status,note}], summary:[], links:[{type,label,route,section}|{type,label,url,domain}] } */
   function agentRun(run, latest) {
@@ -540,11 +640,12 @@
     var external = links.filter(function (l) { return l.type === "external"; });
     var checked = run.sourcesChecked || [];
     var failed = checked.filter(function (s) { return s.status !== "ok"; });
-    var h = '<details class="run" id="' + esc(run.id) + '"' + (latest ? " open" : "") + '><summary><span class="run-title">Run ' + esc(run.n) + (latest ? ' <span class="run-badge">Latest</span>' : "") + '</span><svg class="chev" width="14" height="14" aria-hidden="true"><use href="#i-chev"/></svg><span class="run-meta">' + fmtDate(run.date) + " · +" + (run.postsAdded || 0) + " posts · " + checked.length + " sources" + (run.collected ? "<br>Posts from " + fmtDate(run.collected.from) + " to " + fmtDate(run.collected.to) : "") + "</span></summary><div class=\"run-body\">";
-    if (run.summary && run.summary.length) h += "<div><h6>Summary</h6><ul>" + run.summary.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ul></div>";
-    if (failed.length) h += '<div class="stack" style="gap:4px">' + failed.map(function (s) { return '<span class="status critical">' + icon("i-warn", 14) + esc(s.name) + " could not be checked" + (s.note ? " · " + esc(s.note) : "") + "</span>"; }).join("") + "</div>";
-    if (internal.length) h += '<div><h6>Go to</h6><ul class="run-links">' + internal.map(function (l) { return "<li>" + ilink(routeHref(l.route), l.label, l.section || "") + "</li>"; }).join("") + "</ul></div>";
-    if (external.length) h += '<div><h6>Key sources</h6><ul class="run-links">' + external.map(function (l) { return "<li>" + xlink(l.url, l.label, l.domain, true) + "</li>"; }).join("") + "</ul></div>";
+    var h = '<details class="run" id="' + esc(run.id) + '"' + (latest ? " open" : "") + '><summary><span class="run-title">' + esc(t("run_n", { n: run.n })) + (latest ? ' <span class="run-badge">' + t("latest") + "</span>" : "") + '</span><svg class="chev" width="14" height="14" aria-hidden="true"><use href="#i-chev"/></svg><span class="run-meta">' + esc(t("run_meta", { date: fmtDate(run.date), p: run.postsAdded || 0, s: checked.length })) + (run.collected ? "<br>" + esc(t("run_window", { a: fmtDate(run.collected.from), b: fmtDate(run.collected.to) })) : "") + "</span></summary><div class=\"run-body\">";
+    var summ = tx(run, "summary");
+    if (summ && summ.length) h += "<div><h6>" + t("summary") + "</h6><ul>" + summ.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ul></div>";
+    if (failed.length) h += '<div class="stack" style="gap:4px">' + failed.map(function (s) { return '<span class="status critical">' + icon("i-warn", 14) + esc(t("could_not", { name: tx(s, "name") })) + (s.note ? " · " + esc(tx(s, "note")) : "") + "</span>"; }).join("") + "</div>";
+    if (internal.length) h += '<div><h6>' + t("go_to") + '</h6><ul class="run-links">' + internal.map(function (l) { return "<li>" + ilink(routeHref(l.route), tx(l, "label"), tx(l, "section") || "") + "</li>"; }).join("") + "</ul></div>";
+    if (external.length) h += '<div><h6>' + t("key_sources") + '</h6><ul class="run-links">' + external.map(function (l) { return "<li>" + xlink(l.url, l.label, l.domain, true) + "</li>"; }).join("") + "</ul></div>";
     return h + "</div></details>";
   }
 
@@ -572,7 +673,7 @@
         t.hidden = !showTable; c.hidden = showTable;
         btn.setAttribute("aria-pressed", String(showTable));
         btn.innerHTML = icon(showTable ? "i-chart" : "i-table", 14);
-        btn.title = showTable ? "Show as chart" : "Show as table";
+        btn.title = showTable ? t("show_chart") : t("show_table");
         btn.setAttribute("aria-label", btn.title);
       });
     });
@@ -609,7 +710,8 @@
   }
 
   window.VOC = {
-    $: $, $$: $$, svgEl: svgEl, css: css, esc: esc, signed: signed, fmtDate: fmtDate, fmtPosted: fmtPosted, icon: icon, ICONS: ICONS,
+    $: $, $$: $$, svgEl: svgEl, css: css, esc: esc, signed: signed, fmtDate: fmtDate, fmtPosted: fmtPosted, monthLabel: monthLabel, relLabel: relLabel, icon: icon, ICONS: ICONS,
+    t: t, tx: tx, addStrings: addStrings, setLang: setLang, getLang: getLang, initLang: initLang, onLangChange: onLangChange,
     SENT: SENT, MOM_LABEL: MOM_LABEL, momentum: momentum,
     initTheme: initTheme, applyTheme: applyTheme, onThemeChange: onThemeChange,
     showTip: showTip, hideTip: hideTip, tipRow: tipRow,
@@ -623,5 +725,6 @@
     sourceCard: sourceCard, sourceRow: sourceRow, sourcePreview: sourcePreview, wireSourcePreviews: wireSourcePreviews,
     wireTableToggles: wireTableToggles, wireControls: wireControls, sortableTable: sortableTable
   };
+  refreshVocab();
   injectSprite();
 })();

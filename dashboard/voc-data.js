@@ -7,7 +7,11 @@ window.VOC_DATA = {
     "feature": "Now Nudge (Galaxy AI, One UI 8.5)",
     "competitor": "Google Magic Cue (secondary only)",
     "schemaVersion": 1,
-    "isSample": false
+    "isSample": false,
+    "ko": {
+      "feature": "Now Nudge (Galaxy AI, One UI 8.5)",
+      "competitor": "Google Magic Cue (보조 비교 대상)"
+    }
   },
   "config": {
     "windows": {
@@ -28,32 +32,50 @@ window.VOC_DATA = {
       {
         "id": "q1",
         "num": "Q1",
-        "text": "What problems are people facing with this feature?"
+        "text": "What problems are people facing with this feature?",
+        "ko": {
+          "text": "사용자들은 이 기능에서 어떤 문제를 겪고 있나요?"
+        }
       },
       {
         "id": "q2",
         "num": "Q2",
-        "text": "Does it appear when they anticipate it?"
+        "text": "Does it appear when they anticipate it?",
+        "ko": {
+          "text": "기대하는 순간에 나타나나요?"
+        }
       },
       {
         "id": "q3",
         "num": "Q3",
-        "text": "When are people anticipating a Now Nudge?"
+        "text": "When are people anticipating a Now Nudge?",
+        "ko": {
+          "text": "사용자들은 언제 Now Nudge를 기대하나요?"
+        }
       },
       {
         "id": "q4",
         "num": "Q4",
-        "text": "Do people find Now Nudge helpful when it actually works?"
+        "text": "Do people find Now Nudge helpful when it actually works?",
+        "ko": {
+          "text": "실제로 작동할 때 Now Nudge가 도움이 된다고 느끼나요?"
+        }
       },
       {
         "id": "q5",
         "num": "Q5",
-        "text": "Do they feel it is intrusive?"
+        "text": "Do they feel it is intrusive?",
+        "ko": {
+          "text": "방해된다고 느끼나요?"
+        }
       },
       {
         "id": "q6",
         "num": "Q6",
-        "text": "Do they wish it were available on other chatting platforms too?"
+        "text": "Do they wish it were available on other chatting platforms too?",
+        "ko": {
+          "text": "다른 채팅 플랫폼에서도 쓸 수 있기를 바라나요?"
+        }
       }
     ],
     "themes": [
@@ -63,7 +85,11 @@ window.VOC_DATA = {
         "definition": "Nudge helped get something done",
         "rq": [
           "q4"
-        ]
+        ],
+        "ko": {
+          "name": "유용성",
+          "definition": "Nudge가 실제로 일을 처리하는 데 도움이 됨"
+        }
       },
       {
         "id": "accuracy",
@@ -72,7 +98,11 @@ window.VOC_DATA = {
         "rq": [
           "q1",
           "q4"
-        ]
+        ],
+        "ko": {
+          "name": "정확성",
+          "definition": "잘못되었거나 관련 없는 제안"
+        }
       },
       {
         "id": "triggering",
@@ -81,7 +111,11 @@ window.VOC_DATA = {
         "rq": [
           "q1",
           "q2"
-        ]
+        ],
+        "ko": {
+          "name": "표시 / 안정성",
+          "definition": "Nudge가 나타나지 않거나 엉뚱한 때에 나타남"
+        }
       },
       {
         "id": "anticipation",
@@ -90,7 +124,11 @@ window.VOC_DATA = {
         "rq": [
           "q2",
           "q3"
-        ]
+        ],
+        "ko": {
+          "name": "기대 순간",
+          "definition": "사용자가 Nudge를 기대한 상황"
+        }
       },
       {
         "id": "intrusiveness",
@@ -98,7 +136,11 @@ window.VOC_DATA = {
         "definition": "Too many nudges, distracting, annoying",
         "rq": [
           "q5"
-        ]
+        ],
+        "ko": {
+          "name": "빈도 / 방해감",
+          "definition": "너무 잦거나 산만하고 성가신 Nudge"
+        }
       },
       {
         "id": "keyboard",
@@ -106,7 +148,11 @@ window.VOC_DATA = {
         "definition": "Needs Samsung Keyboard; Gboard users miss out",
         "rq": [
           "q1"
-        ]
+        ],
+        "ko": {
+          "name": "키보드 종속",
+          "definition": "삼성 키보드가 필요해 Gboard 사용자는 이용 불가"
+        }
       },
       {
         "id": "coverage",
@@ -114,7 +160,11 @@ window.VOC_DATA = {
         "definition": "Requests for more chat apps or platforms",
         "rq": [
           "q6"
-        ]
+        ],
+        "ko": {
+          "name": "지원 앱 범위",
+          "definition": "더 많은 채팅 앱·플랫폼 지원 요청"
+        }
       },
       {
         "id": "privacy",
@@ -122,7 +172,11 @@ window.VOC_DATA = {
         "definition": "Concerns about the feature reading the screen",
         "rq": [
           "q5"
-        ]
+        ],
+        "ko": {
+          "name": "개인정보",
+          "definition": "화면 내용을 읽는 기능에 대한 우려"
+        }
       },
       {
         "id": "autofill",
@@ -131,7 +185,11 @@ window.VOC_DATA = {
         "rq": [
           "q1",
           "q4"
-        ]
+        ],
+        "ko": {
+          "name": "자동 입력 / Personal Data Intelligence",
+          "definition": "저장된 개인정보로 양식 자동 입력"
+        }
       },
       {
         "id": "exclusivity",
@@ -139,7 +197,11 @@ window.VOC_DATA = {
         "definition": "Not available on S25 or older devices",
         "rq": [
           "q1"
-        ]
+        ],
+        "ko": {
+          "name": "기기 독점",
+          "definition": "S25 및 구형 기기에서 사용 불가"
+        }
       },
       {
         "id": "languages",
@@ -147,7 +209,11 @@ window.VOC_DATA = {
         "definition": "Language or country limits",
         "rq": [
           "q1"
-        ]
+        ],
+        "ko": {
+          "name": "언어 / 지역",
+          "definition": "언어 또는 국가별 제한"
+        }
       },
       {
         "id": "setup",
@@ -155,7 +221,11 @@ window.VOC_DATA = {
         "definition": "Finding, turning on or understanding the feature",
         "rq": [
           "q1"
-        ]
+        ],
+        "ko": {
+          "name": "설정 / 찾기 쉬움",
+          "definition": "기능을 찾고, 켜고, 이해하는 과정"
+        }
       },
       {
         "id": "performance",
@@ -163,13 +233,21 @@ window.VOC_DATA = {
         "definition": "Lag or battery drain linked to the feature",
         "rq": [
           "q1"
-        ]
+        ],
+        "ko": {
+          "name": "배터리 / 성능",
+          "definition": "기능과 관련된 지연 또는 배터리 소모"
+        }
       },
       {
         "id": "comparison",
         "name": "Comparison to Magic Cue",
         "definition": "\"Copy of Magic Cue\", better or worse than Google's",
-        "rq": []
+        "rq": [],
+        "ko": {
+          "name": "Magic Cue와 비교",
+          "definition": "\"Magic Cue 따라하기\", 구글보다 나은지 못한지"
+        }
       }
     ],
     "userTypes": [
@@ -187,32 +265,54 @@ window.VOC_DATA = {
       {
         "code": "r/",
         "name": "Reddit",
-        "detail": "r/samsung, r/galaxys26, r/oneui (main); r/GooglePixel, r/pixel_phones for Magic Cue mentions only"
+        "detail": "r/samsung, r/galaxys26, r/oneui (main); r/GooglePixel, r/pixel_phones for Magic Cue mentions only",
+        "ko": {
+          "name": "Reddit",
+          "detail": "r/samsung, r/galaxys26, r/oneui (주요); r/GooglePixel, r/pixel_phones는 Magic Cue 언급만"
+        }
       },
       {
         "code": "SM",
         "name": "Samsung Members",
-        "detail": "Global and regional communities"
+        "detail": "Global and regional communities",
+        "ko": {
+          "name": "Samsung Members",
+          "detail": "글로벌 및 지역 커뮤니티"
+        }
       },
       {
         "code": "XDA",
         "name": "XDA Forums",
-        "detail": ""
+        "detail": "",
+        "ko": {
+          "name": "XDA Forums"
+        }
       },
       {
         "code": "X",
         "name": "X",
-        "detail": ""
+        "detail": "",
+        "ko": {
+          "name": "X"
+        }
       },
       {
         "code": "YT",
         "name": "YouTube",
-        "detail": "Comments on S26 reviews and Now Nudge videos"
+        "detail": "Comments on S26 reviews and Now Nudge videos",
+        "ko": {
+          "name": "YouTube",
+          "detail": "S26 리뷰 및 Now Nudge 영상의 댓글"
+        }
       },
       {
         "code": "BL",
         "name": "Tech blog articles",
-        "detail": "Articles that report or summarise user voices (SamMobile, SammyFans, Android Authority, 9to5Google, Android Police and others). Comment sections are not used."
+        "detail": "Articles that report or summarise user voices (SamMobile, SammyFans, Android Authority, 9to5Google, Android Police and others). Comment sections are not used.",
+        "ko": {
+          "name": "IT 블로그 기사",
+          "detail": "사용자 의견을 전하거나 요약한 기사(SamMobile, SammyFans, Android Authority, 9to5Google, Android Police 등). 댓글란은 사용하지 않습니다."
+        }
       }
     ],
     "sourceList": [
@@ -408,44 +508,74 @@ window.VOC_DATA = {
     "events": [
       {
         "date": "2026-02-25",
-        "label": "Now Nudge announced"
+        "label": "Now Nudge announced",
+        "ko": {
+          "label": "Now Nudge 발표"
+        }
       },
       {
         "date": "2026-03-11",
-        "label": "S26 on sale"
+        "label": "S26 on sale",
+        "ko": {
+          "label": "S26 출시"
+        }
       },
       {
         "date": "2026-05-11",
-        "label": "One UI 8.5 on S25, no Nudge"
+        "label": "One UI 8.5 on S25, no Nudge",
+        "ko": {
+          "label": "S25에 One UI 8.5 배포, Nudge 제외"
+        }
       },
       {
         "date": "2026-05-20",
-        "label": "Magic Cue expansion announced"
+        "label": "Magic Cue expansion announced",
+        "ko": {
+          "label": "Magic Cue 확장 발표"
+        }
       },
       {
         "date": "2026-06-01",
         "label": "June Pixel Drop",
-        "approx": true
+        "approx": true,
+        "ko": {
+          "label": "6월 Pixel Drop"
+        }
       },
       {
         "date": "2026-07-22",
-        "label": "Fold 8 / Flip 8 launch"
+        "label": "Fold 8 / Flip 8 launch",
+        "ko": {
+          "label": "Fold 8 / Flip 8 출시"
+        }
       },
       {
         "date": "2026-09-04",
-        "label": "S26 FE on sale"
+        "label": "S26 FE on sale",
+        "ko": {
+          "label": "S26 FE 출시"
+        }
       },
       {
         "date": "2026-09-08",
-        "label": "One UI 9 Beta 2 brings Nudge to S25"
+        "label": "One UI 9 Beta 2 brings Nudge to S25",
+        "ko": {
+          "label": "One UI 9 베타 2, S25에 Nudge 제공"
+        }
       },
       {
         "date": "2026-09-14",
-        "label": "One UI 9 Beta 2 brings Nudge to S24"
+        "label": "One UI 9 Beta 2 brings Nudge to S24",
+        "ko": {
+          "label": "One UI 9 베타 2, S24에 Nudge 제공"
+        }
       },
       {
         "date": "2026-09-16",
-        "label": "One UI 9 stable starts (S26)"
+        "label": "One UI 9 stable starts (S26)",
+        "ko": {
+          "label": "One UI 9 정식 배포 시작 (S26)"
+        }
       }
     ],
     "limitations": [
@@ -455,7 +585,18 @@ window.VOC_DATA = {
       "Now Nudge only exists on the Galaxy S26 series, so most voices are early adopters.",
       "Reddit was captured by hand: posting dates are approximate (from 'N months ago'), and vote and comment counts weren't available.",
       "X is dominated by update news and paid promotions (#AD); those posts are tagged as press, not users."
-    ]
+    ],
+    "ko": {
+      "limitations": [
+        "온라인 포럼은 부정적인 의견에 치우치고 파워 유저의 비중이 높습니다.",
+        "공개 게시물만 포함되며 비공개 그룹과 고객지원 문의는 포함되지 않습니다.",
+        "초기 언론은 Now Nudge를 Magic Cue의 모방으로 다루는 경우가 많았으며, 언론 의견은 사용자 의견과 구분해 태그했습니다.",
+        "Now Nudge는 Galaxy S26 시리즈에만 있어 대부분의 의견이 얼리어답터의 것입니다.",
+        "Reddit은 수동으로 수집했습니다. 게시일은 'N개월 전' 표시를 기준으로 한 추정치이며 추천 수와 댓글 수는 확인할 수 없었습니다.",
+        "X는 업데이트 소식과 유료 홍보(#AD)가 대부분이며, 이러한 게시물은 사용자가 아닌 언론으로 태그했습니다."
+      ],
+      "keywordsNote": "광범위한 검색어는 Samsung, Galaxy, S26 또는 One UI와 함께 사용합니다."
+    }
   },
   "runs": [
     {
@@ -471,36 +612,62 @@ window.VOC_DATA = {
       "sourcesChecked": [
         {
           "name": "Samsung Members",
-          "status": "ok"
+          "status": "ok",
+          "ko": {
+            "name": "Samsung Members"
+          }
         },
         {
           "name": "Samsung Community (US, EU)",
-          "status": "ok"
+          "status": "ok",
+          "ko": {
+            "name": "삼성 커뮤니티 (미국, 유럽)"
+          }
         },
         {
           "name": "X",
           "status": "ok",
-          "note": "read via Chrome (signed in)"
+          "note": "read via Chrome (signed in)",
+          "ko": {
+            "name": "X",
+            "note": "Chrome으로 확인 (로그인 상태)"
+          }
         },
         {
           "name": "XDA Forums",
           "status": "ok",
-          "note": "no forum threads found; XDA review captured"
+          "note": "no forum threads found; XDA review captured",
+          "ko": {
+            "name": "XDA Forums",
+            "note": "포럼 글 없음, XDA 리뷰 수집"
+          }
         },
         {
           "name": "Tech blog articles",
           "status": "ok",
-          "note": "articles that report user voices; comment sections not used"
+          "note": "articles that report user voices; comment sections not used",
+          "ko": {
+            "name": "IT 블로그 기사",
+            "note": "사용자 의견을 전하는 기사, 댓글란은 사용 안 함"
+          }
         },
         {
           "name": "Reddit",
           "status": "ok",
-          "note": "captured by hand; dates approximate, no vote counts"
+          "note": "captured by hand; dates approximate, no vote counts",
+          "ko": {
+            "name": "Reddit",
+            "note": "수동 수집, 날짜는 추정치, 추천 수 없음"
+          }
         },
         {
           "name": "YouTube comments",
           "status": "failed",
-          "note": "comments did not load"
+          "note": "comments did not load",
+          "ko": {
+            "name": "YouTube 댓글",
+            "note": "댓글이 로드되지 않음"
+          }
         }
       ],
       "summary": [
@@ -514,22 +681,34 @@ window.VOC_DATA = {
         "new": [
           {
             "label": "Not working on the One UI 9 beta (S24)",
-            "route": "emerging/s24-beta"
+            "route": "emerging/s24-beta",
+            "ko": {
+              "label": "One UI 9 베타(S24)에서 작동 안 함"
+            }
           },
           {
             "label": "Turkish language support arrives",
-            "route": "emerging/turkish"
+            "route": "emerging/turkish",
+            "ko": {
+              "label": "터키어 지원 추가"
+            }
           }
         ],
         "up": [],
         "down": [
           {
             "label": "Older Galaxy phones want it (and the beta brings it)",
-            "route": "emerging/older-devices"
+            "route": "emerging/older-devices",
+            "ko": {
+              "label": "구형 Galaxy 사용자의 요구 (베타로 제공)"
+            }
           },
           {
             "label": "Screen-reading privacy worries",
-            "route": "emerging/privacy-worries"
+            "route": "emerging/privacy-worries",
+            "ko": {
+              "label": "화면 읽기에 대한 개인정보 우려"
+            }
           }
         ],
         "resolved": []
@@ -539,31 +718,51 @@ window.VOC_DATA = {
           "type": "internal",
           "label": "Nudges not appearing",
           "route": "emerging/not-appearing",
-          "section": "Emerging clusters"
+          "section": "Emerging clusters",
+          "ko": {
+            "label": "Nudge가 나타나지 않음",
+            "section": "떠오르는 클러스터"
+          }
         },
         {
           "type": "internal",
           "label": "New: support in more chat apps",
           "route": "emerging/whatsapp-telegram",
-          "section": "Emerging clusters"
+          "section": "Emerging clusters",
+          "ko": {
+            "label": "신규: 더 많은 채팅 앱 지원",
+            "section": "떠오르는 클러스터"
+          }
         },
         {
           "type": "internal",
           "label": "New: not working on the S24 beta",
           "route": "emerging/s24-beta",
-          "section": "Emerging clusters"
+          "section": "Emerging clusters",
+          "ko": {
+            "label": "신규: S24 베타에서 작동 안 함",
+            "section": "떠오르는 클러스터"
+          }
         },
         {
           "type": "internal",
           "label": "Keyboard lock-in and One UI 9",
           "route": "themes/keyboard",
-          "section": "Themes"
+          "section": "Themes",
+          "ko": {
+            "label": "키보드 종속과 One UI 9",
+            "section": "테마"
+          }
         },
         {
           "type": "internal",
           "label": "Q2 · Does it appear when expected?",
           "route": "questions/q2",
-          "section": "Research questions"
+          "section": "Research questions",
+          "ko": {
+            "label": "Q2 · 기대하는 순간에 나타나나요?",
+            "section": "연구 질문"
+          }
         },
         {
           "type": "external",
@@ -595,6 +794,15 @@ window.VOC_DATA = {
         "net": -41,
         "emerging": 3,
         "answered": 6
+      },
+      "ko": {
+        "summary": [
+          "기준 실행: 게시물 160건 (삼성 커뮤니티 52건, Reddit 80건(수동 수집), X 18건, 언론 기사 10건).",
+          "전반적인 감성은 부정적입니다(순 감성 -41). 포럼과 X 모두 대부분의 게시물이 Nudge가 아예 나타나지 않는다고 말합니다.",
+          "8월 이후 논의가 '구형 기기가 제외됐다'에서 'One UI 9 베타에서 작동하지 않는다', 'WhatsApp이나 Telegram에서 작동하지 않는다'로 옮겨갔습니다.",
+          "One UI 9는 알림과 플로팅 버튼에도 제안을 추가했으며 삼성 키보드 없이도 작동한다고 알려졌습니다. 10월 1일경 터키어 지원도 추가되었습니다.",
+          "Reddit에서 새로운 클러스터 두 개가 추가되었습니다. Now Nudge가 무엇인지에 대한 혼동(글쓰기 어시스트와 자주 착각)과 지역 제한 의심이며, 개인정보와 방해감에 대한 첫 실제 불만도 나왔습니다."
+        ]
       }
     }
   ],
@@ -725,7 +933,10 @@ window.VOC_DATA = {
         "s18",
         "s53",
         "s4"
-      ]
+      ],
+      "ko": {
+        "summary": "의견이 갈립니다. 작동하게 만든 사용자는 장소 저장, 위치 확인, 입력 감소 면에서 편리하다고 하지만, 다른 사용자는 거의 나타나지 않아 보여주기식 기능이라고 합니다."
+      }
     },
     {
       "id": "triggering",
@@ -758,7 +969,10 @@ window.VOC_DATA = {
         "s46",
         "s24",
         "s75"
-      ]
+      ],
+      "ko": {
+        "summary": "삼성 포럼, Reddit, X 전반에서 가장 흔한 불만입니다. S26, Fold 8, One UI 9 베타에서 Nudge가 전혀 나타나지 않거나, 사라지거나, '거의 나타나지 않는다'고 합니다. 처음에는 작동했지만 3월 말 업데이트 이후 멈췄다는 의견도 있습니다."
+      }
     },
     {
       "id": "anticipation",
@@ -791,7 +1005,10 @@ window.VOC_DATA = {
         "s107",
         "s114",
         "s116"
-      ]
+      ],
+      "ko": {
+        "summary": "채팅에 날짜, 시간, 장소, 또는 시간이 되는지 묻는 질문이 있을 때 Nudge를 기대합니다."
+      }
     },
     {
       "id": "intrusiveness",
@@ -818,7 +1035,10 @@ window.VOC_DATA = {
         "s124",
         "s125",
         "s133"
-      ]
+      ],
+      "ko": {
+        "summary": "너무 자주 나타난다는 의견은 거의 없지만(거의 나타나지 않으므로), 일부는 나비의 'Hey, Listen!'처럼 잔소리 같다며 끌 수 있어 다행이라고 합니다."
+      }
     },
     {
       "id": "keyboard",
@@ -851,7 +1071,10 @@ window.VOC_DATA = {
         "s49",
         "s79",
         "s92"
-      ]
+      ],
+      "ko": {
+        "summary": "One UI 8.5에서는 삼성 키보드가 필요해 Gboard 사용자가 외면했습니다. One UI 9는 알림과 플로팅 버튼에도 제안을 추가해 이 문제를 줄일 수 있습니다."
+      }
     },
     {
       "id": "coverage",
@@ -884,7 +1107,10 @@ window.VOC_DATA = {
         "s29",
         "s25",
         "s49"
-      ]
+      ],
+      "ko": {
+        "summary": "사용자들은 실제로 대화하는 WhatsApp, Telegram 등에서 Nudge를 기대합니다. Reddit 사용자들은 완전한 Nudge가 삼성 메시지, Google 메시지, Google Chat에서만 작동하고 다른 앱에서는 답장 제안만 나온다고 말합니다."
+      }
     },
     {
       "id": "privacy",
@@ -915,7 +1141,10 @@ window.VOC_DATA = {
         "s136",
         "s137",
         "s157"
-      ]
+      ],
+      "ko": {
+        "summary": "Reddit의 일부 목소리 큰 사용자는 화면 읽기를 '삼성판 Recall'로 보고 거부하지만, 다른 사용자는 기기 내에서 처리된다고 반박합니다."
+      }
     },
     {
       "id": "autofill",
@@ -941,7 +1170,10 @@ window.VOC_DATA = {
         "s95",
         "s100",
         "s160"
-      ]
+      ],
+      "ko": {
+        "summary": "이름, 여권, 전화번호 같은 개인정보 자동 입력은 브라우저와 양식에서 실제로 작동하는 몇 안 되는 부분입니다."
+      }
     },
     {
       "id": "exclusivity",
@@ -974,7 +1206,10 @@ window.VOC_DATA = {
         "s17",
         "s31",
         "s52"
-      ]
+      ],
+      "ko": {
+        "summary": "구형 Galaxy 사용자는 4월부터 이 기능을 원했고, 9월 One UI 9 베타로 S24와 S25에 제공되자 X에서 크게 환영했습니다."
+      }
     },
     {
       "id": "languages",
@@ -1005,7 +1240,10 @@ window.VOC_DATA = {
         "s100",
         "s113",
         "s115"
-      ]
+      ],
+      "ko": {
+        "summary": "10월 1일경 터키어 지원이 추가되었습니다. 이탈리아, 오스트리아, 북미, 호주의 Reddit 사용자는 지역 제한을 의심합니다."
+      }
     },
     {
       "id": "setup",
@@ -1038,7 +1276,10 @@ window.VOC_DATA = {
         "s22",
         "s51",
         "s84"
-      ]
+      ],
+      "ko": {
+        "summary": "많은 사용자가 Now Nudge가 무엇인지 확신하지 못합니다. 글쓰기 어시스트 답장이나 Now Brief 카드와 혼동하고, 삼성 Galaxy Guide도 설명하지 못하며, 작동시키려면 여러 설정을 바꿔야 합니다."
+      }
     },
     {
       "id": "comparison",
@@ -1066,7 +1307,10 @@ window.VOC_DATA = {
         "s55",
         "s134",
         "s155"
-      ]
+      ],
+      "ko": {
+        "summary": "언론은 Now Nudge를 삼성판 Magic Cue로 소개했지만, 사용자는 구글 기능을 거의 언급하지 않습니다."
+      }
     }
   ],
   "clusters": [
@@ -1089,7 +1333,11 @@ window.VOC_DATA = {
         "s19",
         "s28",
         "s30"
-      ]
+      ],
+      "ko": {
+        "name": "Nudge가 전혀 나타나지 않거나 사라짐",
+        "summary": "삼성 포럼과 X 전반에서, 모든 설정을 켜도 Now Nudge가 제안을 전혀 보여주지 않거나, 얼마 후 멈추거나, '거의 나타나지 않는다'는 보고가 있습니다."
+      }
     },
     {
       "id": "s24-beta",
@@ -1106,7 +1354,11 @@ window.VOC_DATA = {
         "s2",
         "s15",
         "s146"
-      ]
+      ],
+      "ko": {
+        "name": "One UI 9 베타(S24)에서 작동 안 함",
+        "summary": "One UI 9 베타 2가 S24에 배포된 후(9월 14일), 베타 사용자들은 기능은 있지만 아무것도 표시되지 않는다고 보고합니다."
+      }
     },
     {
       "id": "older-devices",
@@ -1127,7 +1379,11 @@ window.VOC_DATA = {
         "s17",
         "s31",
         "s52"
-      ]
+      ],
+      "ko": {
+        "name": "구형 Galaxy 사용자의 요구 (베타로 제공)",
+        "summary": "구형 Galaxy 사용자는 4월부터 Now Nudge를 요청했고, One UI 9 베타가 S25(9월 8일)와 S24(9월 14일)에 이를 제공했습니다."
+      }
     },
     {
       "id": "whatsapp-telegram",
@@ -1148,7 +1404,11 @@ window.VOC_DATA = {
         "s25",
         "s49",
         "s51"
-      ]
+      ],
+      "ko": {
+        "name": "더 많은 채팅 앱 지원",
+        "summary": "사용자들은 실제로 대화하는 WhatsApp, Telegram 등에서 Nudge를 원하지만 지원이 고르지 않습니다."
+      }
     },
     {
       "id": "keyboard-only",
@@ -1169,7 +1429,11 @@ window.VOC_DATA = {
         "s49",
         "s79",
         "s92"
-      ]
+      ],
+      "ko": {
+        "name": "삼성 키보드에서만 작동",
+        "summary": "One UI 8.5에서 Now Nudge는 삼성 키보드에서만 작동하며, One UI 9에서는 이 제한이 없어졌다고 알려졌습니다."
+      }
     },
     {
       "id": "turkish",
@@ -1184,7 +1448,11 @@ window.VOC_DATA = {
         "s8",
         "s9",
         "s10"
-      ]
+      ],
+      "ko": {
+        "name": "터키어 지원 추가",
+        "summary": "10월 1일경 터키어 지원이 추가되었으며 초기 반응은 엇갈립니다."
+      }
     },
     {
       "id": "feature-confusion",
@@ -1205,7 +1473,11 @@ window.VOC_DATA = {
         "s103",
         "s122",
         "s144"
-      ]
+      ],
+      "ko": {
+        "name": "Now Nudge가 무엇인지 불분명",
+        "summary": "사용자들은 글쓰기 어시스트의 답장 제안이나 Now Brief 카드를 Now Nudge로 착각하고, 어느 One UI 버전에 있는지 논쟁하며, 삼성 Galaxy Guide조차 설명하지 못합니다."
+      }
     },
     {
       "id": "regional",
@@ -1221,7 +1493,11 @@ window.VOC_DATA = {
         "s100",
         "s113",
         "s115"
-      ]
+      ],
+      "ko": {
+        "name": "일부 지역에서만 작동",
+        "summary": "이탈리아, 오스트리아, 북미, 호주의 사용자들은 Now Nudge에 지역 제한이 있다고 의심하며, 삼성 고객지원은 아직 모든 지역에서 활성화되지 않았다고 답했다고 합니다."
+      }
     },
     {
       "id": "privacy-worries",
@@ -1238,7 +1514,11 @@ window.VOC_DATA = {
         "s136",
         "s137",
         "s157"
-      ]
+      ],
+      "ko": {
+        "name": "화면 읽기에 대한 개인정보 우려",
+        "summary": "일부는 Now Nudge를 화면의 모든 것을 읽는 '삼성판 Recall'로 보지만, 다른 이들은 기기 내에서 처리된다고 답합니다."
+      }
     },
     {
       "id": "annoying",
@@ -1252,7 +1532,11 @@ window.VOC_DATA = {
         "s123",
         "s124",
         "s125"
-      ]
+      ],
+      "ko": {
+        "name": "잔소리처럼 느껴짐",
+        "summary": "일부는 나비의 'Hey, Listen!'처럼 성가신 잔소리라고 표현하며 끌 수 있어 다행이라고 합니다."
+      }
     }
   ],
   "questions": [
@@ -1264,7 +1548,10 @@ window.VOC_DATA = {
       "confidence": 3,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "triggering",
@@ -1288,19 +1575,30 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Mostly: it doesn't show up.",
-          "text": "First answer (Run 1: Samsung communities + X, 87 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 87 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 87건).",
+            "short": "대부분: 나타나지 않습니다."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "대부분: 나타나지 않습니다.",
+        "answer": "가장 큰 문제는 Nudge가 나타나지 않는다는 점입니다. 전혀 나타나지 않거나, 사라지거나, '거의 나타나지 않으며', Reddit, X, 삼성 포럼 모두 같은 의견입니다. 그다음으로는 세 가지 메시지 앱 외 지원 부족, 기능에 대한 혼동(글쓰기 어시스트와 착각), 구형 기기 제외, 지역 제한 가능성, 삼성 키보드 필요가 있습니다."
+      }
     },
     {
       "id": "q2",
       "short": "Mostly no.",
-      "answer": "Mostly no. People ask for photos or try to arrange meetings in WhatsApp and get nothing. Some only get reply suggestions, which turn out to be Writing Assist. It works for some in Samsung Messages or Google Messages, and one user says it worked at first and stopped after a late-March update.",
+      "answer": "People ask for photos or try to arrange meetings in WhatsApp and get nothing. Some only get reply suggestions, which turn out to be Writing Assist. It works for some in Samsung Messages or Google Messages, and one user says it worked at first and stopped after a late-March update.",
       "posts": 62,
       "confidence": 3,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "triggering",
@@ -1321,9 +1619,17 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Mostly no.",
-          "text": "First answer (Run 1: Samsung communities + X, 62 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 62 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 62건).",
+            "short": "대부분 아닙니다."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "대부분 아닙니다.",
+        "answer": "WhatsApp에서 사진을 요청받거나 약속을 잡아도 아무것도 나타나지 않습니다. 답장 제안만 받는 경우도 있는데, 이는 글쓰기 어시스트 기능입니다. 삼성 메시지나 Google 메시지에서 작동하는 사용자도 있으며, 한 사용자는 처음에는 작동했지만 3월 말 업데이트 이후 멈췄다고 합니다."
+      }
     },
     {
       "id": "q3",
@@ -1333,7 +1639,10 @@ window.VOC_DATA = {
       "confidence": 2,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "anticipation"
@@ -1353,9 +1662,17 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Dates, times and places in chats.",
-          "text": "First answer (Run 1: Samsung communities + X, 10 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 10 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 10건).",
+            "short": "채팅 속 날짜, 시간, 장소."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "채팅 속 날짜, 시간, 장소.",
+        "answer": "채팅에 날짜, 시간, 장소가 언급될 때, 친구가 위치를 공유할 때, '어제 사진 보내줄 수 있어?'라고 물을 때, 또는 고객이 시간이 되는지 물을 때입니다. 언팩과 Fold 8 매장 시연에서 보여준 장면들입니다."
+      }
     },
     {
       "id": "q4",
@@ -1365,7 +1682,10 @@ window.VOC_DATA = {
       "confidence": 2,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "usefulness"
@@ -1385,19 +1705,30 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Yes, when it works.",
-          "text": "First answer (Run 1: Samsung communities + X, 35 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 35 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 35건).",
+            "short": "작동할 때는 그렇습니다."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "작동할 때는 그렇습니다.",
+        "answer": "작동하게 만든 사용자는 채팅에서 장소를 저장하고, 공유된 위치를 지도에서 열고, 입력을 줄일 수 있어 좋아합니다. X에서는 'AI는 이렇게 구현돼야 한다'는 의견도 있습니다. 보여주기식이라는 의견도 있지만, 제안이 나빠서가 아니라 거의 나타나지 않기 때문입니다."
+      }
     },
     {
       "id": "q5",
       "short": "Some do, mostly over privacy.",
-      "answer": "Some do. On Reddit, a few call it an annoying nag (one compares it to Navi's 'Hey, Listen!') and several see screen reading as a privacy risk, like Windows Recall; others note processing stays on the device. Few complain it appears too often, because it rarely appears.",
+      "answer": "On Reddit, a few call it an annoying nag (one compares it to Navi's 'Hey, Listen!') and several see screen reading as a privacy risk, like Windows Recall; others note processing stays on the device. Few complain it appears too often, because it rarely appears.",
       "posts": 11,
       "confidence": 2,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "privacy",
@@ -1418,19 +1749,30 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Some do, mostly over privacy.",
-          "text": "First answer (Run 1: Samsung communities + X, 11 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 11 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 11건).",
+            "short": "일부는 그렇게 느끼며, 주로 개인정보 때문입니다."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "일부는 그렇게 느끼며, 주로 개인정보 때문입니다.",
+        "answer": "Reddit에서 몇몇은 성가신 잔소리라고 하고(나비의 'Hey, Listen!'에 비유), 여러 명은 화면 읽기를 Windows Recall 같은 개인정보 위험으로 봅니다. 반면 처리가 기기 내에서 이루어진다는 의견도 있습니다. 거의 나타나지 않기 때문에 너무 자주 나타난다는 불만은 드뭅니다."
+      }
     },
     {
       "id": "q6",
       "short": "Yes, especially WhatsApp.",
-      "answer": "Yes. People chat in WhatsApp and Telegram, but users say full nudges only work in Samsung Messages, Google Messages and Google Chat, with WhatsApp limited to reply suggestions in most regions. One UI 9's notification and floating-button suggestions may widen this.",
+      "answer": "People chat in WhatsApp and Telegram, but users say full nudges only work in Samsung Messages, Google Messages and Google Chat, with WhatsApp limited to reply suggestions in most regions. One UI 9's notification and floating-button suggestions may widen this.",
       "posts": 23,
       "confidence": 2,
       "change": {
         "status": "new",
-        "label": "Answered this run"
+        "label": "Answered this run",
+        "ko": {
+          "label": "이번 실행에서 답변"
+        }
       },
       "themeIds": [
         "coverage"
@@ -1450,9 +1792,17 @@ window.VOC_DATA = {
           "runId": "run-1",
           "date": "2026-10-03",
           "short": "Yes, especially WhatsApp.",
-          "text": "First answer (Run 1: Samsung communities + X, 23 posts)."
+          "text": "First answer (Run 1: forums, Reddit, X and press, 23 posts).",
+          "ko": {
+            "text": "첫 답변 (실행 1: 포럼, Reddit, X, 언론, 게시물 23건).",
+            "short": "네, 특히 WhatsApp입니다."
+          }
         }
-      ]
+      ],
+      "ko": {
+        "short": "네, 특히 WhatsApp입니다.",
+        "answer": "사용자들은 WhatsApp과 Telegram에서 대화하지만, 완전한 Nudge는 삼성 메시지, Google 메시지, Google Chat에서만 작동하고 대부분 지역의 WhatsApp에서는 답장 제안만 나온다고 합니다. One UI 9의 알림 및 플로팅 버튼 제안이 범위를 넓힐 수 있습니다."
+      }
     }
   ],
   "insights": [
@@ -1477,7 +1827,11 @@ window.VOC_DATA = {
         "s18",
         "s13",
         "s46"
-      ]
+      ],
+      "ko": {
+        "title": "가장 큰 불만은 Nudge가 나타나지 않는다는 것",
+        "body": "부정적인 게시물 대부분은 제안이 나빠서가 아니라 아예 나타나지 않아서입니다. Reddit, X, 삼성 포럼 모두 같은 이야기를 하며, 3월 말 업데이트 이후 멈췄다는 의견도 있습니다."
+      }
     },
     {
       "id": "i2",
@@ -1501,7 +1855,11 @@ window.VOC_DATA = {
         "s24",
         "s48",
         "s74"
-      ]
+      ],
+      "ko": {
+        "title": "사용자는 실제로 대화하는 곳에서 Nudge를 원함",
+        "body": "사용자들은 WhatsApp, Telegram, 그리고 자신이 쓰는 키보드에서 Nudge를 기대하지만, 완전한 Nudge는 세 가지 메시지 앱에서만 작동한다고 알려졌습니다. One UI 9의 알림 및 플로팅 버튼 제안이 두 문제를 모두 해결할 수 있습니다."
+      }
     },
     {
       "id": "i3",
@@ -1525,7 +1883,11 @@ window.VOC_DATA = {
         "s61",
         "s32",
         "s17"
-      ]
+      ],
+      "ko": {
+        "title": "구형 기기 사용자: '제외됐다'에서 '작동하지 않는다'로",
+        "body": "X에서 가장 인기 있는 Now Nudge 게시물은 One UI 9 베타로 S24와 S25에 제공된 것을 환영합니다. 반면 포럼의 베타 사용자들은 아무것도 나타나지 않는다고 말합니다."
+      }
     }
   ],
   "sources": [
@@ -1553,6 +1915,9 @@ window.VOC_DATA = {
         "reactions": 0,
         "comments": 4,
         "views": 87
+      },
+      "ko": {
+        "takeaway": "One UI 9 베타에서 Now Nudge가 불안정하며 계산기 앱에서만 나타난다고 합니다."
       }
     },
     {
@@ -1577,7 +1942,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now Nudge is really useless"
+      "parentTitle": "Now Nudge is really useless",
+      "ko": {
+        "takeaway": "베타에서 기능이 전혀 작동하지 않는다는 데 동의합니다."
+      }
     },
     {
       "id": "s3",
@@ -1601,7 +1969,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge is really useless"
+      "parentTitle": "Now Nudge is really useless",
+      "ko": {
+        "takeaway": "유용성 면에서 Now Nudge를 다른 Galaxy AI 기능보다 낮게 평가합니다."
+      }
     },
     {
       "id": "s4",
@@ -1628,7 +1999,10 @@ window.VOC_DATA = {
         "comments": 1,
         "views": 120
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "기대하는 Nudge를 설명합니다. 시간이 되는지 묻는 메시지가 오면 채팅 안에서 바로 캘린더 일정을 보여주는 것입니다."
+      }
     },
     {
       "id": "s5",
@@ -1654,7 +2028,10 @@ window.VOC_DATA = {
         "comments": 8,
         "views": 21
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S24 사용자가 One UI 9 베타 2로 구형 기기에 Now Nudge가 제공된 것을 환영합니다."
+      }
     },
     {
       "id": "s6",
@@ -1678,7 +2055,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2
       },
-      "parentTitle": "Feature Request"
+      "parentTitle": "Feature Request",
+      "ko": {
+        "takeaway": "S24 베타에 Now Nudge가 있지만 제안이 나오지 않습니다."
+      }
     },
     {
       "id": "s7",
@@ -1703,6 +2083,9 @@ window.VOC_DATA = {
         "reactions": 10,
         "comments": 9,
         "views": 237
+      },
+      "ko": {
+        "takeaway": "터키어 지원이 추가되어 이 사용자에게 Now Nudge가 작동하기 시작했습니다."
       }
     },
     {
@@ -1728,7 +2111,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2
       },
-      "parentTitle": "S26 now nudge Türkçe dil desteği"
+      "parentTitle": "S26 now nudge Türkçe dil desteği",
+      "ko": {
+        "takeaway": "터키어 지원 이후에도 이 S26+ 사용자에게는 여전히 작동하지 않습니다."
+      }
     },
     {
       "id": "s9",
@@ -1753,7 +2139,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2
       },
-      "parentTitle": "S26 now nudge Türkçe dil desteği"
+      "parentTitle": "S26 now nudge Türkçe dil desteği",
+      "ko": {
+        "takeaway": "처음으로 터키어 제안을 봤지만 잠깐 나타났다가 사라졌습니다."
+      }
     },
     {
       "id": "s10",
@@ -1778,7 +2167,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "S26 now nudge Türkçe dil desteği"
+      "parentTitle": "S26 now nudge Türkçe dil desteği",
+      "ko": {
+        "takeaway": "작동했다 안 했다 하지만, 전에는 전혀 나타나지 않았기에 진전으로 봅니다."
+      }
     },
     {
       "id": "s11",
@@ -1803,6 +2195,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 1,
         "views": 2
+      },
+      "ko": {
+        "takeaway": "Now Nudge가 고장 났다고 생각하지만 실제로는 Now Brief 카드를 보고 있습니다."
       }
     },
     {
@@ -1827,7 +2222,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Samsung Galaxy S24fe. oneui 9 beta 2. Now nudge cards are not getting created."
+      "parentTitle": "Samsung Galaxy S24fe. oneui 9 beta 2. Now nudge cards are not getting created.",
+      "ko": {
+        "takeaway": "다른 회원이 차이를 설명합니다. Now Brief는 Now Bar에, Now Nudge는 키보드 위에 있습니다."
+      }
     },
     {
       "id": "s13",
@@ -1852,6 +2250,9 @@ window.VOC_DATA = {
         "reactions": 1,
         "comments": 3,
         "views": 27
+      },
+      "ko": {
+        "takeaway": "기능을 켰는데도 S24+에서 제안이 전혀 없습니다."
       }
     },
     {
@@ -1876,7 +2277,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge"
+      "parentTitle": "Now nudge",
+      "ko": {
+        "takeaway": "현재 상태의 Now Nudge를 보여주기식 기능으로 봅니다."
+      }
     },
     {
       "id": "s15",
@@ -1900,7 +2304,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge"
+      "parentTitle": "Now nudge",
+      "ko": {
+        "takeaway": "같은 문제를 확인합니다. 제안이 나타나지 않습니다."
+      }
     },
     {
       "id": "s16",
@@ -1925,7 +2332,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge"
+      "parentTitle": "Now nudge",
+      "ko": {
+        "takeaway": "캘린더 일정 Nudge는 작동했지만 지도 Nudge는 작동하지 않았고, 디자인도 마음에 들지 않습니다."
+      }
     },
     {
       "id": "s17",
@@ -1950,6 +2360,9 @@ window.VOC_DATA = {
         "reactions": 1,
         "comments": 2,
         "views": 228
+      },
+      "ko": {
+        "takeaway": "출시 일주일 만에 S24 FE 사용자가 Now Nudge가 구형 기기에도 제공될지 묻습니다."
       }
     },
     {
@@ -1976,6 +2389,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 3,
         "views": 119
+      },
+      "ko": {
+        "takeaway": "Now Nudge가 이 S26 Ultra 사용자에게 도움이 되었지만 더 이상 나타나지 않습니다."
       }
     },
     {
@@ -2000,7 +2416,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge"
+      "parentTitle": "Now nudge",
+      "ko": {
+        "takeaway": "고객지원의 안내를 따랐지만 설정은 그대로 있고 기능은 아무것도 하지 않습니다."
+      }
     },
     {
       "id": "s20",
@@ -2025,6 +2444,9 @@ window.VOC_DATA = {
         "reactions": 1,
         "comments": 9,
         "views": 2400
+      },
+      "ko": {
+        "takeaway": "출시 3주 후, AI 때문에 휴대폰을 산 S26 사용자에게 Now Nudge와 Now Brief가 작동을 멈췄습니다."
       }
     },
     {
@@ -2050,7 +2472,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now brief and now Nudge"
+      "parentTitle": "Now brief and now Nudge",
+      "ko": {
+        "takeaway": "고객지원의 해결 방법이 사용자가 설정에서 보는 화면과 맞지 않습니다."
+      }
     },
     {
       "id": "s22",
@@ -2075,7 +2500,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now brief and now Nudge"
+      "parentTitle": "Now brief and now Nudge",
+      "ko": {
+        "takeaway": "거의 5개월 동안 한 번도 작동하지 않았고, 삼성 고객지원은 Now Nudge가 무엇인지 몰랐습니다."
+      }
     },
     {
       "id": "s23",
@@ -2099,7 +2527,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now brief and now Nudge"
+      "parentTitle": "Now brief and now Nudge",
+      "ko": {
+        "takeaway": "켜 두었는데도 7월 말까지 여전히 작동하지 않습니다."
+      }
     },
     {
       "id": "s24",
@@ -2126,6 +2557,9 @@ window.VOC_DATA = {
         "reactions": 0,
         "comments": 3,
         "views": 90
+      },
+      "ko": {
+        "takeaway": "WhatsApp이나 Telegram으로 날짜, 시간, 장소를 받았을 때 Nudge를 기대했지만 아무것도 나타나지 않았습니다."
       }
     },
     {
@@ -2150,7 +2584,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge"
+      "parentTitle": "Now Nudge",
+      "ko": {
+        "takeaway": "WhatsApp과 Telegram이 지원 앱 목록에 없다고 추측합니다."
+      }
     },
     {
       "id": "s26",
@@ -2175,7 +2612,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2
       },
-      "parentTitle": "Now Nudge"
+      "parentTitle": "Now Nudge",
+      "ko": {
+        "takeaway": "여러 설정을 바꾼 후에야 작동했습니다. WhatsApp은 되지만 Telegram은 안 됩니다."
+      }
     },
     {
       "id": "s27",
@@ -2199,6 +2639,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 4,
         "comments": 4
+      },
+      "ko": {
+        "takeaway": "모든 방법을 시도했지만 Nudge가 한 번도 나타나지 않습니다."
       }
     },
     {
@@ -2224,7 +2667,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge não funciona"
+      "parentTitle": "Now nudge não funciona",
+      "ko": {
+        "takeaway": "Now Nudge를 가장 기대되는 신기능으로 보지만 아직 제안을 한 번도 받지 못했습니다."
+      }
     },
     {
       "id": "s29",
@@ -2249,7 +2695,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge não funciona"
+      "parentTitle": "Now nudge não funciona",
+      "ko": {
+        "takeaway": "WhatsApp도 지원되지만 Nudge가 거의 나타나지 않으며, 삼성 키보드에서만 작동한다고 생각합니다."
+      }
     },
     {
       "id": "s30",
@@ -2274,7 +2723,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now nudge não funciona"
+      "parentTitle": "Now nudge não funciona",
+      "ko": {
+        "takeaway": "이 기능 때문에 Gboard에서 삼성 키보드로 바꿨지만 여전히 아무것도 없습니다."
+      }
     },
     {
       "id": "s31",
@@ -2299,6 +2751,9 @@ window.VOC_DATA = {
         "reactions": 1,
         "comments": 2,
         "views": 948
+      },
+      "ko": {
+        "takeaway": "One UI 8.5의 S24 Ultra 사용자가 Now Nudge를 찾지 못해 제공 예정인지 묻습니다."
       }
     },
     {
@@ -2324,6 +2779,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 2,
         "views": 199
+      },
+      "ko": {
+        "takeaway": "S24용 One UI 9 베타 2에서 Now Nudge를 발견합니다."
       }
     },
     {
@@ -2351,7 +2809,10 @@ window.VOC_DATA = {
         "comments": 8,
         "views": 405
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "채팅의 장소를 지도에 저장하는 홍보성 사례 글이며, 댓글은 S26 FE가 아직 출시되지 않았다고 지적합니다."
+      }
     },
     {
       "id": "s34",
@@ -2375,7 +2836,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2
       },
-      "parentTitle": "Did you use Now Nudge on your Galaxy S26 FE?"
+      "parentTitle": "Did you use Now Nudge on your Galaxy S26 FE?",
+      "ko": {
+        "takeaway": "회원들이 출시 전에 Now Nudge를 칭찬하는 홍보성 게시물에 의문을 제기합니다."
+      }
     },
     {
       "id": "s35",
@@ -2401,7 +2865,10 @@ window.VOC_DATA = {
         "comments": 0,
         "views": 148
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S26 FE의 Now Nudge를 기대하는 홍보성 게시물입니다."
+      }
     },
     {
       "id": "s36",
@@ -2427,7 +2894,10 @@ window.VOC_DATA = {
         "comments": 74,
         "views": 13971
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S25 사용자들은 코드가 이미 기기에 있으므로 Now Nudge 제외를 인위적인 제한으로 봅니다."
+      }
     },
     {
       "id": "s37",
@@ -2453,7 +2923,10 @@ window.VOC_DATA = {
         "views": 2432
       },
       "parentTitle": "One UI 8.5 Huge Disappointment",
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S25 사용자가 주로 Now Nudge가 빠졌다는 이유로 One UI 8.5에 실망했다고 합니다."
+      }
     },
     {
       "id": "s38",
@@ -2480,7 +2953,10 @@ window.VOC_DATA = {
         "comments": 5,
         "views": 913
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "초기 S26 사용자가 지금까지 만족하지만, 지원 언어의 삼성 키보드에서만 작동한다고 지적합니다."
+      }
     },
     {
       "id": "s39",
@@ -2505,7 +2981,10 @@ window.VOC_DATA = {
         "reactions": 1
       },
       "parentTitle": "Now Nudge Galaxy AI",
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "기기 내 처리 덕분에 이 사용자는 기능을 더 받아들일 만하다고 봅니다."
+      }
     },
     {
       "id": "s40",
@@ -2529,7 +3008,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge Galaxy AI"
+      "parentTitle": "Now Nudge Galaxy AI",
+      "ko": {
+        "takeaway": "입력을 줄여 줘서 편리하다고 합니다."
+      }
     },
     {
       "id": "s41",
@@ -2553,7 +3035,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge Galaxy AI"
+      "parentTitle": "Now Nudge Galaxy AI",
+      "ko": {
+        "takeaway": "삼성 키보드에서만 작동해 실망합니다."
+      }
     },
     {
       "id": "s42",
@@ -2577,7 +3062,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now Nudge Galaxy AI"
+      "parentTitle": "Now Nudge Galaxy AI",
+      "ko": {
+        "takeaway": "삼성 키보드로 돌아오라는 제안에 바꾸지 않겠다고 답합니다."
+      }
     },
     {
       "id": "s43",
@@ -2603,7 +3091,10 @@ window.VOC_DATA = {
         "reactions": 16,
         "comments": 9
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "언팩 직후의 열정적인 첫인상: 앱 간 전환을 줄여 준다는 점을 좋아합니다."
+      }
     },
     {
       "id": "s44",
@@ -2629,6 +3120,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 7,
         "views": 477
+      },
+      "ko": {
+        "takeaway": "S25 사용자가 Now Nudge 제공 여부를 묻지만 '약간의 사생활 침해'라며 끌 수 있기를 원합니다."
       }
     },
     {
@@ -2654,7 +3148,10 @@ window.VOC_DATA = {
         "reactions": 1
       },
       "parentTitle": "Umfang Neuerungen S23U in OneUI 8.5",
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S23 Ultra 사용자가 One UI 8.5에서 빠진 기능으로 Now Nudge를 꼽습니다."
+      }
     },
     {
       "id": "s46",
@@ -2679,6 +3176,9 @@ window.VOC_DATA = {
         "reactions": 3,
         "comments": 2,
         "views": 195
+      },
+      "ko": {
+        "takeaway": "S26 Ultra에서 제안이 한 번도 나타나지 않습니다."
       }
     },
     {
@@ -2706,6 +3206,9 @@ window.VOC_DATA = {
         "reactions": 0,
         "comments": 5,
         "views": 341
+      },
+      "ko": {
+        "takeaway": "삼성 메시지에서는 작동하지만, 사용자가 주로 쓰는 WhatsApp에서는 전혀 나타나지 않습니다."
       }
     },
     {
@@ -2731,7 +3234,10 @@ window.VOC_DATA = {
         "reactions": 4
       },
       "parentTitle": "Now Nudge on WhatsApp?",
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "다른 회원은 Now Nudge가 삼성 앱에서만 작동한다고 생각합니다."
+      }
     },
     {
       "id": "s49",
@@ -2757,7 +3263,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge on WhatsApp?"
+      "parentTitle": "Now Nudge on WhatsApp?",
+      "ko": {
+        "takeaway": "타사 앱 지원이 과장 광고되었다고 느끼고 Gboard로 돌아갑니다."
+      }
     },
     {
       "id": "s50",
@@ -2781,7 +3290,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 1
       },
-      "parentTitle": "Now Nudge on WhatsApp?"
+      "parentTitle": "Now Nudge on WhatsApp?",
+      "ko": {
+        "takeaway": "모든 문제 해결을 시도했지만 삼성 메시지에서도 작동하지 않습니다."
+      }
     },
     {
       "id": "s51",
@@ -2806,7 +3318,10 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0
       },
-      "parentTitle": "Now Nudge on WhatsApp?"
+      "parentTitle": "Now Nudge on WhatsApp?",
+      "ko": {
+        "takeaway": "WhatsApp에서 작동하는 영상을 공유하며 권한 문제일 수 있다고 제안합니다."
+      }
     },
     {
       "id": "s52",
@@ -2833,7 +3348,10 @@ window.VOC_DATA = {
         "comments": 2,
         "views": 1183
       },
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "S25 Ultra 사용자가 One UI 8.5 업데이트 후 Now Nudge를 찾지 못합니다."
+      }
     },
     {
       "id": "s53",
@@ -2860,7 +3378,10 @@ window.VOC_DATA = {
         "comments": 4
       },
       "truncated": true,
-      "competitor": true
+      "competitor": true,
+      "ko": {
+        "takeaway": "체험기: 언팩에서 Magic Cue보다 일관적이었지만 삼성 키보드를 강제하는 것이 단점입니다."
+      }
     },
     {
       "id": "s54",
@@ -2883,7 +3404,10 @@ window.VOC_DATA = {
       "takeaway": "Launch coverage frames Now Nudge as Samsung's Magic Cue and holds judgement until real use.",
       "engagement": {},
       "truncated": true,
-      "competitor": true
+      "competitor": true,
+      "ko": {
+        "takeaway": "출시 기사가 Now Nudge를 삼성판 Magic Cue로 소개하며 실사용 전까지 판단을 유보합니다."
+      }
     },
     {
       "id": "s55",
@@ -2907,7 +3431,10 @@ window.VOC_DATA = {
       "takeaway": "After weeks of daily use, a reviewer never saw Now Nudge appear — the same problem they had with Magic Cue.",
       "engagement": {},
       "truncated": true,
-      "competitor": true
+      "competitor": true,
+      "ko": {
+        "takeaway": "몇 주간 매일 사용했지만 리뷰어는 Now Nudge를 한 번도 보지 못했으며, Magic Cue에서 겪은 것과 같은 문제입니다."
+      }
     },
     {
       "id": "s56",
@@ -2930,7 +3457,10 @@ window.VOC_DATA = {
       "sentiment": "pos",
       "takeaway": "A reviewer uses it daily and calls it a game-changer, especially for opening shared locations in Maps.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "리뷰어가 매일 사용하며 특히 공유된 위치를 지도에서 여는 데 판도를 바꾸는 기능이라고 합니다."
+      }
     },
     {
       "id": "s57",
@@ -2952,7 +3482,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "June update brought some S26 AI features to the S25, but not Now Nudge.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "6월 업데이트로 일부 S26 AI 기능이 S25에 제공되었지만 Now Nudge는 빠졌습니다."
+      }
     },
     {
       "id": "s58",
@@ -2974,7 +3507,10 @@ window.VOC_DATA = {
       "sentiment": "pos",
       "takeaway": "One UI 9 Beta 2 brings Now Nudge to the Galaxy S24 series.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "One UI 9 베타 2가 Galaxy S24 시리즈에 Now Nudge를 제공합니다."
+      }
     },
     {
       "id": "s59",
@@ -3000,6 +3536,9 @@ window.VOC_DATA = {
         "comments": 19,
         "shares": 74,
         "views": 4571
+      },
+      "ko": {
+        "takeaway": "Now Nudge가 얼마나 유용한지 묻는 인플루언서 게시물이며, 답글 19개 대부분은 주제와 무관합니다."
       }
     },
     {
@@ -3025,7 +3564,10 @@ window.VOC_DATA = {
         "reactions": 0,
         "views": 39
       },
-      "parentTitle": "Now Nudge : How useful is this one? 🤷‍♀️"
+      "parentTitle": "Now Nudge : How useful is this one? 🤷‍♀️",
+      "ko": {
+        "takeaway": "Now Nudge를 휴대폰에 AI를 녹여 내는 올바른 방식으로 봅니다."
+      }
     },
     {
       "id": "s61",
@@ -3049,6 +3591,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 7,
         "views": 443
+      },
+      "ko": {
+        "takeaway": "구형 Galaxy 사용자가 자신의 기기에도 Now Nudge가 오기를 바랍니다."
       }
     },
     {
@@ -3074,6 +3619,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 1,
         "views": 538
+      },
+      "ko": {
+        "takeaway": "S24 Ultra 사용자가 S26 기능이 내려오는 것을 반기며 Now Nudge에 대해 묻습니다."
       }
     },
     {
@@ -3099,6 +3647,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 1,
         "views": 1342
+      },
+      "ko": {
+        "takeaway": "S25 사용자가 Now Nudge가 포함된 One UI 9 유출이 사실인지 묻습니다."
       }
     },
     {
@@ -3123,6 +3674,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2,
         "views": 280
+      },
+      "ko": {
+        "takeaway": "S26 사용자가 Now Nudge를 찾지 못하고 무엇인지도 모릅니다."
       }
     },
     {
@@ -3147,6 +3701,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 2,
         "views": 206
+      },
+      "ko": {
+        "takeaway": "S24 사용자가 Now Nudge가 자신의 기기에 올지 의심합니다."
       }
     },
     {
@@ -3173,6 +3730,9 @@ window.VOC_DATA = {
         "reactions": 16,
         "comments": 1,
         "views": 5440
+      },
+      "ko": {
+        "takeaway": "팁스터가 One UI 9에서는 삼성 키보드 없이도 Now Nudge가 작동한다고 전하며, 삼성 변경 내역에는 알림과 플로팅 버튼 제안이 추가되었습니다."
       }
     },
     {
@@ -3198,6 +3758,9 @@ window.VOC_DATA = {
         "reactions": 2,
         "comments": 1,
         "views": 58
+      },
+      "ko": {
+        "takeaway": "S24가 Now Nudge에서 제외될 것으로 예상합니다."
       }
     },
     {
@@ -3224,6 +3787,9 @@ window.VOC_DATA = {
         "comments": 1,
         "shares": 1,
         "views": 914
+      },
+      "ko": {
+        "takeaway": "Now Nudge가 더 많은 앱에서 작동하기를 원합니다."
       }
     },
     {
@@ -3250,6 +3816,9 @@ window.VOC_DATA = {
         "comments": 12,
         "shares": 15,
         "views": 28723
+      },
+      "ko": {
+        "takeaway": "널리 공유된 One UI 9 베타 리뷰: Now Nudge가 '거의 나타나지 않는다'."
       }
     },
     {
@@ -3276,6 +3845,9 @@ window.VOC_DATA = {
         "comments": 5,
         "shares": 23,
         "views": 235
+      },
+      "ko": {
+        "takeaway": "8월 24일에 수십 건 게시된 Fold 8 유료 홍보(#AD) 중 하나로, 사용자 의견이 아닙니다."
       }
     },
     {
@@ -3302,6 +3874,9 @@ window.VOC_DATA = {
         "comments": 134,
         "shares": 49,
         "views": 68811
+      },
+      "ko": {
+        "takeaway": "X에서 반응이 가장 많은 Now Nudge 게시물: 팁스터가 One UI 9 베타 2로 S24에 제공된다고 알립니다."
       }
     },
     {
@@ -3327,7 +3902,10 @@ window.VOC_DATA = {
         "reactions": 0,
         "views": 205
       },
-      "parentTitle": "Breaking!\n\nGreat news for Galaxy S24 Series users!"
+      "parentTitle": "Breaking!\n\nGreat news for Galaxy S24 Series users!",
+      "ko": {
+        "takeaway": "Now Nudge가 알림 하이라이트보다 강력하다고 봅니다."
+      }
     },
     {
       "id": "s73",
@@ -3353,6 +3931,9 @@ window.VOC_DATA = {
         "comments": 10,
         "shares": 6,
         "views": 4384
+      },
+      "ko": {
+        "takeaway": "One UI 9 베타로 구형 모델에 Now Nudge가 제공된 것을 환영합니다."
       }
     },
     {
@@ -3378,6 +3959,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 4,
         "views": 886
+      },
+      "ko": {
+        "takeaway": "몇몇 앱에서만 작동하고 대부분 답장 제안만 한다고 말합니다."
       }
     },
     {
@@ -3402,6 +3986,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 6,
         "views": 903
+      },
+      "ko": {
+        "takeaway": "Now Nudge가 작동하는 것을 한 번도 본 적이 없습니다."
       }
     },
     {
@@ -3426,6 +4013,9 @@ window.VOC_DATA = {
       "engagement": {
         "reactions": 0,
         "views": 228
+      },
+      "ko": {
+        "takeaway": "One UI 9 베타에서 모든 것이 작동하지만 Now Nudge만 전혀 작동하지 않습니다."
       }
     },
     {
@@ -3450,7 +4040,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "In Italy, with every setting on and Samsung Keyboard, the user has never seen a nudge, even when asked for photos or meetings on WhatsApp.",
       "engagement": {},
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "이탈리아에서 모든 설정을 켜고 삼성 키보드를 쓰는데도, WhatsApp에서 사진이나 약속 요청을 받아도 Nudge를 한 번도 보지 못했습니다."
+      }
     },
     {
       "id": "s78",
@@ -3473,7 +4066,10 @@ window.VOC_DATA = {
       "takeaway": "Thinks the feature is unfinished.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "기능이 미완성이라고 생각합니다."
+      }
     },
     {
       "id": "s79",
@@ -3496,7 +4092,10 @@ window.VOC_DATA = {
       "takeaway": "Uses Gboard, has never seen a nudge, and is considering a Pixel.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "Gboard를 사용하며 Nudge를 본 적이 없고, Pixel로 바꿀까 고민합니다."
+      }
     },
     {
       "id": "s80",
@@ -3519,7 +4118,10 @@ window.VOC_DATA = {
       "takeaway": "With Samsung Keyboard it should appear, but it doesn't.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "삼성 키보드라면 나타나야 하지만 나타나지 않습니다."
+      }
     },
     {
       "id": "s81",
@@ -3542,7 +4144,10 @@ window.VOC_DATA = {
       "takeaway": "Has never seen it and doesn't think it works.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "본 적이 없으며 작동하지 않는다고 생각합니다."
+      }
     },
     {
       "id": "s82",
@@ -3565,7 +4170,10 @@ window.VOC_DATA = {
       "takeaway": "Suspects Samsung has paused the feature, perhaps until One UI 9.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "삼성이 One UI 9까지 기능을 보류했을 수 있다고 추측합니다."
+      }
     },
     {
       "id": "s83",
@@ -3589,7 +4197,10 @@ window.VOC_DATA = {
       "takeaway": "Works, but only with text messages so far.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "작동하지만 아직은 문자 메시지에서만 됩니다."
+      }
     },
     {
       "id": "s84",
@@ -3612,7 +4223,10 @@ window.VOC_DATA = {
       "takeaway": "Explains that what many see is Writing Assist, not Now Nudge, which should link to the gallery or calendar.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "많은 사람이 보는 것은 Now Nudge가 아니라 글쓰기 어시스트이며, Now Nudge는 갤러리나 캘린더로 연결돼야 한다고 설명합니다."
+      }
     },
     {
       "id": "s85",
@@ -3636,7 +4250,10 @@ window.VOC_DATA = {
       "takeaway": "After turning on suggested replies and clearing caches, it started working, but only in Google Messages.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "추천 답장을 켜고 캐시를 지우자 작동하기 시작했지만 Google 메시지에서만 됩니다."
+      }
     },
     {
       "id": "s86",
@@ -3660,7 +4277,10 @@ window.VOC_DATA = {
       "takeaway": "Says the suggestions people see are Writing Assist; Now Nudge itself isn't working.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "사람들이 보는 제안은 글쓰기 어시스트이며 Now Nudge 자체는 작동하지 않는다고 말합니다."
+      }
     },
     {
       "id": "s87",
@@ -3683,7 +4303,10 @@ window.VOC_DATA = {
       "takeaway": "Says it works, but only in Google Chat, Google Messages and Samsung Messages.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "작동하지만 Google Chat, Google 메시지, 삼성 메시지에서만 된다고 말합니다."
+      }
     },
     {
       "id": "s88",
@@ -3707,7 +4330,10 @@ window.VOC_DATA = {
       "takeaway": "In Austria, calendar and place nudges worked at first but stopped after a late-March update; now it only offers useless replies.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "오스트리아에서 캘린더와 장소 Nudge가 처음에는 작동했지만 3월 말 업데이트 이후 멈췄고, 지금은 쓸모없는 답장만 제안합니다."
+      }
     },
     {
       "id": "s89",
@@ -3731,7 +4357,10 @@ window.VOC_DATA = {
       "takeaway": "Only shows up after taking a screenshot, to suggest sending it.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "스크린샷을 찍은 후에만 나타나 전송을 제안합니다."
+      }
     },
     {
       "id": "s90",
@@ -3754,7 +4383,10 @@ window.VOC_DATA = {
       "takeaway": "Three months on an S26 Ultra with Samsung Keyboard and every setting on, and still no nudge.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "S26 Ultra에서 삼성 키보드와 모든 설정을 켜고 3개월을 써도 Nudge가 없습니다."
+      }
     },
     {
       "id": "s91",
@@ -3777,7 +4409,10 @@ window.VOC_DATA = {
       "takeaway": "Says it only supports three apps, which is why it doesn't work for most people.",
       "engagement": {},
       "parentTitle": "But... Now Nudge works??",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "세 가지 앱만 지원하기 때문에 대부분의 사람에게 작동하지 않는다고 말합니다."
+      }
     },
     {
       "id": "s92",
@@ -3800,7 +4435,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Switched to Samsung Keyboard to try it; after a week, Now Nudge hasn't done anything.",
       "engagement": {},
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "써 보려고 삼성 키보드로 바꿨지만 일주일이 지나도 Now Nudge는 아무것도 하지 않았습니다."
+      }
     },
     {
       "id": "s93",
@@ -3823,7 +4461,10 @@ window.VOC_DATA = {
       "takeaway": "Even Samsung's Galaxy Guide can't explain the feature.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "삼성 Galaxy Guide조차 이 기능을 설명하지 못합니다."
+      }
     },
     {
       "id": "s94",
@@ -3847,7 +4488,10 @@ window.VOC_DATA = {
       "takeaway": "Suggests testing it by having a friend ask for yesterday's photos.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "친구에게 어제 사진을 요청해 달라고 해서 시험해 보라고 제안합니다."
+      }
     },
     {
       "id": "s95",
@@ -3871,7 +4515,10 @@ window.VOC_DATA = {
       "takeaway": "Seen it a few times; it once filled a passport number, but it's not really useful yet.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "몇 번 봤고 여권 번호를 채워 준 적도 있지만 아직은 그다지 유용하지 않습니다."
+      }
     },
     {
       "id": "s96",
@@ -3894,7 +4541,10 @@ window.VOC_DATA = {
       "takeaway": "Two weeks in, it hasn't activated once, despite trying several methods.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "여러 방법을 시도했지만 2주 동안 한 번도 작동하지 않았습니다."
+      }
     },
     {
       "id": "s97",
@@ -3917,7 +4567,10 @@ window.VOC_DATA = {
       "takeaway": "Hasn't seen it in three weeks of waiting.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "3주를 기다렸지만 보지 못했습니다."
+      }
     },
     {
       "id": "s98",
@@ -3940,7 +4593,10 @@ window.VOC_DATA = {
       "takeaway": "Has never worked, almost three months after launch.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "출시 후 거의 3개월이 지나도록 한 번도 작동하지 않았습니다."
+      }
     },
     {
       "id": "s99",
@@ -3964,7 +4620,10 @@ window.VOC_DATA = {
       "takeaway": "Has never seen proof of it working; suspects Samsung deactivated it and that people mistake Writing Assist for it.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "작동하는 증거를 본 적이 없으며, 삼성이 비활성화했고 사람들이 글쓰기 어시스트를 착각한다고 의심합니다."
+      }
     },
     {
       "id": "s100",
@@ -3989,7 +4648,10 @@ window.VOC_DATA = {
       "takeaway": "Samsung support said it isn't working yet in some regions, including North America; only personal-detail autofill shows up in the browser.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "삼성 고객지원은 북미를 포함한 일부 지역에서 아직 작동하지 않는다고 했으며, 브라우저에서는 개인정보 자동 입력만 나타납니다."
+      }
     },
     {
       "id": "s101",
@@ -4012,7 +4674,10 @@ window.VOC_DATA = {
       "takeaway": "Thinks it may need several days of learning before suggestions start.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "5 months ago"
+      "postedApprox": "5 months ago",
+      "ko": {
+        "takeaway": "제안이 시작되기 전에 며칠간의 학습이 필요할 수 있다고 생각합니다."
+      }
     },
     {
       "id": "s102",
@@ -4035,7 +4700,10 @@ window.VOC_DATA = {
       "takeaway": "Believes Now Nudge is a One UI 9 feature (it launched with One UI 8.5).",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "Now Nudge를 One UI 9 기능으로 알고 있습니다(실제로는 One UI 8.5와 함께 출시)."
+      }
     },
     {
       "id": "s103",
@@ -4058,7 +4726,10 @@ window.VOC_DATA = {
       "takeaway": "Corrects the thread: it's a One UI 8.5 launch feature for the S26.",
       "engagement": {},
       "parentTitle": "Now Nudge hasn't done anything yet",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "스레드를 바로잡습니다. S26용 One UI 8.5 출시 기능입니다."
+      }
     },
     {
       "id": "s104",
@@ -4080,7 +4751,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Has never worked since getting the phone, even with every Galaxy AI setting on.",
       "engagement": {},
-      "postedApprox": "5 months ago"
+      "postedApprox": "5 months ago",
+      "ko": {
+        "takeaway": "모든 Galaxy AI 설정을 켰는데도 휴대폰을 산 이후 한 번도 작동하지 않았습니다."
+      }
     },
     {
       "id": "s105",
@@ -4104,7 +4778,10 @@ window.VOC_DATA = {
       "takeaway": "Doesn't work; only offers automatic replies.",
       "engagement": {},
       "parentTitle": "Now Nudge not working?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "작동하지 않고 자동 답장만 제안합니다."
+      }
     },
     {
       "id": "s106",
@@ -4127,7 +4804,10 @@ window.VOC_DATA = {
       "takeaway": "Never worked properly, even with everything enabled.",
       "engagement": {},
       "parentTitle": "Now Nudge not working?",
-      "postedApprox": "5 months ago"
+      "postedApprox": "5 months ago",
+      "ko": {
+        "takeaway": "모든 것을 켰는데도 제대로 작동한 적이 없습니다."
+      }
     },
     {
       "id": "s107",
@@ -4152,7 +4832,10 @@ window.VOC_DATA = {
       "takeaway": "Bought into the Unpacked demo for checking availability with clients and sharing photos; the real device doesn't deliver.",
       "engagement": {},
       "parentTitle": "Now Nudge not working?",
-      "postedApprox": "5 months ago"
+      "postedApprox": "5 months ago",
+      "ko": {
+        "takeaway": "고객과 일정 확인, 사진 공유를 보여준 언팩 시연을 믿었지만 실제 기기는 그렇지 않습니다."
+      }
     },
     {
       "id": "s108",
@@ -4176,7 +4859,10 @@ window.VOC_DATA = {
       "takeaway": "Showed up for one day in Google Messages, then never again.",
       "engagement": {},
       "parentTitle": "Now Nudge not working?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "Google 메시지에서 하루 나타났다가 다시는 나타나지 않았습니다."
+      }
     },
     {
       "id": "s109",
@@ -4200,7 +4886,10 @@ window.VOC_DATA = {
       "takeaway": "Says the main problem is that it needs Samsung Keyboard and only works in three apps.",
       "engagement": {},
       "parentTitle": "Now Nudge not working?",
-      "postedApprox": "18 days ago"
+      "postedApprox": "18 days ago",
+      "ko": {
+        "takeaway": "가장 큰 문제는 삼성 키보드가 필요하고 세 가지 앱에서만 작동한다는 점이라고 말합니다."
+      }
     },
     {
       "id": "s110",
@@ -4224,7 +4913,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Works in Messages but not WhatsApp, where they actually chat; close to going back to Gboard.",
       "engagement": {},
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "메시지에서는 되지만 실제로 대화하는 WhatsApp에서는 안 되며, Gboard로 돌아갈 생각입니다."
+      }
     },
     {
       "id": "s111",
@@ -4247,7 +4939,10 @@ window.VOC_DATA = {
       "takeaway": "Can't get it to appear even in Messages.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "메시지에서조차 나타나지 않습니다."
+      }
     },
     {
       "id": "s112",
@@ -4271,7 +4966,10 @@ window.VOC_DATA = {
       "takeaway": "Got it working in Messages, but nobody sends normal texts any more.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "메시지에서는 작동하게 됐지만 이제 아무도 일반 문자를 보내지 않습니다."
+      }
     },
     {
       "id": "s113",
@@ -4295,7 +4993,10 @@ window.VOC_DATA = {
       "takeaway": "In Australia it works in Google Messages but not WhatsApp; wonders whether it's region-locked.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "호주에서 Google 메시지에서는 되지만 WhatsApp에서는 안 되며, 지역 제한인지 궁금해합니다."
+      }
     },
     {
       "id": "s114",
@@ -4319,7 +5020,10 @@ window.VOC_DATA = {
       "takeaway": "Reply suggestions work, but the advertised calendar prompts don't.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "답장 제안은 작동하지만 광고한 캘린더 안내는 작동하지 않습니다."
+      }
     },
     {
       "id": "s115",
@@ -4343,7 +5047,10 @@ window.VOC_DATA = {
       "takeaway": "Says that in most regions it only gives text suggestions in WhatsApp, with full support in a few.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "8 days ago"
+      "postedApprox": "8 days ago",
+      "ko": {
+        "takeaway": "대부분 지역의 WhatsApp에서는 텍스트 제안만 나오고 일부 지역에서만 완전히 지원된다고 말합니다."
+      }
     },
     {
       "id": "s116",
@@ -4367,7 +5074,10 @@ window.VOC_DATA = {
       "takeaway": "Sees reply suggestions but never the calendar prompts shown on Fold 8 demo units in stores.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "답장 제안은 보이지만 매장 Fold 8 시연 기기에서 본 캘린더 안내는 나타나지 않습니다."
+      }
     },
     {
       "id": "s117",
@@ -4390,7 +5100,10 @@ window.VOC_DATA = {
       "takeaway": "Says the fine print limits it to three apps; elsewhere it only suggests replies.",
       "engagement": {},
       "parentTitle": "Now nudge and whats app?",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "작은 글씨의 안내에 따르면 세 가지 앱으로 제한되며 다른 앱에서는 답장만 제안한다고 말합니다."
+      }
     },
     {
       "id": "s118",
@@ -4412,7 +5125,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "News post: Now Nudge found in One UI 9 firmware for the S25.",
       "engagement": {},
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "뉴스 공유: S25용 One UI 9 펌웨어에서 Now Nudge가 발견되었습니다."
+      }
     },
     {
       "id": "s119",
@@ -4436,7 +5152,10 @@ window.VOC_DATA = {
       "takeaway": "S24 owner thinks Now Nudge might be useful and hopes it reaches their phone.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "S24 사용자가 Now Nudge가 유용할 수 있다며 자신의 기기에도 오기를 바랍니다."
+      }
     },
     {
       "id": "s120",
@@ -4459,7 +5178,10 @@ window.VOC_DATA = {
       "takeaway": "Doubts the FE series will get it.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "FE 시리즈에도 제공될지 의심합니다."
+      }
     },
     {
       "id": "s121",
@@ -4482,7 +5204,10 @@ window.VOC_DATA = {
       "takeaway": "S24 Ultra owner wants it too.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "S24 Ultra 사용자도 원합니다."
+      }
     },
     {
       "id": "s122",
@@ -4505,7 +5230,10 @@ window.VOC_DATA = {
       "takeaway": "Asks what Now Nudge even is.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "Now Nudge가 도대체 무엇인지 묻습니다."
+      }
     },
     {
       "id": "s123",
@@ -4528,7 +5256,10 @@ window.VOC_DATA = {
       "takeaway": "Compares Now Nudge to Navi's constant 'Hey, Listen!': a nag nobody asked for.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "Now Nudge를 나비의 끊임없는 'Hey, Listen!'에 비유합니다. 아무도 원하지 않은 잔소리입니다."
+      }
     },
     {
       "id": "s124",
@@ -4552,7 +5283,10 @@ window.VOC_DATA = {
       "takeaway": "Glad it can be switched off; doesn't want the phone scanning messages or telling them what to do.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "끌 수 있어 다행이라고 하며, 휴대폰이 메시지를 훑어보거나 할 일을 지시하는 것을 원하지 않습니다."
+      }
     },
     {
       "id": "s125",
@@ -4576,7 +5310,10 @@ window.VOC_DATA = {
       "takeaway": "S26 Ultra owner finds it useless and quite annoying.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "1 month ago"
+      "postedApprox": "1 month ago",
+      "ko": {
+        "takeaway": "S26 Ultra 사용자가 쓸모없고 꽤 성가시다고 합니다."
+      }
     },
     {
       "id": "s126",
@@ -4599,7 +5336,10 @@ window.VOC_DATA = {
       "takeaway": "Dismisses it as more Samsung bloatware.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "또 하나의 삼성 블로트웨어라고 일축합니다."
+      }
     },
     {
       "id": "s127",
@@ -4622,7 +5362,10 @@ window.VOC_DATA = {
       "takeaway": "Sees it as an AI feature to pad out phones with few hardware changes.",
       "engagement": {},
       "parentTitle": "Exclusive: Samsung to bring Now nudge to Galaxy S25, possibly even to Galaxy S24",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "하드웨어 변화가 적은 휴대폰을 채우기 위한 AI 기능으로 봅니다."
+      }
     },
     {
       "id": "s128",
@@ -4644,7 +5387,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "News post: the S25 series will get Now Nudge with One UI 9.",
       "engagement": {},
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "뉴스 공유: S25 시리즈가 One UI 9로 Now Nudge를 받게 됩니다."
+      }
     },
     {
       "id": "s129",
@@ -4667,7 +5413,10 @@ window.VOC_DATA = {
       "takeaway": "Criticises Samsung for treating a one-year-old phone getting a feature as big news.",
       "engagement": {},
       "parentTitle": "S25 Series will be getting Now Nudges with One UI 9",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "1년 된 휴대폰에 기능이 제공되는 것이 큰 뉴스가 되는 상황을 두고 삼성을 비판합니다."
+      }
     },
     {
       "id": "s130",
@@ -4690,7 +5439,10 @@ window.VOC_DATA = {
       "takeaway": "Believes the S24 and S25 only got it because people complained.",
       "engagement": {},
       "parentTitle": "S25 Series will be getting Now Nudges with One UI 9",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "사용자들이 불만을 제기했기 때문에 S24와 S25가 받았다고 생각합니다."
+      }
     },
     {
       "id": "s131",
@@ -4713,7 +5465,10 @@ window.VOC_DATA = {
       "takeaway": "Frustrated that Samsung holds features back for each new release.",
       "engagement": {},
       "parentTitle": "S25 Series will be getting Now Nudges with One UI 9",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "삼성이 신제품마다 기능을 아껴 두는 것에 답답해합니다."
+      }
     },
     {
       "id": "s132",
@@ -4736,7 +5491,10 @@ window.VOC_DATA = {
       "takeaway": "Refuses a feature that reads the screen and questions which third party is involved.",
       "engagement": {},
       "parentTitle": "S25 Series will be getting Now Nudges with One UI 9",
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "화면을 읽는 기능을 거부하며 어떤 제3자가 관여하는지 묻습니다."
+      }
     },
     {
       "id": "s133",
@@ -4759,7 +5517,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "Asks whether real-time suggestions are helpful or distracting.",
       "engagement": {},
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "실시간 제안이 도움이 되는지 방해가 되는지 묻습니다."
+      }
     },
     {
       "id": "s134",
@@ -4784,7 +5545,10 @@ window.VOC_DATA = {
       "engagement": {},
       "parentTitle": "Now Nudge giving real-time suggestions sounds interesting. Helpful or potentially distracting?",
       "competitor": true,
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "좋은 개념이지만 경험상(구글이 먼저 했던 기능) 신뢰하기 어렵다고 합니다."
+      }
     },
     {
       "id": "s135",
@@ -4807,7 +5571,10 @@ window.VOC_DATA = {
       "takeaway": "Calls it 'Samsung Recall': a privacy disaster that remembers everything on screen, even in Signal.",
       "engagement": {},
       "parentTitle": "Now Nudge giving real-time suggestions sounds interesting. Helpful or potentially distracting?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "'삼성판 Recall'이라 부르며, Signal까지 포함해 화면의 모든 것을 기억하는 개인정보 재앙이라고 합니다."
+      }
     },
     {
       "id": "s136",
@@ -4830,7 +5597,10 @@ window.VOC_DATA = {
       "takeaway": "Sees it as privacy-invading, like Windows Recall.",
       "engagement": {},
       "parentTitle": "Now Nudge giving real-time suggestions sounds interesting. Helpful or potentially distracting?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "Windows Recall처럼 사생활을 침해한다고 봅니다."
+      }
     },
     {
       "id": "s137",
@@ -4853,7 +5623,10 @@ window.VOC_DATA = {
       "takeaway": "Counters that processing stays on the device, in Knox, and is encrypted.",
       "engagement": {},
       "parentTitle": "Now Nudge giving real-time suggestions sounds interesting. Helpful or potentially distracting?",
-      "postedApprox": "6 months ago"
+      "postedApprox": "6 months ago",
+      "ko": {
+        "takeaway": "처리는 Knox 안에서 기기 내에 머물며 암호화된다고 반박합니다."
+      }
     },
     {
       "id": "s138",
@@ -4876,7 +5649,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "Tries to unlock Now Nudge on an older phone with a custom ROM; settings say 'not allowed'.",
       "engagement": {},
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "커스텀 ROM으로 구형 기기에서 Now Nudge를 열어 보려 하지만 설정에 '허용되지 않음'이라고 나옵니다."
+      }
     },
     {
       "id": "s139",
@@ -4899,7 +5675,10 @@ window.VOC_DATA = {
       "takeaway": "Suggests a System UI Tuner workaround.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "System UI Tuner를 이용한 우회 방법을 제안합니다."
+      }
     },
     {
       "id": "s140",
@@ -4922,7 +5701,10 @@ window.VOC_DATA = {
       "takeaway": "Workarounds via Personal Data Intelligence don't open the section.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "Personal Data Intelligence를 통한 우회 방법으로도 메뉴가 열리지 않습니다."
+      }
     },
     {
       "id": "s141",
@@ -4945,7 +5727,10 @@ window.VOC_DATA = {
       "takeaway": "Asks how to activate it on One UI 8.0.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "One UI 8.0에서 활성화하는 방법을 묻습니다."
+      }
     },
     {
       "id": "s142",
@@ -4968,7 +5753,10 @@ window.VOC_DATA = {
       "takeaway": "Got the option to appear by sideloading the Personal Data Intelligence app.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "Personal Data Intelligence 앱을 직접 설치해 옵션을 나타나게 했습니다."
+      }
     },
     {
       "id": "s143",
@@ -4991,7 +5779,10 @@ window.VOC_DATA = {
       "takeaway": "Still hasn't found a way to make it work.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "아직 작동시킬 방법을 찾지 못했습니다."
+      }
     },
     {
       "id": "s144",
@@ -5014,7 +5805,10 @@ window.VOC_DATA = {
       "takeaway": "Samsung's Galaxy Guide bot replies with marketing copy instead of help.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "삼성 Galaxy Guide 봇이 도움 대신 마케팅 문구로 답합니다."
+      }
     },
     {
       "id": "s145",
@@ -5037,7 +5831,10 @@ window.VOC_DATA = {
       "takeaway": "Believes it isn't a feature yet and needs One UI 9.",
       "engagement": {},
       "parentTitle": "Any way to open now nudge section in settings?",
-      "postedApprox": "7 months ago"
+      "postedApprox": "7 months ago",
+      "ko": {
+        "takeaway": "아직 제공되는 기능이 아니며 One UI 9가 필요하다고 생각합니다."
+      }
     },
     {
       "id": "s146",
@@ -5060,7 +5857,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "S24 Ultra on the One UI 9 beta can't get it working; the error is actually from Now Brief custom cards.",
       "engagement": {},
-      "postedApprox": "22 hours ago"
+      "postedApprox": "22 hours ago",
+      "ko": {
+        "takeaway": "One UI 9 베타의 S24 Ultra에서 작동하지 않지만, 오류는 실제로 Now Brief 맞춤 카드에서 발생한 것입니다."
+      }
     },
     {
       "id": "s147",
@@ -5083,7 +5883,10 @@ window.VOC_DATA = {
       "takeaway": "Says it doesn't work properly even on the Fold 8 yet.",
       "engagement": {},
       "parentTitle": "Does now nudge work for anyone on the latest one ui 9 beta?",
-      "postedApprox": "21 hours ago"
+      "postedApprox": "21 hours ago",
+      "ko": {
+        "takeaway": "Fold 8에서도 아직 제대로 작동하지 않는다고 말합니다."
+      }
     },
     {
       "id": "s148",
@@ -5106,7 +5909,10 @@ window.VOC_DATA = {
       "takeaway": "Assumed they had set it up wrong; there's little information online.",
       "engagement": {},
       "parentTitle": "Does now nudge work for anyone on the latest one ui 9 beta?",
-      "postedApprox": "21 hours ago"
+      "postedApprox": "21 hours ago",
+      "ko": {
+        "takeaway": "설정을 잘못한 줄 알았으며 온라인에 정보가 거의 없다고 합니다."
+      }
     },
     {
       "id": "s149",
@@ -5130,7 +5936,10 @@ window.VOC_DATA = {
       "takeaway": "Expects it needs time to index; glad the S24 wasn't left out.",
       "engagement": {},
       "parentTitle": "Does now nudge work for anyone on the latest one ui 9 beta?",
-      "postedApprox": "18 hours ago"
+      "postedApprox": "18 hours ago",
+      "ko": {
+        "takeaway": "색인에 시간이 필요할 것으로 보며 S24가 제외되지 않아 다행이라고 합니다."
+      }
     },
     {
       "id": "s150",
@@ -5153,7 +5962,10 @@ window.VOC_DATA = {
       "takeaway": "Explains Now Nudge and Now Brief custom cards are separate menus.",
       "engagement": {},
       "parentTitle": "Does now nudge work for anyone on the latest one ui 9 beta?",
-      "postedApprox": "2 hours ago"
+      "postedApprox": "2 hours ago",
+      "ko": {
+        "takeaway": "Now Nudge와 Now Brief 맞춤 카드는 별도의 메뉴라고 설명합니다."
+      }
     },
     {
       "id": "s151",
@@ -5175,7 +5987,10 @@ window.VOC_DATA = {
       "sentiment": "neu",
       "takeaway": "Prospective buyer asks whether the S25 Ultra has Now Nudge and other S26 AI features.",
       "engagement": {},
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "구매 예정자가 S25 Ultra에 Now Nudge 등 S26 AI 기능이 있는지 묻습니다."
+      }
     },
     {
       "id": "s152",
@@ -5198,7 +6013,10 @@ window.VOC_DATA = {
       "takeaway": "Doubts anyone would choose a phone for 'agentic' AI features.",
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "'에이전틱' AI 기능 때문에 휴대폰을 고르는 사람이 있을지 의문을 제기합니다."
+      }
     },
     {
       "id": "s153",
@@ -5221,7 +6039,10 @@ window.VOC_DATA = {
       "takeaway": "Says Now Nudge is S26-only (at the time).",
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "(당시 기준) Now Nudge는 S26 전용이라고 말합니다."
+      }
     },
     {
       "id": "s154",
@@ -5245,7 +6066,10 @@ window.VOC_DATA = {
       "takeaway": "Expects these features to work properly only by the S27.",
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "이 기능들이 S27쯤 되어야 제대로 작동할 것으로 예상합니다."
+      }
     },
     {
       "id": "s155",
@@ -5270,7 +6094,10 @@ window.VOC_DATA = {
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
       "competitor": true,
-      "postedApprox": "2 months ago"
+      "postedApprox": "2 months ago",
+      "ko": {
+        "takeaway": "Pixel 사용자가 Magic Cue가 훌륭하다며 Now Nudge가 없는 것은 결정적인 단점이라고 합니다."
+      }
     },
     {
       "id": "s156",
@@ -5293,7 +6120,10 @@ window.VOC_DATA = {
       "takeaway": "Says everything is on the S25 except Now Nudge.",
       "engagement": {},
       "parentTitle": "Did the S25 Ultra get all of the agentic AI features with the One UI 8.5 update?",
-      "postedApprox": "4 months ago"
+      "postedApprox": "4 months ago",
+      "ko": {
+        "takeaway": "S25에는 Now Nudge를 제외한 모든 기능이 있다고 말합니다."
+      }
     },
     {
       "id": "s157",
@@ -5316,7 +6146,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Report on Samsung's Reddit AMA: fans questioned Galaxy AI's day-to-day value and data use; Now Nudge was among the features discussed most.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "삼성 Reddit AMA 보도: 팬들이 Galaxy AI의 일상적 가치와 데이터 사용에 의문을 제기했으며, Now Nudge는 가장 많이 논의된 기능 중 하나였습니다."
+      }
     },
     {
       "id": "s158",
@@ -5338,7 +6171,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Summarises S25 owners' reaction to One UI 8.5: Now Nudge's absence is one of the two biggest gripes.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "One UI 8.5에 대한 S25 사용자 반응 요약: Now Nudge 제외가 가장 큰 불만 두 가지 중 하나입니다."
+      }
     },
     {
       "id": "s159",
@@ -5360,7 +6196,10 @@ window.VOC_DATA = {
       "sentiment": "neg",
       "takeaway": "Summarises Samsung's Korean forum: S25 owners see Now Nudge's absence as gatekeeping, not a hardware limit.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "삼성 한국 커뮤니티 요약: S25 사용자들은 Now Nudge 제외를 하드웨어 한계가 아닌 의도적 제한으로 봅니다."
+      }
     },
     {
       "id": "s160",
@@ -5384,11 +6223,17 @@ window.VOC_DATA = {
       "sentiment": "mix",
       "takeaway": "One UI 9 hands-on: useful when it appears, but too inconsistent to rely on.",
       "engagement": {},
-      "truncated": true
+      "truncated": true,
+      "ko": {
+        "takeaway": "One UI 9 체험기: 나타날 때는 유용하지만 믿고 쓰기에는 너무 일관성이 없습니다."
+      }
     }
   ],
   "competitor": {
-    "summary": "Magic Cue comes up in 5 of 160 posts, all from press. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. Users on the forums and X don't compare the two.",
+    "summary": "Magic Cue comes up in 5 of 160 posts: 3 from press and 2 from users. Launch coverage called Now Nudge Samsung's version of Magic Cue and found it more consistent at Unpacked; one reviewer later never saw either feature appear in daily use. On Reddit, one Pixel owner calls Magic Cue excellent and says lacking Now Nudge is a deal breaker, while another found Google's version unreliable.",
+    "ko": {
+      "summary": "Magic Cue는 게시물 160건 중 5건에서 언급되며, 언론 3건, 사용자 2건입니다. 출시 기사들은 Now Nudge를 삼성판 Magic Cue로 소개하며 언팩에서는 더 일관적이었다고 평가했지만, 한 리뷰어는 이후 일상 사용에서 두 기능 모두 한 번도 보지 못했습니다. Reddit에서는 한 Pixel 사용자가 Magic Cue가 훌륭하다며 Now Nudge가 없는 것은 결정적인 단점이라고 했고, 다른 사용자는 구글 버전도 신뢰하기 어려웠다고 했습니다."
+    },
     "sourceIds": [
       "s53",
       "s54",
