@@ -17,6 +17,9 @@
 3. **New styles become variants immediately.** If dashboard work needs a style that doesn't exist yet, add it to `voc-ds.css` / `voc-ds.js` as a variant of the closest existing component (e.g. `.badge.mom.new`, `.btn.sm`), and document it in `design-system.html` with its class name and a usage note in the same change.
 4. `design-system.html` may contain documentation-only styles (doc shell, swatches, specimens) in its own `<style>` block; nothing the dashboard uses may live there.
 
+## Publishing
+Public site: https://karthikeya-gs07.github.io/nudge-sense/ (repo `karthikeya-gs07/nudge-sense`, branch `main`, GitHub Pages). Pushing to `main` publishes publicly — ask the user before each push.
+
 ## Preview
 Shared files load over HTTP, not from a `data:`/file preview. Use the `voc-dashboard` server in `.claude/launch.json` (http://localhost:8765).
 

@@ -266,7 +266,23 @@ Every `<themeId>`, `<clusterId>` and `<qId>` must exist in the data.
 
 ---
 
-## 8. Viewing the dashboard
+## 8. Publishing (GitHub Pages)
+
+The project is published at **https://karthikeya-gs07.github.io/nudge-sense/** from the public repo `karthikeya-gs07/nudge-sense` (branch `main`). The site is **public**.
+
+After a run passes the checklist, **ask the user before publishing**, then:
+
+```bash
+git add -A
+git commit -m "Run <n>: <one-line summary>"
+git push
+```
+
+GitHub Pages rebuilds in about a minute. Never commit `tools/reddit_credentials.json` (it is in `.gitignore`).
+
+---
+
+## 9. Viewing the dashboard
 - Open `dashboard/index.html` in a browser by double-clicking it. No server is needed.
 - To see sample data instead: `dashboard/index.html?sample`
 - To see the components: `dashboard/design-system.html`
