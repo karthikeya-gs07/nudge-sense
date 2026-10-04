@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nudge Sense Design System</title>
+<link rel="stylesheet" href="voc-ds.css">
+<!-- Documentation-page-only styles. Shared components live in voc-ds.css -->
+<style>
+/* =========================================================
+   3. DOC SHELL (design-system page only)
+   ========================================================= */
+.doc { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+.doc-nav {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  border-right: 1px solid var(--border); background: var(--surface);
+  padding: var(--s5) var(--s3);
+}
+.doc-brand { padding: 0 var(--s2) var(--s5); }
+.doc-brand b { display: block; font-size: var(--fs-lg); }
+.doc-brand span { font-size: var(--fs-xs); color: var(--muted); }
+.doc-nav .nav-group + .nav-group { margin-top: var(--s4); }
+.doc-nav .eyebrow { padding: 0 var(--s2) var(--s1); display: block; }
+.doc-main { padding-block: var(--s6) var(--s7); padding-inline: clamp(16px, 4vw, 56px); max-width: 1180px; width: 100%; }
+.doc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s6); }
+.doc-top h1 { font-size: var(--fs-2xl); letter-spacing: -0.01em; }
+.doc-top p { color: var(--ink-2); max-width: 62ch; margin-top: var(--s2); }
+.doc-section { padding-top: var(--s7); scroll-margin-top: var(--s4); }
+.doc-section > header { margin-bottom: var(--s5); border-bottom: 1px solid var(--border); padding-bottom: var(--s3); }
+.doc-section > header h2 { font-size: var(--fs-xl); }
+.doc-section > header p { color: var(--ink-2); margin-top: var(--s1); max-width: 70ch; }
+.spec { margin-bottom: var(--s6); }
+.spec-head { display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s3); }
+.spec-head h3 { font-size: var(--fs-lg); }
+.spec-head code { font: 400 var(--fs-xs)/1 var(--mono); color: var(--muted); background: var(--surface-2); padding: 3px 6px; border-radius: var(--r-sm); }
+.spec-note { color: var(--ink-2); font-size: var(--fs-sm); margin-top: var(--s3); max-width: 75ch; }
+.spec-note b { color: var(--ink); font-weight: 500; }
+.stage { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--s5); }
+.stage.plain { background: transparent; border-style: dashed; }
+.sample-flag {
+  display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-xs); font-weight: 500;
+  color: var(--warning); background: var(--warning-soft); padding: 4px 10px; border-radius: var(--r-pill);
+}
+@media (max-width: 1000px) {
+  .doc { grid-template-columns: 196px minmax(0, 1fr); }
+  .doc-nav { padding-inline: var(--s2); }
+}
+@media (max-width: 640px) {
+  .doc { grid-template-columns: minmax(0, 1fr); }
+  .doc-nav { position: sticky; height: auto; z-index: 5; border-right: 0; border-bottom: 1px solid var(--border); padding: var(--s3) 16px; display: flex; gap: var(--s2); overflow-x: auto; white-space: nowrap; }
+  .doc-brand, .doc-nav .eyebrow { display: none; }
+  .doc-nav .nav-group { display: flex; gap: var(--s1); }
+  .doc-nav .nav-group + .nav-group { margin-top: 0; }
+}
+
+/* App-shell wireframe */
+.shell { display: grid; grid-template-columns: 120px 1fr 160px; grid-template-rows: 36px 220px; gap: 6px; font-size: 11px; color: var(--muted); }
+.shell > div { border: 1px dashed var(--border-strong); border-radius: var(--r-md); padding: 8px; background: var(--surface-2); }
+.shell .top { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+.shell .main { display: grid; grid-template-rows: auto 1fr; gap: 6px; background: var(--surface); }
+.shell .main .split-wf { display: grid; grid-template-columns: 2fr 3fr; gap: 6px; }
+.shell .main .split-wf > div { border: 1px dashed var(--border); border-radius: 6px; padding: 6px; }
+.shell .agent { background: var(--accent-soft); color: var(--accent-ink); }
+@media (max-width: 640px) { .shell { grid-template-columns: 1fr; grid-template-rows: auto; } .shell > div { min-height: 60px; } }
+
+/* Foundations specimens */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s3); }
+.swatch { border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; background: var(--surface); }
+.swatch .chipc { height: 52px; border-bottom: 1px solid var(--border); }
+.swatch .info { padding: 8px 10px; display: grid; gap: 2px; }
+.swatch .info b { font-size: var(--fs-sm); font-weight: 500; }
+.swatch .info span { font: 400 11px var(--mono); color: var(--muted); }
+.type-row { display: grid; grid-template-columns: 140px 1fr; gap: var(--s4); align-items: baseline; padding: var(--s3) 0; border-top: 1px solid var(--border); }
+.type-row:first-child { border-top: 0; }
+.type-row .meta { font: 400 var(--fs-xs) var(--mono); color: var(--muted); }
+.space-row { display: flex; align-items: center; gap: var(--s3); font: 400 var(--fs-xs) var(--mono); color: var(--muted); }
+.space-row i { display: block; height: 12px; background: var(--accent); border-radius: 2px; opacity: .7; }
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--s2); }
+.icon-cell { display: grid; justify-items: center; gap: 6px; padding: var(--s3); border: 1px solid var(--border); border-radius: var(--r-md); font-size: var(--fs-xs); color: var(--ink-2); background: var(--surface); }
+.icon-cell svg { color: var(--ink); }
+@media (max-width: 560px) { .type-row { grid-template-columns: 1fr; gap: 4px; } .hbar-row { grid-template-columns: 96px minmax(0,1fr) 36px; } .rank-list li { grid-template-columns: 20px minmax(0,1fr) 44px; } .rank-list li .split-bar { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite is injected by voc-ds.js -->
+
+<div class="doc">
+  <!-- ============ SIDE NAV ============ -->
+  <nav class="doc-nav" aria-label="Design system sections">
+    <div class="doc-brand"><b>Nudge Sense</b><span>Design system · v0.1</span></div>
+    <div class="nav-group">
+      <span class="eyebrow">Foundations</span>
+      <a class="nav-item" href="#colour">Colour</a>
+      <a class="nav-item" href="#type">Typography</a>
+      <a class="nav-item" href="#space">Spacing &amp; shape</a>
+      <a class="nav-item" href="#icons">Icons</a>
+    </div>
+    <div class="nav-group">
+      <span class="eyebrow">Structure</span>
+      <a class="nav-item" href="#layout">Layout</a>
+      <a class="nav-item" href="#navigation">Navigation</a>
+    </div>
+    <div class="nav-group">
+      <span class="eyebrow">Elements</span>
+      <a class="nav-item" href="#controls">Buttons &amp; controls</a>
+      <a class="nav-item" href="#badges">Badges &amp; tags</a>
+      <a class="nav-item" href="#links">Links</a>
+    </div>
+    <div class="nav-group">
+      <span class="eyebrow">Data</span>
+      <a class="nav-item" href="#indicators">Indicators</a>
+      <a class="nav-item" href="#charts">Charts</a>
+      <a class="nav-item" href="#tables">Tables</a>
+      <a class="nav-item" href="#lists">Lists</a>
+      <a class="nav-item" href="#cards">Cards</a>
+      <a class="nav-item" href="#evidence">Source evidence</a>
+    </div>
+    <div class="nav-group">
+      <span class="eyebrow">Agent</span>
+      <a class="nav-item" href="#agent">Update panel</a>
+    </div>
+    <div class="nav-group">
+      <span class="eyebrow">Feedback</span>
+      <a class="nav-item" href="#states">States</a>
+    </div>
+  </nav>
+
+  <main class="doc-main">
+    <div class="doc-top">
+      <div>
+        <div class="eyebrow">Nudge Sense · Voice of Customer for Samsung Now Nudge</div>
+        <h1>Design system</h1>
+        <p>Every building block for the VoC dashboard. The dashboard only displays findings; an agent writes them. Each component lists its class name so the dashboard and the agent guide can refer to it.</p>
+        <p style="margin-top:12px"><span class="sample-flag"><svg width="14" height="14"><use href="#i-warn"/></svg>All numbers, quotes and posts on this page are sample content, not study data</span></p>
+      </div>
+      <div class="segmented" role="group" aria-label="Theme">
+        <button type="button" data-theme-set="dark" aria-pressed="false"><svg width="14" height="14" style="vertical-align:-2px"><use href="#i-moon"/></svg> Dark</button>
+        <button type="button" data-theme-set="light" aria-pressed="false"><svg width="14" height="14" style="vertical-align:-2px"><use href="#i-sun"/></svg> Light</button>
+      </div>
+    </div>
+
+    <!-- ================= COLOUR ================= -->
+    <section class="doc-section" id="colour">
+      <header><h2>Colour</h2><p>True neutral greys in both themes, with no colour tint. One amber accent for interaction. Sentiment and status have their own fixed colours and are never reused for anything else.</p></header>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Surfaces &amp; ink</h3><code>--bg --surface --surface-2 --ink --ink-2 --muted</code></div>
+        <div class="swatches" id="sw-neutral"></div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Accent</h3><code>--accent --accent-soft --accent-ink</code></div>
+        <div class="swatches" id="sw-accent"></div>
+        <p class="spec-note"><b>Used only for:</b> active nav, selected rows, primary buttons, internal links, and "New since last run" markers. Never used for data.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Sentiment</h3><code>--pos --neu --neg</code></div>
+        <div class="swatches" id="sw-sent"></div>
+        <p class="spec-note"><b>Blue ↔ grey ↔ red</b> instead of green ↔ red. This pair passes colour-blindness checks in both themes (ΔE 21.6 light, 19.2 dark). Sentiment is always shown with a label or legend as well, never colour alone. <b>Mixed</b> uses a striped blue/red pattern.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Status</h3><code>--good --warning --critical</code></div>
+        <div class="swatches" id="sw-status"></div>
+        <p class="spec-note">Reserved for system state: data freshness, deltas, warnings. Always paired with an icon and a word.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Heatmap scale (net sentiment)</h3><code>--hm-n3 … --hm-0 … --hm-p3</code></div>
+        <div class="scale-legend" id="scale-demo"></div>
+      </div>
+    </section>
+
+    <!-- ================= TYPE ================= -->
+    <section class="doc-section" id="type">
+      <header><h2>Typography</h2><p>IBM Plex Sans for interface and reading. IBM Plex Mono for dates, run IDs, domains and numbers that need to line up.</p></header>
+      <div class="stage">
+        <div class="type-row"><span class="meta">28 / 600 · Display</span><span style="font-size:28px;font-weight:600;letter-spacing:-.01em">Net sentiment +3</span></div>
+        <div class="type-row"><span class="meta">20 / 600 · Page title</span><span style="font-size:20px;font-weight:600">Themes</span></div>
+        <div class="type-row"><span class="meta">16 / 600 · Section</span><span style="font-size:16px;font-weight:600">Nudges don't appear in group chats</span></div>
+        <div class="type-row"><span class="meta">14 / 400 · Body</span><span>People expect a nudge when a date or place is mentioned in a chat.</span></div>
+        <div class="type-row"><span class="meta">13 / 400 · Small</span><span style="font-size:13px;color:var(--ink-2)">Takeaway text, table cells, captions</span></div>
+        <div class="type-row"><span class="meta">12 / 500 · Eyebrow</span><span class="eyebrow">Research question 3</span></div>
+        <div class="type-row"><span class="meta">12 / Mono · Data</span><span class="mono" style="font-size:12px;color:var(--muted)">Run 3 · 02 Oct 2026 · reddit.com</span></div>
+      </div>
+    </section>
+
+    <!-- ================= SPACE ================= -->
+    <section class="doc-section" id="space">
+      <header><h2>Spacing &amp; shape</h2><p>A 4px grid. Cards get borders, not shadows. Shadows are only for things that float, like tooltips.</p></header>
+      <div class="grid-2">
+        <div class="stage stack" id="space-scale"></div>
+        <div class="stage stack">
+          <div class="row"><div style="width:56px;height:40px;border:1px solid var(--border-strong);border-radius:4px"></div><span class="mono" style="font-size:12px;color:var(--muted)">--r-sm 4 · badges, tags</span></div>
+          <div class="row"><div style="width:56px;height:40px;border:1px solid var(--border-strong);border-radius:8px"></div><span class="mono" style="font-size:12px;color:var(--muted)">--r-md 8 · buttons, inputs</span></div>
+          <div class="row"><div style="width:56px;height:40px;border:1px solid var(--border-strong);border-radius:12px"></div><span class="mono" style="font-size:12px;color:var(--muted)">--r-lg 12 · cards, panels</span></div>
+          <div class="row"><div style="width:56px;height:40px;border-radius:12px;background:var(--surface);box-shadow:var(--shadow-pop)"></div><span class="mono" style="font-size:12px;color:var(--muted)">--shadow-pop · tooltips only</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ICONS ================= -->
+    <section class="doc-section" id="icons">
+      <header><h2>Icons</h2><p>16px line icons, 1.6 stroke. Platforms use text monograms, not brand logos.</p></header>
+      <div class="icon-grid" id="icon-grid"></div>
+      <div class="spec" style="margin-top:var(--s5)">
+        <div class="spec-head"><h3>Platform monograms</h3><code>.platform</code></div>
+        <div class="row">
+          <span class="platform" title="Reddit">r/</span><span style="font-size:13px;color:var(--ink-2)">Reddit</span>
+          <span class="platform" title="Samsung Members">SM</span><span style="font-size:13px;color:var(--ink-2)">Samsung Members</span>
+          <span class="platform" title="XDA">XDA</span><span style="font-size:13px;color:var(--ink-2)">XDA</span>
+          <span class="platform" title="X">X</span><span style="font-size:13px;color:var(--ink-2)">X</span>
+          <span class="platform" title="YouTube">YT</span><span style="font-size:13px;color:var(--ink-2)">YouTube</span>
+          <span class="platform" title="Blog comments">BL</span><span style="font-size:13px;color:var(--ink-2)">Blog comments</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LAYOUT ================= -->
+    <section class="doc-section" id="layout">
+      <header><h2>Layout</h2><p>Three columns: navigation, page content, and the agent panel. Lists and their details sit side by side in a split view.</p></header>
+
+      <div class="spec">
+        <div class="spec-head"><h3>App shell</h3><code>.app · .app-nav · .app-main · .agent-panel</code></div>
+        <div class="stage">
+          <div class="shell">
+            <div class="top"><span>Header · page title · "As of" stamp · compare-with · theme</span><span>☐ panel</span></div>
+            <div>Side nav<br><br>Overview<br>Trend<br>Themes<br>Emerging<br>Questions<br>Sources<br>Magic Cue<br>Method</div>
+            <div class="main"><div>Page header + filters</div><div class="split-wf"><div>List / table</div><div>Detail + sources</div></div></div>
+            <div class="agent">Agent panel<br><br>Run 3 ▾<br>Run 2 ▸<br>Run 1 ▸</div>
+          </div>
+        </div>
+        <p class="spec-note"><b>Widths:</b> nav 232px, agent panel 360px (can be collapsed). <b>Under 1200px</b> the agent panel becomes a drawer. <b>Under 860px</b> the nav becomes a horizontal strip.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Page header</h3><code>.page-head · .asof</code></div>
+        <div class="stage">
+          <div class="page-head">
+            <div>
+              <div class="crumbs"><a href="#layout">Dashboard</a><span>/</span><span>Themes</span></div>
+              <h2 style="margin-top:4px">Themes</h2>
+              <span class="asof" style="margin-top:6px"><span class="live"></span>As of Run 3 · 02 Oct 2026 · 1,161 posts</span>
+            </div>
+            <div class="row">
+              <div class="field"><label for="cmp1">Compare with</label>
+                <select class="select" id="cmp1"><option>Run 2 · 04 Sep 2026</option><option>Run 1 · 06 Aug 2026</option><option>Baseline window</option></select></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Section header</h3><code>.section-head</code></div>
+        <div class="stage">
+          <div class="section-head"><h3>Sentiment by theme</h3><p>Share of posts · last 60 days</p></div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Split view</h3><code>.split · .pane · .pick</code></div>
+        <div class="split" id="split-demo">
+          <div class="pane">
+            <div class="section-head" style="margin-bottom:8px"><h3 style="font-size:14px">Themes</h3><p>Click to select</p></div>
+            <div role="listbox" aria-label="Themes" id="split-list"></div>
+          </div>
+          <div class="pane" id="split-detail"></div>
+        </div>
+        <p class="spec-note"><b>Pattern:</b> a list (5 parts) on the left and the selected item's details (7 parts) on the right. It stacks into one column on phones. Used for Themes, Research questions and Emerging clusters.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Column grids</h3><code>.grid-2 · .grid-3 · .equal · .tiles</code></div>
+        <div class="grid-3">
+          <div class="stage plain" style="text-align:center;color:var(--muted);font-size:12px">1 / 3</div>
+          <div class="stage plain" style="text-align:center;color:var(--muted);font-size:12px">1 / 3</div>
+          <div class="stage plain" style="text-align:center;color:var(--muted);font-size:12px">1 / 3</div>
+        </div>
+        <p class="spec-note"><b>Equal height:</b> add <code>.equal</code> (<code>.grid-2.equal</code>, <code>.grid-3.equal</code>, <code>.card-grid.equal</code>) so every card in the row matches the tallest one. In <code>.card-grid.equal</code>, insight cards keep their sentiment bar and footer on the bottom edge. Used for Top insights, and for Research questions and Limitations on Method.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>App shell classes</h3><code>.app · .app-nav · .app-main · .app-top · .app-agent</code></div>
+        <div class="card">
+          <dl class="kv">
+            <dt><code>.app</code></dt><dd>Three-column frame: nav, content, agent panel. <code>.agent-collapsed</code> hides the panel on wide screens; <code>.agent-open</code> opens it as a drawer under 1200px, with <code>.app-scrim</code> behind it.</dd>
+            <dt><code>.app-nav</code></dt><dd>Sticky side navigation with <code>.app-brand</code>, <code>.nav-list</code> of <code>.nav-item</code>s and a <code>.nav-foot</code> (theme switch). Becomes a top strip under 640px.</dd>
+            <dt><code>.app-main</code></dt><dd>Page content. <code>.app-top</code> is the sticky page header (title, "As of" stamp, compare-with, panel toggle).</dd>
+            <dt><code>.app-agent</code></dt><dd>Holds <code>.agent-panel.docked</code>: the agent panel without its card border, full height.</dd>
+            <dt><code>.page</code> · <code>.block</code></dt><dd>A page is a vertical stack of blocks; a block is a section head plus its content.</dd>
+            <dt>Utilities</dt><dd><code>.row</code>, <code>.row.between</code>, <code>.stack</code>, <code>.stack.tight</code>, <code>.muted-text</code>, <code>.card-grid</code> (cards that fill columns evenly).</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Split view: wide list</h3><code>.split.list-wide · .tbl.clickable · tr.is-selected</code></div>
+        <div class="split list-wide">
+          <div class="pane"><div class="table-wrap"><table class="tbl clickable compact" id="lw-table"><thead><tr><th>Source</th><th>Title / text</th><th>Sentiment</th></tr></thead><tbody></tbody></table></div></div>
+          <div class="pane" id="lw-detail"></div>
+        </div>
+        <p class="spec-note">For tables: the list takes 7 parts and the detail 5. Clicking a row selects it (<code>is-selected</code>) and shows the verbatim source on the right. Used on the Sources page.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Stacked pick</h3><code>.pick.stacked · .qn · .sub</code></div>
+          <div class="split"><div class="pane" id="stacked-demo" role="listbox" aria-label="Research questions"></div></div>
+          <p class="spec-note">A multi-line list item for longer labels, like research questions.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Flash highlight</h3><code>.is-flash · VOC.flash(el)</code></div>
+          <div class="card stack" id="flash-demo">
+            <p>When an internal link jumps to an item, the item gets a 2-second amber ring so it's easy to spot.</p>
+            <button class="btn sm" type="button" id="flash-btn">Play highlight</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NAVIGATION ================= -->
+    <section class="doc-section" id="navigation">
+      <header><h2>Navigation</h2><p>Ways to move between pages and views.</p></header>
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Side nav item</h3><code>.nav-item</code></div>
+          <div class="stage" style="max-width:260px">
+            <a class="nav-item" href="#navigation">Overview</a>
+            <a class="nav-item is-active" href="#navigation" aria-current="page">Themes <span class="count">14</span></a>
+            <a class="nav-item" href="#navigation">Emerging clusters <span class="dot-new" title="New since last run"></span></a>
+            <a class="nav-item" href="#navigation">Sources <span class="count">1,161</span></a>
+          </div>
+          <p class="spec-note">States: default, hover, <b>active</b>, with a count, and with a <b>new-since-last-run</b> dot.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Tabs</h3><code>.tabs · .tab</code></div>
+          <div class="stage">
+            <div class="tabs" role="tablist" id="tabs-demo">
+              <button class="tab" role="tab" aria-selected="true">Chart</button>
+              <button class="tab" role="tab" aria-selected="false">Table</button>
+              <button class="tab" role="tab" aria-selected="false">Sources</button>
+            </div>
+          </div>
+          <div class="spec-head" style="margin-top:var(--s5)"><h3>Segmented control</h3><code>.segmented · .segmented.full</code></div>
+          <div class="stage">
+            <div class="segmented" role="group" aria-label="Time grain" data-seg>
+              <button type="button" aria-pressed="false">Week</button>
+              <button type="button" aria-pressed="true">Month</button>
+            </div>
+          </div>
+          <div class="stage" style="margin-top:var(--s3);max-width:240px">
+            <div class="segmented full" role="group" aria-label="Full-width example" data-seg>
+              <button type="button" aria-pressed="true">Dark</button>
+              <button type="button" aria-pressed="false">Light</button>
+            </div>
+          </div>
+          <p class="spec-note"><b>.full</b> stretches the options to fill the capsule equally. Used for the theme switch in the dashboard sidebar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTROLS ================= -->
+    <section class="doc-section" id="controls">
+      <header><h2>Buttons &amp; controls</h2><p>Filters always sit in one row above the content they filter.</p></header>
+      <div class="spec">
+        <div class="spec-head"><h3>Buttons</h3><code>.btn · .primary · .ghost · .sm · .icon-btn</code></div>
+        <div class="stage row">
+          <button class="btn primary" type="button">Open theme</button>
+          <button class="btn" type="button">Export table</button>
+          <button class="btn ghost" type="button">Clear filters</button>
+          <button class="btn sm" type="button">Small</button>
+          <button class="btn icon-btn" type="button" aria-label="Show as table" title="Show as table"><svg width="16" height="16"><use href="#i-table"/></svg></button>
+          <button class="btn icon-btn ghost" type="button" aria-label="Toggle agent panel" title="Toggle agent panel"><svg width="16" height="16"><use href="#i-panel"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Filter bar</h3><code>.filter-bar · .search · .select · .chip</code></div>
+        <div class="filter-bar">
+          <div class="search"><svg width="16" height="16"><use href="#i-search"/></svg><input class="input" id="flt-q" type="search" placeholder="Search posts" aria-label="Search posts"></div>
+          <select class="select" id="flt-theme" aria-label="Theme"><option>All themes</option><option>Triggering / reliability</option><option>Keyboard lock-in</option></select>
+          <select class="select" id="flt-date" aria-label="Date range"><option>Last 60 days</option><option>Last 30 days</option><option>Since launch</option><option>Baseline window</option></select>
+          <span class="chip" role="button" tabindex="0" aria-pressed="true" data-chip>Negative</span>
+          <span class="chip" role="button" tabindex="0" aria-pressed="false" data-chip>Neutral</span>
+          <span class="chip" role="button" tabindex="0" aria-pressed="false" data-chip>Positive</span>
+          <span class="spacer"></span>
+          <label class="toggle"><input type="checkbox" id="flt-new"> New only</label>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Field</h3><code>.field</code></div>
+        <div class="stage row" style="align-items:flex-end">
+          <div class="field"><label for="fld-a">Compare with</label><select class="select" id="fld-a"><option>Run 2 · 04 Sep 2026</option></select></div>
+          <div class="field"><label for="fld-b">Source</label><select class="select" id="fld-b"><option>All sources</option><option>Reddit</option><option>Samsung Members</option></select></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BADGES ================= -->
+    <section class="doc-section" id="badges">
+      <header><h2>Badges &amp; tags</h2><p>Every badge carries a word, so meaning never relies on colour.</p></header>
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Sentiment</h3><code>.badge.sent-pos / -neu / -neg / -mix</code></div>
+          <div class="stage row">
+            <span class="badge sent-pos"><span class="sw"></span>Positive</span>
+            <span class="badge sent-neu"><span class="sw"></span>Neutral</span>
+            <span class="badge sent-neg"><span class="sw"></span>Negative</span>
+            <span class="badge sent-mix"><span class="sw"></span>Mixed</span>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Momentum (change over time)</h3><code>.badge.mom</code></div>
+          <div class="stage row">
+            <span class="badge mom new"><svg width="12" height="12"><use href="#i-new"/></svg>New</span>
+            <span class="badge mom"><svg width="12" height="12"><use href="#i-up"/></svg>Rising</span>
+            <span class="badge mom"><svg width="12" height="12"><use href="#i-flat"/></svg>Stable</span>
+            <span class="badge mom"><svg width="12" height="12"><use href="#i-down"/></svg>Fading</span>
+            <span class="badge mom"><svg width="12" height="12"><use href="#i-check"/></svg>Resolved</span>
+          </div>
+          <div class="row" style="margin-top:var(--s3)"><span class="badge verbatim"><svg width="12" height="12"><use href="#i-quote"/></svg>Verbatim · Post</span><span style="font-size:12px;color:var(--muted)"><code>.badge.verbatim</code> marks text copied exactly from a source</span></div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Theme &amp; user type tags</h3><code>.tag · .tag.user</code></div>
+          <div class="stage row">
+            <span class="tag">Triggering / reliability</span>
+            <span class="tag">App coverage</span>
+            <span class="tag user">S26 owner</span>
+            <span class="tag user">S25 owner · left out</span>
+            <span class="tag user">Reviewer / press</span>
+          </div>
+          <p class="spec-note">Themes use a solid border. User types use a <b>dashed</b> border.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Status</h3><code>.status.good / .warning / .critical</code></div>
+          <div class="stage row">
+            <span class="status good"><svg width="14" height="14"><use href="#i-check"/></svg>Up to date</span>
+            <span class="status warning"><svg width="14" height="14"><use href="#i-warn"/></svg>9 days since last run</span>
+            <span class="status critical"><svg width="14" height="14"><use href="#i-warn"/></svg>Source unavailable</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LINKS ================= -->
+    <section class="doc-section" id="links">
+      <header><h2>Links</h2><p>Two kinds of link, and they always look different.</p></header>
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Internal: go to a place in the dashboard</h3><code>.ilink</code></div>
+          <div class="stage stack">
+            <a class="ilink" href="#charts"><svg width="16" height="16"><use href="#i-internal"/></svg>Themes › Triggering / reliability</a>
+            <a class="ilink" href="#cards"><svg width="16" height="16"><use href="#i-internal"/></svg>Question 2 · Does it appear when expected?</a>
+          </div>
+          <p class="spec-note"><b>Accent colour, ↳ arrow, page path.</b> Opens in the same tab and scrolls to the item, then briefly highlights it.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>External: open the original source</h3><code>.xlink</code></div>
+          <div class="stage stack">
+            <a class="xlink" href="https://www.reddit.com/r/galaxys26/" target="_blank" rel="noopener noreferrer"><span class="label">Thread on nudges in group chats</span><span class="domain">reddit.com</span><svg width="14" height="14"><use href="#i-external"/></svg></a>
+            <a class="xlink" href="https://www.samsung.com/us/support/answer/ANS10010355/" target="_blank" rel="noopener noreferrer"><span class="label">How to use Now nudge</span><span class="domain">samsung.com</span><svg width="14" height="14"><use href="#i-external"/></svg></a>
+          </div>
+          <p class="spec-note"><b>Ink colour, ↗ arrow, domain in mono.</b> Always opens in a new tab.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INDICATORS ================= -->
+    <section class="doc-section" id="indicators">
+      <header><h2>Indicators</h2><p>Small summaries: headline numbers, change since the last run, and shares.</p></header>
+      <div class="spec">
+        <div class="spec-head"><h3>Stat tile</h3><code>.tile · .delta · .spark</code></div>
+        <div class="tiles" id="tiles-demo"></div>
+        <p class="spec-note"><b>Every tile:</b> a label with an info tip, a value, the change since the last run ("vs Run 2"), and a mini trend line where history exists. Green or red shows whether the change is good or bad, not whether the number went up or down.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Sentiment split with sources</h3><code>.split-bar + .grid-3.equal + VOC.sourceRow</code></div>
+        <div class="card stack" id="split-sources-demo"></div>
+        <p class="spec-note">Shows the sources behind a sentiment split. Three columns line up with the bar: <b>Positive</b>, <b>Neutral &amp; mixed</b>, <b>Negative</b>. Each row is a compact source; clicking its text (<code>href</code>) opens the full source in Sources. Used on Sentiment trend, with a period picker.</p>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Info tip</h3><code>.info-tip · VOC.infoTip(text, about)</code></div>
+        <div class="stage row">
+          <span class="row" style="gap:4px"><span>Net sentiment</span><span id="info-demo"></span></span>
+        </div>
+        <p class="spec-note">A small <b>i</b> button that explains what a number or chart means. It shows on hover or keyboard focus, and toggles on tap. <b>Every stat tile and chart card has one</b> (<code>info</code> on <code>statTile</code>, <code>opts.info</code> on chart cards). Keep the text to 1–2 plain sentences that say how the number is worked out.</p>
+      </div>
+      <div class="grid-3">
+        <div class="spec">
+          <div class="spec-head"><h3>Sentiment split</h3><code>.split-bar</code></div>
+          <div class="stage stack">
+            <div class="split-bar" role="img" aria-label="12% positive, 18% neutral, 70% negative"><span class="p" style="width:12%"></span><span class="n" style="width:18%"></span><span class="x" style="width:70%"></span></div>
+            <span style="font-size:12px;color:var(--ink-2)">12% · 18% · 70%</span>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Confidence</h3><code>.confidence</code></div>
+          <div class="stage stack">
+            <span class="confidence" data-level="1"><span class="track"><i></i><i></i><i></i></span>Low · under 10 posts</span>
+            <span class="confidence" data-level="2"><span class="track"><i></i><i></i><i></i></span>Medium · 10–40 posts</span>
+            <span class="confidence" data-level="3"><span class="track"><i></i><i></i><i></i></span>High · over 40 posts</span>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Share of conversation</h3><code>.share-meter</code></div>
+          <div class="stage stack">
+            <div class="share-meter"><div class="bar"><i style="width:24%"></i></div><span class="num">24%</span></div>
+            <div class="share-meter"><div class="bar"><i style="width:12%"></i></div><span class="num">12%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CHARTS ================= -->
+    <section class="doc-section" id="charts">
+      <header><h2>Charts</h2><p>Hover any chart for exact values. Every chart has a table view. Volume and sentiment are never put on the same axis.</p></header>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Sentiment trend + volume</h3><code>.chart[data-chart="trend"]</code></div>
+        <div class="stage">
+          <figure class="chart" data-chart-wrap>
+            <div class="chart-head">
+              <div><h4>Net sentiment over time<button type="button" class="info-tip" data-info="Net sentiment = % positive posts − % negative posts, per month. Bars show posts per month. Flags mark key events." aria-label="About Net sentiment over time"><svg width="14" height="14" aria-hidden="true"><use href="#i-info"/></svg></button></h4><p>% positive minus % negative · monthly · key events marked</p></div>
+              <div class="row">
+                <div class="legend"><span><i class="sw-pos"></i>Above zero</span><span><i class="sw-neg"></i>Below zero</span><span><i class="sw-vol"></i>Posts</span></div>
+                <button class="btn sm icon-btn" type="button" data-table-toggle aria-label="Show as table" title="Show as table"><svg width="14" height="14"><use href="#i-table"/></svg></button>
+              </div>
+            </div>
+            <div data-view="chart"><svg id="trend-svg" viewBox="0 0 680 300" role="img" aria-label="Net sentiment and post volume by month"></svg></div>
+            <div data-view="table" hidden><div class="table-wrap"><table class="tbl compact chart-table" id="trend-table"></table></div></div>
+          </figure>
+        </div>
+        <p class="spec-note"><b>Two stacked charts that share one time axis:</b> the line shows net sentiment and the bars below show volume. Dots are blue above zero and red below. Flags mark events from the method file.</p>
+        <p class="spec-note"><b>Legend swatches:</b> <code>.legend i.sw-pos</code>, <code>.sw-neu</code>, <code>.sw-neg</code>, <code>.sw-vol</code>. <b>Wrapped in a card</b> on the dashboard: <code>figure.chart.card</code>.</p>
+      </div>
+
+      <div>
+        <div class="spec">
+          <div class="spec-head"><h3>Ranked bars with sentiment split</h3><code>.hbar</code></div>
+          <div class="stage">
+            <figure class="chart" data-chart-wrap>
+              <div class="chart-head">
+                <div><h4>Themes by volume</h4><p>Bar = sentiment split · number = posts</p></div>
+                <button class="btn sm icon-btn" type="button" data-table-toggle aria-label="Show as table" title="Show as table"><svg width="14" height="14"><use href="#i-table"/></svg></button>
+              </div>
+              <div class="legend"><span><i class="sw-pos"></i>Positive</span><span><i class="sw-neu"></i>Neutral</span><span><i class="sw-neg"></i>Negative</span></div>
+              <div data-view="chart"><div class="hbar" id="hbar"></div></div>
+              <div data-view="table" hidden><div class="table-wrap"><table class="tbl compact chart-table" id="hbar-table"></table></div></div>
+            </figure>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Slope chart: emerging vs fading</h3><code>.chart[data-chart="slope"]</code></div>
+          <div class="stage">
+            <figure class="chart" data-chart-wrap>
+              <div class="chart-head">
+                <div><h4>Share of conversation</h4><p>Baseline window → last 60 days</p></div>
+                <button class="btn sm icon-btn" type="button" data-table-toggle aria-label="Show as table" title="Show as table"><svg width="14" height="14"><use href="#i-table"/></svg></button>
+              </div>
+              <div data-view="chart"><svg id="slope-svg" style="max-width:600px" viewBox="0 0 440 280" role="img" aria-label="Theme share, baseline versus recent"></svg></div>
+              <div data-view="table" hidden><div class="table-wrap"><table class="tbl compact chart-table" id="slope-table"></table></div></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Heatmap: theme × month</h3><code>.heatmap</code></div>
+        <div class="stage">
+          <figure class="chart" data-chart-wrap>
+            <div class="chart-head">
+              <div><h4>Net sentiment by theme and month</h4><p>Shows which parts of the feature are getting better or worse</p></div>
+              <div class="row"><div class="scale-legend" id="hm-legend"></div>
+              <button class="btn sm icon-btn" type="button" data-table-toggle aria-label="Show as table" title="Show as table"><svg width="14" height="14"><use href="#i-table"/></svg></button></div>
+            </div>
+            <div data-view="chart" style="overflow-x:auto"><div class="heatmap" id="heatmap"></div></div>
+            <div data-view="table" hidden><div class="table-wrap"><table class="tbl compact chart-table" id="hm-table"></table></div></div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Sparkline</h3><code>.spark</code></div>
+        <div class="stage row" id="spark-demo"></div>
+        <p class="spec-note">Used inside tiles and table rows. Faint fill, 1.5px line, with the latest point marked.</p>
+      </div>
+    </section>
+
+    <!-- ================= TABLES ================= -->
+    <section class="doc-section" id="tables">
+      <header><h2>Tables</h2><p>Sortable, with sticky headers. Numbers are right-aligned so digits line up. Rows added in the latest run get an accent edge.</p></header>
+      <div class="spec">
+        <div class="spec-head"><h3>Source table</h3><code>.tbl · tr.is-new</code></div>
+        <div class="table-wrap">
+          <table class="tbl" id="src-table">
+            <thead><tr>
+              <th aria-sort="none"><button type="button" data-sort="src">Source</button></th>
+              <th>Post &amp; takeaway</th>
+              <th aria-sort="none"><button type="button" data-sort="theme">Theme</button></th>
+              <th aria-sort="none"><button type="button" data-sort="sent">Sentiment</button></th>
+              <th class="r" aria-sort="descending"><button type="button" data-sort="date">Date</button></th>
+              <th class="r">Link</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Momentum table</h3><code>.tbl.compact</code></div>
+        <div class="table-wrap">
+          <table class="tbl compact" id="mom-table">
+            <thead><tr><th>Cluster</th><th class="r">Baseline</th><th class="r">Last 60 days</th><th class="r">Change</th><th>Status</th><th>Trend</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LISTS ================= -->
+    <section class="doc-section" id="lists">
+      <header><h2>Lists</h2><p>For items that need to be scanned in order or by group.</p></header>
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Ranked list</h3><code>.rank-list</code></div>
+          <div class="stage"><ol class="list rank-list" id="rank-list"></ol></div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>History timeline</h3><code>.timeline</code></div>
+          <div class="stage">
+            <div id="tl-demo"></div>
+          </div>
+          <p class="spec-note">Shows how an answer or a theme changed from run to run.</p>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Change groups</h3><code>.change-groups</code></div>
+        <div class="stage">
+          <div id="cg-demo"></div>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Key–value list</h3><code>.kv</code></div>
+        <div class="stage">
+          <dl class="kv">
+            <dt>Study window</dt><dd class="mono" style="font-size:13px">25 Feb 2026 → 02 Oct 2026</dd>
+            <dt>Recent window</dt><dd class="mono" style="font-size:13px">03 Aug 2026 → 02 Oct 2026</dd>
+            <dt>Sources</dt><dd>Reddit, Samsung Members, XDA, X, YouTube, blog comments</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CARDS ================= -->
+    <section class="doc-section" id="cards">
+      <header><h2>Cards</h2><p>The source card is the core unit. Every claim in the dashboard traces back to one.</p></header>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Source card: full</h3><code>.src-card · .is-new</code></div>
+        <div class="grid-2" id="src-cards"></div>
+        <p class="spec-note"><b>Always contains:</b> platform, place, date, user type, the quote, an <b>agent-written takeaway</b>, the theme, sentiment, an optional momentum badge, and a link to the original. <b>New</b> cards get an accent edge on the left.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Source card: compact row</h3><code>.src-row</code></div>
+        <div class="stage" id="src-rows"></div>
+        <p class="spec-note">Used inside detail panes and sentiment splits. The verbatim text (quote, else title, else content) is cut to 2 lines, with the takeaway underneath. With <code>href</code>, the text becomes a link to the full source.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Research question card</h3><code>.rq-card</code></div>
+          <div id="rq-demo"></div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Insight card</h3><code>.insight</code></div>
+          <div id="insight-demo"></div>
+          <div class="spec-head" style="margin-top:var(--s5)"><h3>Quote card</h3><code>.quote-card</code></div>
+          <figure class="card quote-card" style="margin:0">
+            <blockquote>"I keep waiting for it to suggest something in Telegram. It never will."</blockquote>
+            <cite>Reddit · r/samsung · 21 Sep 2026 · S26 owner</cite>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOURCE EVIDENCE ================= -->
+    <section class="doc-section" id="evidence">
+      <header><h2>Source evidence</h2><p>Shows a source exactly as it appears online. The title, content and URL are copied as-is. The agent's own words sit in a separate, labelled area below.</p></header>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Verbatim rules</h3><code>.src-verbatim · .sv-verbatim</code></div>
+        <div class="card">
+          <dl class="kv">
+            <dt>Title</dt><dd>Copied exactly, including original spelling, casing, emoji and punctuation. Never fixed or reworded.</dd>
+            <dt>Content</dt><dd>Copied exactly. If only part is captured, it ends with <span class="sv-cut">[…]</span>. Never translated, summarised or merged.</dd>
+            <dt>URL</dt><dd>The full URL as captured, shown as text and clickable. Never shortened.</dd>
+            <dt>Dates</dt><dd>When it was posted at the source, and when the agent captured it.</dd>
+            <dt>Agent text</dt><dd>Only in the <b>Takeaway</b> area, below a divider. Never inside the verbatim block.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Evidence card: verbatim source + takeaway</h3><code>VOC.sourcePreview({ …, takeaway })</code></div>
+        <div class="grid-2" id="ev-evidence"></div>
+        <p class="spec-note">The default way to show a source. A long post is cut to 6 lines with a <b>Show full text</b> button. The URL row has <b>Copy</b> and <b>Open ↗</b> buttons.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Variants by source type</h3><code>kind: post · comment · article · video</code></div>
+        <div class="grid-2" id="ev-variants"></div>
+        <p class="spec-note"><b>Post</b> has a title and a body. <b>Comment</b> shows the thread it replies to. <b>Article</b> shows the headline and a captured excerpt. <b>Video comment</b> shows the video title. A source that has been <b>removed</b> keeps its captured text, dimmed and marked as unavailable.</p>
+        <p class="spec-note"><b>Approximate dates</b> (<code>postedApprox</code>, e.g. "4 months ago" as shown by the source): the date shows as <code>~Jun 2026 (4 months ago)</code> via <code>VOC.fmtPosted()</code>, in cards, rows and tables, so it is never presented as exact.</p>
+        <p class="spec-note"><b>New since the compared run</b> (<code>isNew: true</code>): accent edge on the left and a <b>New</b> badge in the header.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Engagement</h3><code>.sv-eng · .eng-m · .eng-score · VOC.scoreEngagement()</code></div>
+        <div class="card stack" id="eng-demo"></div>
+        <p class="spec-note"><b>Counts</b> (upvotes, comments, reposts, views…) are copied exactly as shown on the platform at capture time, with platform-specific labels (Reddit: Upvotes; X: Likes, Reposts). <b>Score 0–100</b> = interactions (reactions + 2 × comments + 3 × shares − downvotes), log-scaled against the most-engaged captured post <b>on the same platform</b>. The amber 3-step track shows Low / Medium / High. Evidence lists are sorted by engagement.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Engagement by platform</h3><code>VOC.platformEngagement() · .share-meter</code></div>
+        <div class="table-wrap"><table class="tbl compact" id="plat-demo"><thead><tr><th>Platform</th><th class="r">Posts</th><th class="r">Interactions</th><th class="r">Median per post</th><th>Share of interactions</th></tr></thead><tbody></tbody></table></div>
+        <p class="spec-note">Summary table on the Sources page. Section heads can carry an info tip.</p>
+      </div>
+
+      <div class="spec">
+        <div class="spec-head"><h3>Sources considered</h3><code>.tbl.compact + .xlink + .status</code></div>
+        <div class="table-wrap"><table class="tbl compact"><thead><tr><th>Platform</th><th>Source</th><th>Type</th><th>Scope</th><th>Status</th></tr></thead><tbody>
+          <tr><td><span class="platform">r/</span></td><td><a class="xlink" href="https://www.reddit.com/r/samsung/" target="_blank" rel="noopener noreferrer"><span class="label">r/samsung</span><span class="domain">reddit.com</span><svg width="14" height="14"><use href="#i-external"/></svg></a></td><td>Subreddit</td><td>Primary</td><td><span class="status good"><svg width="14" height="14"><use href="#i-check"/></svg>Active</span></td></tr>
+          <tr><td><span class="platform">r/</span></td><td><a class="xlink" href="https://www.reddit.com/r/galaxys26/" target="_blank" rel="noopener noreferrer"><span class="label">r/galaxys26</span><span class="domain">reddit.com</span><svg width="14" height="14"><use href="#i-external"/></svg></a></td><td>Subreddit</td><td>Primary</td><td><span class="status warning"><svg width="14" height="14"><use href="#i-warn"/></svg>To verify</span></td></tr>
+        </tbody></table></div>
+        <p class="spec-note">The list of sources on the Method page. Every source is an external link. <b>Status</b> marks sources still to be verified.</p>
+      </div>
+    </section>
+
+    <!-- engagement specs live in Source evidence -->
+    <!-- ================= AGENT PANEL ================= -->
+    <section class="doc-section" id="agent">
+      <header><h2>Agent update panel</h2><p>The agent writes one entry each time it runs. The newest entry is open by default. Every claim links to where it comes from.</p></header>
+      <div class="grid-2" style="align-items:start">
+        <aside class="agent-panel" aria-label="Agent updates">
+          <div class="agent-head">
+            <h4><svg width="16" height="16" style="color:var(--accent)"><use href="#i-agent"/></svg>Agent updates</h4>
+            <button class="btn ghost sm icon-btn" type="button" aria-label="Collapse panel" title="Collapse panel"><svg width="14" height="14"><use href="#i-close"/></svg></button>
+          </div>
+          <div class="agent-body" id="runs-demo"></div>
+        </aside>
+        <div class="stack">
+          <div class="card stack">
+            <h4 style="font-size:14px">Anatomy of a run entry</h4>
+            <dl class="kv">
+              <dt>Header</dt><dd>Run number, date, posts added, sources checked, and the collection window ("Posts from … to …"). Runs are incremental: each covers only what was posted since the previous run.</dd>
+              <dt>Summary</dt><dd>3–5 short bullets, written by the agent</dd>
+              <dt>Go to</dt><dd>Internal links (↳, accent) to dashboard places</dd>
+              <dt>Key sources</dt><dd>External links (↗, ink + domain), open in a new tab</dd>
+            </dl>
+          </div>
+          <div class="card stack">
+            <h4 style="font-size:14px">Behaviour</h4>
+            <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--ink-2);display:grid;gap:4px">
+              <li>Latest run is open; older runs are collapsed.</li>
+              <li>Clicking an internal link scrolls to the item and highlights it for 2 seconds.</li>
+              <li>The panel can be collapsed. Under 1200px it becomes a drawer.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATES ================= -->
+    <section class="doc-section" id="states">
+      <header><h2>States</h2><p>What the dashboard shows when data is missing, old or loading.</p></header>
+      <div class="spec">
+        <div class="spec-head"><h3>Banners</h3><code>.banner.warning · .banner.critical</code></div>
+        <div class="stack">
+          <div class="banner warning" role="status"><svg width="16" height="16"><use href="#i-warn"/></svg><div><b>Data is 9 days old.</b> The last run was on 02 Oct 2026. Ask the agent to run a new VoC check.</div></div>
+          <div class="banner critical" role="alert"><svg width="16" height="16"><use href="#i-warn"/></svg><div><b>X could not be checked in Run 3.</b> Numbers for this run leave out X posts.</div></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="spec">
+          <div class="spec-head"><h3>Empty state</h3><code>.empty</code></div>
+          <div class="card empty">
+            <svg width="32" height="32"><use href="#i-inbox"/></svg>
+            <h4>No posts match these filters</h4>
+            <p>Try a wider date range or clear the sentiment filter.</p>
+            <button class="btn sm" type="button">Clear filters</button>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-head"><h3>Loading skeleton</h3><code>.skel</code></div>
+          <div class="card stack">
+            <div class="skel" style="height:14px;width:40%"></div>
+            <div class="skel" style="height:28px;width:60%"></div>
+            <div class="skel" style="height:10px;width:100%"></div>
+            <div class="skel" style="height:10px;width:85%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="spec-head"><h3>Tooltip</h3><code>.tooltip</code></div>
+        <div class="stage">
+          <div class="tooltip show" style="position:static;display:inline-block">
+            <div class="tt-title">Sep 2026</div>
+            <div class="tt-row"><span>Net sentiment</span><span>+3</span></div>
+            <div class="tt-row"><span>Posts</span><span>156</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+
+<script src="voc-ds.js"></script>
+<script>
+/* Documentation page: renders specimens with the shared VOC components.
+   SAMPLE DATA ONLY. Component code lives in voc-ds.js / voc-ds.css. */
+(function () {
+  "use strict";
+  var V = window.VOC, $ = V.$, $$ = V.$$, esc = V.esc;
+
+  /* ---------- Foundations ---------- */
+  var SW = {
+    "#sw-neutral": [["Page", "--bg"], ["Surface", "--surface"], ["Surface 2", "--surface-2"], ["Ink", "--ink"], ["Ink 2", "--ink-2"], ["Muted", "--muted"]],
+    "#sw-accent": [["Accent", "--accent"], ["Accent soft", "--accent-soft"], ["Accent ink", "--accent-ink"]],
+    "#sw-sent": [["Positive", "--pos"], ["Neutral", "--neu"], ["Negative", "--neg"], ["Volume", "--vol"]],
+    "#sw-status": [["Good", "--good"], ["Warning", "--warning"], ["Critical", "--critical"]]
+  };
+  function renderSwatches() {
+    Object.keys(SW).forEach(function (sel) {
+      $(sel).innerHTML = SW[sel].map(function (s) {
+        return '<div class="swatch"><div class="chipc" style="background:var(' + s[1] + ')"></div><div class="info"><b>' + s[0] + "</b><span>" + s[1] + " · " + V.css(s[1]) + "</span></div></div>";
+      }).join("");
+    });
+  }
+  V.onThemeChange(renderSwatches);
+  V.scaleLegend($("#scale-demo")); V.scaleLegend($("#hm-legend"));
+  $("#space-scale").innerHTML = [["--s1", 4], ["--s2", 8], ["--s3", 12], ["--s4", 16], ["--s5", 24], ["--s6", 32], ["--s7", 48]].map(function (s) {
+    return '<div class="space-row"><span style="width:56px">' + s[0] + '</span><i style="width:' + s[1] * 2 + 'px"></i><span>' + s[1] + "px</span></div>";
+  }).join("");
+  $("#icon-grid").innerHTML = V.ICONS.map(function (i) { return '<div class="icon-cell">' + V.icon(i[0], 20) + i[1] + "</div>"; }).join("");
+
+  /* ---------- Sample data ---------- */
+  var MONTHS = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+  var NET = [18, 9, -6, -2, 4, 7, 3];
+  var VOL = [212, 164, 238, 141, 118, 132, 156];
+  var EVENTS = [{ i: 0, label: "S26 on sale" }, { i: 2, label: "One UI 8.5 on S25, no Nudge" }];
+  var THEMES = [
+    { name: "Triggering / reliability", pos: 12, neu: 18, neg: 70, vol: 184, base: 18, recent: 24, values: [4, -2, -10, -14, -18, -22, -30] },
+    { name: "Usefulness", pos: 62, neu: 25, neg: 13, vol: 152, base: 14, recent: 15, values: [40, 36, 30, 32, 38, 41, 44] },
+    { name: "Keyboard lock-in", pos: 8, neu: 22, neg: 70, vol: 131, base: 15, recent: 13, values: [-40, -42, -38, -36, -34, -35, -33] },
+    { name: "Device exclusivity", pos: 4, neu: 16, neg: 80, vol: 120, base: 16, recent: 8, values: [-20, -30, -70, -60, -48, -40, -36] },
+    { name: "Intrusiveness", pos: 10, neu: 30, neg: 60, vol: 96, base: 9, recent: 9, values: [-8, -12, -14, -10, -12, -9, -11] },
+    { name: "App coverage", pos: 15, neu: 55, neg: 30, vol: 88, base: 7, recent: 12, values: [-2, -4, -6, -8, -10, -14, -18] },
+    { name: "Privacy", pos: 5, neu: 45, neg: 50, vol: 64, base: 6, recent: 6, values: [-30, -26, -22, -20, -18, -20, -19] },
+    { name: "Autofill", pos: 58, neu: 27, neg: 15, vol: 51, base: 4, recent: 5, values: [20, 28, 34, 30, 36, 40, 42] }
+  ];
+  var POSTS = [
+    { platform: "r/", where: "r/galaxys26", userType: "S26 owner", quote: "It pops up for dinner plans with my partner, but in the family group chat it never shows anything, even with a date right there.", takeaway: "Nudges seem to miss dates in group chats. The user expected the same behaviour as in 1:1 chats.", theme: "Triggering / reliability", sentiment: "neg", date: "2026-09-14", domain: "reddit.com", url: "https://www.reddit.com/r/galaxys26/", isNew: true },
+    { platform: "SM", where: "Samsung Members · Galaxy S", userType: "S26 owner", quote: "Filled my passport number on a booking site in one tap. That's the first AI thing I actually use.", takeaway: "Autofill from Personal Data Intelligence is seen as clearly useful when it works.", theme: "Autofill", sentiment: "pos", date: "2026-08-29", domain: "community.samsung.com", url: "https://r1.community.samsung.com/" },
+    { platform: "r/", where: "r/samsung", userType: "S26 owner", quote: "I keep waiting for it to suggest something in Telegram. It never will.", takeaway: "Users want support for more chat apps.", theme: "App coverage", sentiment: "neg", date: "2026-09-21", domain: "reddit.com", url: "https://www.reddit.com/r/samsung/", isNew: true },
+    { platform: "XDA", where: "XDA Forums", userType: "S26 owner", quote: "Switched back to Gboard and lost the nudges. Not worth the trade for me.", takeaway: "Keyboard lock-in pushes some users to give up the feature.", theme: "Keyboard lock-in", sentiment: "neg", date: "2026-07-03", domain: "xda-developers.com", url: "https://xdaforums.com/" },
+    { platform: "YT", where: "YouTube comment", userType: "S26 owner", quote: "The calendar clash warning saved me from double-booking. Pretty neat.", takeaway: "Calendar conflict nudges are a clear delight.", theme: "Usefulness", sentiment: "pos", date: "2026-06-18", domain: "youtube.com", url: "https://www.youtube.com/" },
+    { platform: "X", where: "X", userType: "S26 owner", quote: "Love it, but it's a bit much when it nudges on every single message.", takeaway: "Frequency can feel intrusive even to fans.", theme: "Intrusiveness", sentiment: "mix", date: "2026-09-02", domain: "x.com", url: "https://x.com/" }
+  ];
+
+  /* ---------- Indicators ---------- */
+  $("#tiles-demo").innerHTML = [
+    { label: "Posts analysed", info: "Public posts about Now Nudge collected and coded since 25 Feb 2026. The change is the number of posts added since the compared run.", value: "1,161", delta: "+156", dir: "flat", note: "vs Run 2", spark: [873, 1005, 1161] },
+    { label: "Net sentiment", info: "Share of positive posts minus share of negative posts. Ranges from −100 to +100.", value: "+3", delta: "−4 pts", dir: "down", note: "vs Run 2", spark: NET },
+    { label: "Emerging clusters", info: "Recurring topics that are new or growing in the last 60 days.", value: "2", delta: "+1", dir: "flat", note: "vs Run 2", spark: [0, 1, 2] },
+    { label: "Questions answered", info: "Research questions with enough evidence to answer.", value: "4 / 6", delta: "+1", dir: "up", note: "vs Run 2", spark: [1, 3, 4] }
+  ].map(V.statTile).join("");
+  $("#spark-demo").innerHTML = [[NET, "Net sentiment"], [VOL, "Volume"], [THEMES[0].values, "Triggering"], [THEMES[1].values, "Usefulness"]].map(function (s) {
+    return '<div class="stack" style="gap:4px"><span style="font-size:12px;color:var(--muted)">' + s[1] + "</span>" + V.sparkline(s[0]) + "</div>";
+  }).join("");
+
+  /* ---------- Charts ---------- */
+  V.trendChart($("#trend-svg"), { labels: MONTHS, tipLabels: MONTHS.map(function (m) { return m + " 2026"; }), net: NET, vol: VOL, events: EVENTS }, $("#trend-table"));
+  V.hbarChart($("#hbar"), THEMES, $("#hbar-table"));
+  V.slopeChart($("#slope-svg"), THEMES, $("#slope-table"));
+  V.heatmap($("#heatmap"), THEMES, MONTHS, $("#hm-table"));
+  V.wireTableToggles();
+
+  /* ---------- Tables ---------- */
+  V.sortableTable($("#src-table"), POSTS, function (p) {
+    return '<tr class="' + (p.isNew ? "is-new" : "") + '"><td><div class="row" style="gap:6px;flex-wrap:nowrap">' + V.platform(p.platform) + '<span style="white-space:nowrap">' + esc(p.where) + '</span></div></td><td><div class="clamp">"' + esc(p.quote) + '"</div><div style="font-size:12px;color:var(--ink-2);margin-top:4px"><b style="font-weight:500;color:var(--muted)">Takeaway:</b> ' + esc(p.takeaway) + "</div></td><td>" + V.tag(p.theme) + "</td><td>" + V.sentBadge(p.sentiment) + '</td><td class="r mono" style="font-size:12px;white-space:nowrap">' + V.fmtDate(p.date) + '</td><td class="r">' + V.xlink(p.url, "", p.domain) + "</td></tr>";
+  }, { key: "date", dir: -1 });
+  $("#mom-table tbody").innerHTML = THEMES.slice().sort(function (a, b) { return (b.recent - b.base) - (a.recent - a.base); }).map(function (t) {
+    var d = t.recent - t.base;
+    return "<tr><td>" + esc(t.name) + "</td><td class='r num'>" + t.base + "%</td><td class='r num'>" + t.recent + "%</td><td class='r num'>" + V.signed(d) + " pts</td><td>" + V.momBadge(V.momentum(t.base, t.recent)) + "</td><td>" + V.sparkline(t.values) + "</td></tr>";
+  }).join("");
+
+  /* ---------- Lists ---------- */
+  $("#rank-list").innerHTML = THEMES.slice(0, 5).map(function (t, i) {
+    return '<li><span class="n">' + String(i + 1).padStart(2, "0") + '</span><span style="font-size:13px">' + esc(t.name) + "</span>" + V.splitBar(t.pos, t.neu, t.neg) + '<span class="v">' + t.vol + "</span></li>";
+  }).join("");
+
+  /* ---------- Cards ---------- */
+  $("#src-cards").innerHTML = POSTS.slice(0, 2).map(V.sourceCard).join("");
+  $("#src-rows").innerHTML = POSTS.slice(0, 3).map(V.sourceRow).join("");
+
+  /* ---------- Split view ---------- */
+  var selected = 0;
+  function renderSplit() {
+    $("#split-list").innerHTML = THEMES.slice(0, 5).map(function (t, i) {
+      return '<button class="pick" role="option" aria-selected="' + (i === selected) + '" data-i="' + i + '"><span class="nm">' + esc(t.name) + "</span>" + V.splitBar(t.pos, t.neu, t.neg) + '<span class="num" style="font-size:12px;color:var(--muted)">' + t.vol + "</span></button>";
+    }).join("");
+    var t = THEMES[selected];
+    var posts = POSTS.filter(function (p) { return p.theme === t.name; });
+    $("#split-detail").innerHTML = '<div class="stack"><div class="row" style="justify-content:space-between"><h3 style="font-size:16px">' + esc(t.name) + "</h3>" + V.momBadge(V.momentum(t.base, t.recent)) + '</div><dl class="kv"><dt>Posts</dt><dd class="num">' + t.vol + '</dd><dt>Share, last 60 days</dt><dd class="num">' + t.recent + "% (baseline " + t.base + "%)</dd><dt>Sentiment</dt><dd>" + t.pos + "% positive · " + t.neg + '% negative</dd></dl><div class="section-head"><h3 style="font-size:13px">Sources</h3><p>' + posts.length + " shown</p></div>" + (posts.length ? posts.map(V.sourceRow).join("") : '<p style="font-size:13px;color:var(--muted)">No sample sources for this theme.</p>') + "</div>";
+    $$("#split-list .pick").forEach(function (b) { b.addEventListener("click", function () { selected = +b.dataset.i; renderSplit(); $('#split-list .pick[data-i="' + selected + '"]').focus(); }); });
+  }
+  renderSplit();
+
+  /* ---------- Source evidence (verbatim) ---------- */
+  var EVIDENCE = [
+    { kind: "post", platform: "r/", site: "Reddit", where: "r/galaxys26", title: "now nudge never shows up in group chats??", content: "Works great when my wife texts me about dinner, it pops up the calendar thing right away. But in our family group chat someone literally wrote \"bbq at mine sat 6pm\" and nothing. Tried it 3 times. Is this a known thing or is mine broken\n\nS26+, One UI 8.5, Samsung keyboard obviously", url: "https://www.reddit.com/r/galaxys26/comments/EXAMPLE1/now_nudge_never_shows_up_in_group_chats/", engagement: { reactions: 412, comments: 96 }, postedAt: "2026-09-14", capturedAt: "2026-10-02", takeaway: "Nudges seem to miss dates in group chats. The user expected the same behaviour as in 1:1 chats.", theme: "Triggering / reliability", sentiment: "neg" },
+    { kind: "comment", platform: "SM", site: "Samsung Members", where: "Galaxy S", parentTitle: "Now Nudge – what do you actually use it for?", content: "Honestly the passport autofill. Booked a flight on my phone and it just offered the number above the keyboard. First AI feature I use every week.", url: "https://r1.community.samsung.com/t5/galaxy-s/EXAMPLE2/td-p/00000000", engagement: { reactions: 38, comments: 11, views: 2140 }, postedAt: "2026-08-29", capturedAt: "2026-10-02", takeaway: "Autofill from Personal Data Intelligence is seen as clearly useful when it works.", theme: "Autofill", sentiment: "pos" }
+  ];
+  var VARIANTS = [
+    { kind: "post", platform: "XDA", site: "XDA Forums", where: "Samsung Galaxy S26 Ultra", title: "Gboard + Now Nudge workaround?", content: "Is there any way to get Now Nudge suggestions while using Gboard? I really don't like the Samsung keyboard's autocorrect.", truncated: true, url: "https://xdaforums.com/t/EXAMPLE3/", engagement: { reactions: 22, comments: 17, views: 3890 }, postedAt: "2026-07-03", capturedAt: "2026-10-02" },
+    { kind: "article", platform: "BL", site: "Example Tech Blog", where: "News", title: "Example headline: Samsung's Now Nudge, six months in", content: "Example excerpt. The captured paragraph from the article appears here word for word, and ends with a marker when the rest is not captured.", truncated: true, url: "https://example.com/news/now-nudge-six-months-in", postedAt: "2026-09-25", capturedAt: "2026-10-02" },
+    { kind: "video", platform: "YT", site: "YouTube", where: "Comment", parentTitle: "Example video: Galaxy S26 Now Nudge tested for a week", content: "the calendar clash warning saved me from double booking lol. pretty neat", url: "https://www.youtube.com/watch?v=EXAMPLE4", engagement: { reactions: 64, comments: 3 }, postedAt: "2026-06-18", capturedAt: "2026-10-02" },
+    { kind: "post", platform: "r/", site: "Reddit", where: "r/samsung", title: "Nudge suggested the wrong person's photos", content: "It offered pics from my sister's album when my friend asked for beach photos.", url: "https://www.reddit.com/r/samsung/comments/EXAMPLE5/", postedAt: "2026-09-21", capturedAt: "2026-09-22", unavailable: true }
+  ];
+  V.scoreEngagement(EVIDENCE.concat(VARIANTS, [{ platform: "r/", engagement: { reactions: 1800, comments: 300 } }, { platform: "SM", engagement: { reactions: 120, comments: 40 } }]));
+  $("#ev-evidence").innerHTML = EVIDENCE.map(V.sourcePreview).join("");
+  $("#ev-variants").innerHTML = VARIANTS.map(V.sourcePreview).join("");
+  $("#eng-demo").innerHTML = [EVIDENCE[0], EVIDENCE[1], VARIANTS[2], { platform: "BL" }].map(function (s) { return V.engagement(s); }).join("");
+  $("#plat-demo tbody").innerHTML = V.platformEngagement(EVIDENCE.concat(VARIANTS)).map(function (p) { return '<tr><td><div class="row">' + V.platform(p.platform) + "<span>" + esc(p.site) + '</span></div></td><td class="r num">' + p.posts + '</td><td class="r num">' + V.fmtNum(p.interactions) + '</td><td class="r num">' + V.fmtNum(p.median) + '</td><td><div class="share-meter"><div class="bar"><i style="width:' + p.share + '%"></i></div><span class="num">' + p.share + "%</span></div></td></tr>"; }).join("");
+  V.wireSourcePreviews(document);
+
+  /* ---------- Renderer-driven specimens (same functions the dashboard uses) ---------- */
+  $("#tl-demo").innerHTML = V.timeline([
+    { label: "Run 3 · 02 Oct 2026", short: "Partly.", text: "Nudges show up reliably for dates in 1:1 chats but rarely in group chats." },
+    { label: "Run 2 · 04 Sep 2026", short: "Mostly yes.", text: "Few complaints about missing nudges." },
+    { label: "Run 1 · 06 Aug 2026", short: "Not enough data.", text: "6 relevant posts." }
+  ]);
+  $("#cg-demo").innerHTML = V.changeGroups({ new: ["Wish for Telegram support", "Nudge suggests wrong contact's photos"], up: [{ label: "Missing in group chats", route: "themes/triggering" }, "App coverage requests"], down: ["S25 exclusion complaints"], resolved: ["Setup toggle hard to find"] });
+  $("#rq-demo").innerHTML = V.rqCard({ num: "Q2", text: "Does it appear when they anticipate it?", short: "Partly.", answer: "Reliable for dates and places in 1:1 chats. Often missing in group chats and in apps outside the supported list.", confidence: 2, posts: 31, change: { status: "down", label: "Worse than Run 2" }, tags: ["Triggering / reliability", "App coverage"] }, { href: "#lists" });
+  $("#insight-demo").innerHTML = V.insightCard({ title: "People expect nudges wherever they make plans", body: "Most complaints are about nudges not appearing, not about wrong ones. Expectations are set by 1:1 chats and then broken in group chats and unsupported apps.", status: "up", pos: 18, neu: 22, neg: 60, meta: "184 posts · 3 themes" }, 1, { href: "#tables", linkText: "See 12 sources" });
+  $("#runs-demo").innerHTML = [
+    { id: "demo-run-3", n: 3, date: "2026-10-02", collected: { from: "2026-09-04", to: "2026-10-02" }, postsAdded: 156, sourcesChecked: [{ name: "Reddit", status: "ok" }, { name: "Samsung Members", status: "ok" }, { name: "XDA Forums", status: "ok" }, { name: "X", status: "failed", note: "search limit reached" }, { name: "YouTube", status: "ok" }, { name: "Tech blog comments", status: "ok" }],
+      summary: ["Net sentiment dipped to +3 (−4 vs Run 2).", "\"Missing in group chats\" is now the top problem.", "New cluster: requests for Telegram and Discord support.", "S25 exclusion complaints keep fading."],
+      links: [{ type: "internal", label: "September dip in net sentiment", route: "charts", section: "Sentiment trend" }, { type: "internal", label: "Triggering / reliability", route: "layout", section: "Themes" }, { type: "external", label: "now nudge never shows up in group chats??", url: "https://www.reddit.com/r/galaxys26/comments/EXAMPLE1/", domain: "reddit.com" }, { type: "external", label: "Can Now Nudge work with Telegram?", url: "https://r1.community.samsung.com/t5/galaxy-s/EXAMPLE6/td-p/00000000", domain: "community.samsung.com" }] },
+    { id: "demo-run-2", n: 2, date: "2026-09-04", postsAdded: 132, sourcesChecked: [{}, {}, {}, {}, {}].map(function () { return { name: "", status: "ok" }; }), summary: ["Sentiment recovered after the May dip.", "Autofill praised more often."] },
+    { id: "demo-run-1", n: 1, date: "2026-08-06", postsAdded: 873, sourcesChecked: [{ name: "", status: "ok" }], summary: ["First full collection since launch."] }
+  ].map(function (r, i) { return V.agentRun(r, i === 0); }).join("");
+  /* Doc page: internal routes point at doc sections */
+  $$("#runs-demo a.ilink").forEach(function (a) { a.setAttribute("href", "#" + a.getAttribute("href").replace("#/", "")); });
+
+  var lwSel = 0;
+  function renderLw() {
+    $("#lw-table tbody").innerHTML = EVIDENCE.concat(VARIANTS).slice(0, 4).map(function (s, i) {
+      return '<tr data-i="' + i + '" class="' + (i === lwSel ? "is-selected" : "") + '"><td><div class="row">' + V.platform(s.platform) + "<span>" + esc(s.site) + '</span></div></td><td><div class="clamp">' + esc(s.title || s.parentTitle || s.content) + "</div></td><td>" + V.sentBadge(s.sentiment || "neu") + "</td></tr>";
+    }).join("");
+    $("#lw-detail").innerHTML = V.sourcePreview(EVIDENCE.concat(VARIANTS)[lwSel]);
+    V.wireSourcePreviews($("#lw-detail"));
+  }
+  $("#lw-table tbody").addEventListener("click", function (e) { var tr = e.target.closest("tr[data-i]"); if (tr) { lwSel = +tr.dataset.i; renderLw(); } });
+  renderLw();
+  var stSel = 1;
+  function renderStacked() {
+    $("#stacked-demo").innerHTML = [["Q1", "What problems are people facing with this feature?", "Mostly reliability and lock-in.", 3], ["Q2", "Does it appear when they anticipate it?", "Partly.", 2], ["Q6", "Do they wish it were available on other chatting platforms too?", "Not answered yet", 0]].map(function (q, i) {
+      return '<button class="pick stacked" role="option" data-i="' + i + '" aria-selected="' + (i === stSel) + '"><span class="nm"><span class="qn">' + q[0] + "</span> " + esc(q[1]) + "</span>" + V.confidence(q[3], "") + '<span class="sub">' + esc(q[2]) + "</span></button>";
+    }).join("");
+  }
+  $("#stacked-demo").addEventListener("click", function (e) { var b = e.target.closest(".pick"); if (b) { stSel = +b.dataset.i; renderStacked(); } });
+  renderStacked();
+  $("#flash-btn").addEventListener("click", function () { V.flash($("#flash-demo")); });
+
+  $("#split-sources-demo").innerHTML = V.splitBar(33, 37, 30) + '<span class="muted-text">33% positive · 37% neutral · 30% negative · 156 posts</span>' +
+    '<div class="grid-3 equal">' + [["pos", "Positive"], ["neu", "Neutral & mixed"], ["neg", "Negative"]].map(function (c) {
+      var list = POSTS.filter(function (p) { return c[0] === "neu" ? (p.sentiment === "neu" || p.sentiment === "mix") : p.sentiment === c[0]; }).slice(0, 2);
+      return '<div class="block"><div class="section-head"><h3>' + V.sentBadge(c[0]).replace("Neutral", c[1]) + "</h3><p>" + list.length + " captured</p></div><div>" + (list.length ? list.map(function (p) { return V.sourceRow(Object.assign({ href: "#cards" }, p)); }).join("") : '<p class="muted-text">No captured sources.</p>') + "</div></div>";
+    }).join("") + "</div>";
+  $("#info-demo").innerHTML = V.infoTip("Share of positive posts minus share of negative posts, across all posts. Ranges from −100 to +100.", "Net sentiment");
+  V.wireInfoTips(document);
+  V.wireControls(document);
+
+  /* ---------- Doc nav: smooth jump + active section ---------- */
+  var navLinks = $$(".doc-nav .nav-item");
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var target = document.getElementById(a.getAttribute("href").slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) navLinks.forEach(function (a) { a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id); });
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    $$(".doc-section").forEach(function (s) { io.observe(s); });
+  }
+
+  V.initTheme();
+})();
+</script>
+</body>
+</html>

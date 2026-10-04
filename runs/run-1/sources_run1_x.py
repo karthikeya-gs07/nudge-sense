@@ -1,0 +1,57 @@
+# Run 2 — X posts (read via Claude in Chrome, signed-in session). Captured 2026-10-03.
+# Text is verbatim from X. Links inside posts were removed by the capture (shown nowhere). URLs use x.com/i/status/<id> (no handles).
+S26 = "S26 owner"; OLD = "S25 or older owner (left out)"; BETA = "Older Galaxy on One UI 9 beta"; UNK = "Galaxy owner (device not stated)"; PRESS = "Reviewer or press"
+
+def X(id_, **k):
+    k.setdefault("kind", "post"); k["url"] = "https://x.com/i/status/" + id_; k["platform"] = "X"; k["site"] = "X"
+    return k
+
+SOURCES_X = [
+ X("2032813642132156624", where="Post", title="", content="Now Nudge : How useful is this one? 🤷‍♀️", postedAt="2026-03-14",
+   likes=187, replies=19, shares=74, views=4571, userType=PRESS, themes=["usefulness"], sentiment="neu",
+   takeaway="Influencer post asking how useful Now Nudge is; most of its 19 replies are off-topic."),
+ X("2032824449054224511", kind="comment", where="Reply", parentTitle="Now Nudge : How useful is this one? 🤷‍♀️",
+   content="This is really useful.. that's how AI should be implemented", postedAt="2026-03-14", likes=0, views=39, userType=UNK,
+   themes=["usefulness"], sentiment="pos", takeaway="Sees Now Nudge as the right way to build AI into a phone."),
+ X("2044485024519430241", where="Post", content="I hope we get AI notifications and now nudge features", postedAt="2026-04-15",
+   likes=7, views=443, userType=OLD, themes=["exclusivity"], sentiment="neu", takeaway="Owner of an older Galaxy hopes Now Nudge comes to their phone.", clusters=["older-devices"]),
+ X("2044484735032869287", where="Post", content="Do you think AI notifications and now nudge? I really am loving to see that Samsung is bringing almost everything from the s26 ultra to my s24 ultra.",
+   postedAt="2026-04-15", likes=2, replies=1, views=538, userType=OLD, themes=["exclusivity"], sentiment="pos",
+   takeaway="S24 Ultra owner is happy about features coming down from the S26 and asks about Now Nudge.", clusters=["older-devices"]),
+ X("2046556043145359618", where="Post", content="I saw a one ui 9 leak for s25 with now nudge\nCan you confirm that?", postedAt="2026-04-21",
+   likes=2, replies=1, views=1342, userType=OLD, themes=["exclusivity"], sentiment="neu", takeaway="S25 owner asks whether the One UI 9 leak with Now Nudge is real.", clusters=["older-devices"]),
+ X("2057101651975245983", where="Post", content="Can you please tell me where is now nudge in S26? What ia that?", postedAt="2026-05-20",
+   likes=2, views=280, userType=S26, themes=["setup"], sentiment="neu", takeaway="S26 owner can't find Now Nudge and doesn't know what it is."),
+ X("2065033456128811062", where="Post", content="Hoping for now nudge to come for S24, but i doubt", postedAt="2026-06-11",
+   likes=2, views=206, userType=OLD, themes=["exclusivity"], sentiment="neg", takeaway="S24 owner doubts Now Nudge will ever reach their phone.", clusters=["older-devices"]),
+ X("2080228277541810225", where="Post", content="With One UI 9, the Now Nudge feature can now be used even without the Samsung keyboard‼️‼️\n\nNow you can use it in LINE or messaging apps while sticking with your favorite keyboard!",
+   postedAt="2026-07-23", likes=16, replies=1, views=5440, userType=PRESS, themes=["keyboard","coverage"], sentiment="pos",
+   takeaway="Tipster reports One UI 9 lets Now Nudge work without Samsung Keyboard; Samsung's changelog adds notification and floating-button suggestions.", clusters=["keyboard-only"]),
+ X("2080649996081287580", where="Post", content="ok but I don't think S24 series will get the Now Nudge feature even if it uses the same Local LLM as S25. S24 is obsolete already imo",
+   postedAt="2026-07-24", likes=2, replies=1, views=58, userType=OLD, themes=["exclusivity"], sentiment="neg", takeaway="Expects the S24 to be left out of Now Nudge.", clusters=["older-devices"]),
+ X("2087792263912989103", where="Post", content="What’s the one feature from the Z Fold 8 One UI 9 that you most want on the S26 series? \n\nFor me it’s the improved Now Brief cards and Call Brief. \n\nThe rest feels kinda secondary right now.\n\nIt'd be nice if Now Nudge worked in more apps.\n\n#OneUI9 #S26",
+   postedAt="2026-08-13", likes=12, replies=1, shares=1, views=914, userType=UNK, themes=["coverage"], sentiment="neu", takeaway="Wants Now Nudge to work in more apps.", clusters=["whatsapp-telegram"]),
+ X("2090789053130055719", where="Post", content="my thoughts on One UI 9 so far 👇 \n\nanimations are smooth AF 💨\nbattery life is good actually (beta 5)\nNow Nudge barely shows up 😔\nControl centre changes I love 😛\nshould've been 8.6 not 9 🫥\nnot a whole ton of changes 🤭\nmainly focuses on refinements",
+   postedAt="2026-08-21", likes=453, replies=12, shares=15, views=28723, userType=S26, themes=["triggering"], sentiment="neg",
+   takeaway="Widely seen One UI 9 beta review: Now Nudge 'barely shows up'.", clusters=["not-appearing"]),
+ X("2091873431994179673", where="Post", content="Multitasking made easy 👀 #GalaxyZFold8 + #GalaxyAI  Now Nudge lets you jump into split screen with one tap. Less switching, more getting things done. 💙 \n@samsungmobilesa\n #AD",
+   postedAt="2026-08-24", likes=16, replies=5, shares=23, views=235, userType=PRESS, themes=["usefulness"], sentiment="pos",
+   takeaway="Paid promotion (#AD) for the Fold 8, one of dozens posted on 24 Aug; not a user voice."),
+ X("2099377976714592303", where="Post", content="Breaking!\n\nGreat news for Galaxy S24 Series users!\n\nThe One UI 9 Beta 2 update (ZZI4) finally brings Galaxy S26 and Z Fold8 AI features:\n\n*Now Nudge\n*My Fan Cam\n*Custom cards in Now Brief\n*Call Brief\n\nThe most-awaited features are finally here.",
+   postedAt="2026-09-14", likes=990, replies=134, shares=49, views=68811, userType=PRESS, themes=["exclusivity"], sentiment="pos",
+   takeaway="The most-engaged Now Nudge post on X: a tipster announcing it for the S24 in One UI 9 Beta 2.", clusters=["older-devices"]),
+ X("2099382898856219013", kind="comment", where="Reply", parentTitle="Breaking!\n\nGreat news for Galaxy S24 Series users!",
+   content="now nudge more powerfull ai power than notification highlights idk why they didnt add it", postedAt="2026-09-14", likes=0, views=205, userType=BETA,
+   themes=["usefulness"], sentiment="pos", takeaway="Sees Now Nudge as more powerful than Notification Highlights."),
+ X("2099374670050988270", where="Post", content="This update brings MyFanCam from Fold 8 and Now nudge from S26 Series. Also able to create custom now brief cards.  Great to see Samsung supporting older models too.",
+   postedAt="2026-09-14", likes=82, replies=10, shares=6, views=4384, userType=BETA, themes=["exclusivity"], sentiment="pos",
+   takeaway="Welcomes Now Nudge on older models with the One UI 9 beta.", clusters=["older-devices"]),
+ X("2099545422104543421", where="Post", content="But the question is, does Now Nudge actually work with other apps? Because currently, it only works with WhatsApp and Instagram if you're using Google Chat or RCS messaging, and even then, it only suggests replies. Please clarify this for me.",
+   postedAt="2026-09-14", likes=4, views=886, userType=UNK, themes=["coverage","usefulness"], sentiment="neg",
+   takeaway="Says it only works in a few apps and mostly just suggests replies.", clusters=["whatsapp-telegram"]),
+ X("2099516082595700923", where="Post", content="to this day I've never seen now nudge actually work", postedAt="2026-09-14",
+   likes=6, views=903, userType=UNK, themes=["triggering"], sentiment="neg", takeaway="Has never seen Now Nudge work.", clusters=["not-appearing"]),
+ X("2105963876672036911", where="Post", content="daily driving every beta I haven't seen a single glitch or bug besides GPay not working on beta 1 and Now nudge not working at all",
+   postedAt="2026-10-02", likes=0, views=228, userType=UNK, themes=["triggering"], sentiment="neg",
+   takeaway="On the One UI 9 betas, everything works except Now Nudge, which doesn't work at all.", clusters=["not-appearing"]),
+]

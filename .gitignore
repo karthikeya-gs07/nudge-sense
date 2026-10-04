@@ -1,0 +1,9 @@
+# Private — never publish
+tools/reddit_credentials.json
+.env
+
+# Local machine files
+.DS_Store
+__pycache__/
+*.pyc
+.claude/
