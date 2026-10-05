@@ -1,7 +1,7 @@
 /* Nudge Sense service worker.
    Network first: when online you always get the latest run; when offline the last
    copy you opened is shown. Bump VERSION when the list of core files changes. */
-const VERSION = 'nudge-sense-v2';
+const VERSION = 'nudge-sense-v3';
 const CORE = [
   './', './index.html', './voc-ds.css', './voc-ds.js', './voc-data.js',
   './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
