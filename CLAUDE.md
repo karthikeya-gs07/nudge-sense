@@ -9,6 +9,7 @@
 - `dashboard/index.html` — the Nudge Sense dashboard (renders `voc-data.js` with design-system components)
 - `dashboard/voc-data.js` — study data; the only file a VoC run edits
 - `dashboard/voc-data.sample.js` — sample data, shown with `index.html?sample`
+- `dashboard/manifest.webmanifest`, `dashboard/sw.js`, `dashboard/icons/` — installable app (PWA). The service worker is network-first, so new runs show when online and the last opened copy works offline. Bump `VERSION` in `sw.js` only if the list of core files changes.
 - `AGENT-UPDATE-GUIDE.md` — how an agent runs a VoC check and fills `voc-data.js`
 
 ## Design system rules (always follow)

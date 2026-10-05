@@ -6,6 +6,16 @@
 <title>Nudge Sense</title>
 <!-- All styles come from the design system. Do not add styles here: extend voc-ds.css and document the variant in design-system.html. -->
 <link rel="stylesheet" href="voc-ds.css">
+<!-- Installable app (PWA): manifest, icons and service worker -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nudge Sense">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
 <div class="app" id="app">
@@ -530,6 +540,9 @@
   renderAll();
   route();
 })();
+</script>
+<script>
+  if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script>
 </body>
 </html>
